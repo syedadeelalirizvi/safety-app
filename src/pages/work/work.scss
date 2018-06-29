@@ -1,0 +1,99 @@
+page-work {
+.header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border:none !important;
+  }
+  ion-row.header-home.row {
+    text-align: center;
+  }
+  .toolbar-background-ios, .toolbar-background-md {
+    background: none;
+  }
+  .navbutton {
+    padding: 18px 0;
+    color: #464646;
+    background-color: #ffffff;
+    width: 98%;
+    font-weight: 500;
+    -webkit-box-shadow: 0 2px 4px 2px #272c66;
+    -moz-box-shadow: 0 2px 4px 2px #272c66;
+    box-shadow: 0 2px 4px 2px #272c66;
+    font-size: .88em;
+  }
+  .bg-none {
+    background: none;
+  }
+  .main-title {
+    width: 100%;
+    color: #fff;
+    font-size: 2.2em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 6vh;
+    letter-spacing: 13px;
+    line-height: 0.9em;
+    font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+    span {
+      font-weight:600;
+      letter-spacing: 0;
+    }
+    
+  }
+  .ion-col-pad-set ion-col.col {
+    padding: 0 2px;
+  }
+  .main-subheading {
+    color: #ffffff;
+    width: 100%;
+    font-size: 1.2em;
+    padding-top: 12vh;
+    text-align: center;
+  }
+  .inspect-btn {
+    color: #5560d3;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 5px  #2c4b7a;
+    -moz-box-shadow: 0 2px 5px  #2c4b7a;
+    box-shadow: 0 2px 5px  #2c4b7a;
+    padding: 1.2em 2em;
+    font-weight: 500;
+  }
+  .log-out {
+    color: #ffffff;
+    background-color: transparent;
+    border:2px solid #ffffff;
+    //position: absolute;
+    //right: 30vw;
+    //top: 20vh;
+    margin-top: 16vh;
+  }
+  .inspection-new {
+    text-align: center;
+    padding-top: 6vh;
+  }
+  ion-col.position-logout-btn.text-center.col {
+    //position: absolute;
+    //bottom: 3vh;
+    //display: inline-block;
+    //width: 88%;
+    //margin-right: 12%;
+  }
+  //@media screen and (min-width: 767px){
+  //  ion-col.position-logout-btn.text-center.col {
+  //    position: absolute;
+  //    bottom: 3vh;
+  //    display: inline-block;
+  //    width: 100%;
+  //    margin-right: 12%;
+  //  }
+  //}
+}
+.text-center {
+  text-align: center;
+}
+ion-textarea.input.input-ios,
+textarea.text-input.text-input-md {
+    height: 200px;
+    background-color: #7c88bb;
+    color: #ffffff;
+}

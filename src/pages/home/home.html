@@ -1,0 +1,76 @@
+
+
+ 
+<ion-header>
+<!-- <ion-navbar> -->
+<!-- <div justify-content-center class="divnavbutton"> -->
+<!-- <ion-grid>
+  <ion-row>
+<ion-col>
+<button ion-button color="light" class="navbutton" small text-wrap>Profile Information</button>
+</ion-col>
+<ion-col>
+<button ion-button color="light" class="navbutton"  text-wrap>Information</button>
+</ion-col>
+<ion-col>
+<button ion-button color="light" class="navbutton" small text-wrap> Previous Inspections</button>
+</ion-col>
+</ion-row>
+</ion-grid>
+ --><!-- </div> -->
+<!-- </ion-navbar> -->
+</ion-header>
+<ion-content padding class="bg-none">
+ <ion-grid>
+  <ion-row>
+<ion-col>
+
+<!-- <div class="title-contianer">
+<div class="main-title">My Equipment</div>
+<div class="main-sub-title">Checker</div>
+</div> -->
+<div class="main-title"><span>My Equipment</span> Checker</div>
+</ion-col>
+</ion-row>
+  <ion-row>
+  <ion-col>
+
+  <ion-row class="after-main"><!-- 
+  <ion-col col-1 class="icon-bottom">
+   
+<ion-icon name="ios-mail"></ion-icon>
+</ion-col> -->
+<ion-col col-12 >
+  <ion-item>
+   
+    <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+    <ion-label floating color="white" class="text-center">Email</ion-label>
+    <ion-input type="Email"></ion-input>
+  </ion-item>
+</ion-col>
+<!-- 
+<ion-col col-1 class="icon-bottom">
+    
+<ion-icon name="md-lock"></ion-icon>
+</ion-col> -->
+<ion-col col-12>
+  <ion-item>
+        <ion-icon name="md-lock" item-left color="light"></ion-icon>
+    <ion-label floating class="text-center" color="white">Password</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+</ion-col>
+</ion-row>
+<div class="lg-new text-center">
+ <button ion-button (click)="load()" color="light" class="lgbtn">Log In</button>
+ </div>
+ <p text-center><a  (click)="forgotPasswordLoad()">Forget Password</a></p>
+
+</ion-col>
+  </ion-row>
+  
+  
+  
+</ion-grid>
+<p text-center class="Sign">Don’t Have An Account? <a (click)="signupLoad()" >Sign Up</a></p>
+</ion-content>

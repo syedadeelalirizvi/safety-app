@@ -1,0 +1,59 @@
+page-pass-safe {
+.header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border:none !important;
+  }
+  ion-row.header-home.row {
+    text-align: center;
+  }
+  .toolbar-background-ios, .toolbar-background-md {
+    background: none;
+  }
+  .navbutton {
+    padding: 18px 0;
+    color: #464646;
+    background-color: #ffffff;
+    width: 98%;
+    font-weight: 500;
+    -webkit-box-shadow: 0 2px 4px 2px #272c66;
+    -moz-box-shadow: 0 2px 4px 2px #272c66;
+    box-shadow: 0 2px 4px 2px #272c66;
+    font-size: .88em;
+  }
+  ion-icon.icon.icon-md.ion-md-add {
+    padding-top: 16px;
+        font-size: 1.5em;
+}
+.safety-div ion-col ion-icon{
+font-size: 1.5em;
+}
+ion-label.text-center.label.label-md.label-md-lightgreen {
+    font-size: 1.5em;
+}
+input.text-input.text-input-ios,
+input.text-input.text-input-md {
+       background-color: rgba(82, 128, 184, 0.7);
+    height: 48px;
+    padding: 10px;
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+}
+button {
+    background: transparent;
+    color: #ffffff;
+    font-size: 1em;
+}
+button.button.button-md.button-default.button-default-md.button-block.button-block-md.button-md-yellow {
+    color: #fff;
+    font-size: 0.8em;
+}
+button.button.button-md.button-default.button-default-md.button-block.button-block-md.button-md-green {
+    font-size: 0.8em;
+}
+button.button.button-md.button-default.button-default-md.button-block.button-block-md.button-md-red {
+    font-size: 0.8em;
+}
+p{
+    margin-top: 38px;
+    margin-bottom: 38px;
+}
+}
