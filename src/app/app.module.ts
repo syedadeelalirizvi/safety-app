@@ -23,7 +23,7 @@ import { SafetyPage } from '../pages/safety/safety';
 import { SafetyCatInfoPage } from '../pages/safety-cat-info/safety-cat-info';
 import { SignupPage } from '../pages/signup/signup';
 import { WorkPage } from '../pages/work/work';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,8 @@ import { WorkPage } from '../pages/work/work';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+	HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

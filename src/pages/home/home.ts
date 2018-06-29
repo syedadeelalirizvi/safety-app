@@ -3,20 +3,36 @@ import { NavController } from 'ionic-angular';
 import { MainPage} from '../main/main';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-mainPage= MainPage;
-  constructor(public navCtrl: NavController) {
-  }
+	mainPage= MainPage;
+	loginForm = {}
+	
+	constructor(public navCtrl: NavController,  private httpClient: HttpClient) {
+		// Test API call
+		this.films = this.httpClient.get('https://swapi.co/api/films');
+		this.films
+		.subscribe(data => {
+		  console.log('my data: ', data);
+		})
+	}
+	
+	
 
-load(){this.navCtrl.push(MainPage)}
-forgotPasswordLoad(){this.navCtrl.push(ForgotPasswordPage)}
-signupLoad(){this.navCtrl.push(SignupPage)}
+	//load(){this.navCtrl.push(MainPage)}
+	forgotPasswordLoad(){this.navCtrl.push(ForgotPasswordPage)}
+	signupLoad(){this.navCtrl.push(SignupPage)}
 
+	logForm() {
+		console.log(this.loginForm)
+		
+	}
   
 
 
