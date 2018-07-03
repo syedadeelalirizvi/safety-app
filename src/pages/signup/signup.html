@@ -33,6 +33,7 @@
 </ion-col>
 </ion-row>
   <ion-row>
+   
   <ion-col>
 
   <ion-row><!-- 
@@ -41,31 +42,37 @@
 <ion-icon name="ios-mail"></ion-icon>
 </ion-col> -->
  
-      
+<ion-col>
+    <p text-center class="Sign">{{errorResponse}}</p>
+</ion-col> 
+
 <ion-col col-12>
- <ion-input type="text" value="User Name"></ion-input>
+ <ion-input type="text" value="User Name" [(ngModel)]="signUpForm.userName" ></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="text" value="User Email"></ion-input>
+ <ion-input type="email" value="Email" [(ngModel)]="signUpForm.userEmail"></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="text" value="Department"></ion-input>
+ <ion-input type="text" value="Department" [(ngModel)]="signUpForm.userDepartment" ></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="Password" value="Password"></ion-input>
+ <ion-input type="Password" value="Password" [(ngModel)]="signUpForm.userPassword"></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="Password" value="Confirm Password"></ion-input>
+ <ion-input type="Password" value="Confirm Password" [(ngModel)]="signUpForm.confirmPass"></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="text" value="Name of Person to Receive Reports"></ion-input>
+ <ion-input type="text" value="Name of Person to Receive Reports" [(ngModel)]="signUpForm.nameToReceiveReport" ></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="text" value="Email of Person to Receive Reports"></ion-input>
+ <ion-input type="email" value="Email of Person to Receive Reports" [(ngModel)]="signUpForm.emailToReceiveReport" ></ion-input>
 </ion-col>
 <ion-col col-12>
- <ion-input type="text" value="Company Name"></ion-input>
+ <ion-input type="text" value="Company Name" [(ngModel)]="signUpForm.userCompany"></ion-input>
 </ion-col>
+<ion-col col-12>
+    <ion-input type="file"  [(ngModel)]="signUpForm.companyLogo"></ion-input>
+   </ion-col>
 <ion-col col-3>
     	</ion-col>
       <ion-col col-6>
@@ -83,7 +90,7 @@
 
 <ion-col col-10>
 <div class="lg-new text-center">
- <button ion-button (click)="goBack()" block color="light" class="lgbtn">Register Now</button>
+ <button ion-button (click)="signUp()" block color="light" class="lgbtn">Register Now</button>
  </div>
  </ion-col>
  <ion-col col-1></ion-col>

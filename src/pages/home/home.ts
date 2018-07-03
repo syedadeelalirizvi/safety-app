@@ -13,11 +13,11 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
 	mainPage= MainPage;
 	loginForm = {}
-	
+	user:any;
 	constructor(public navCtrl: NavController,  private httpClient: HttpClient) {
 		// Test API call
-		this.films = this.httpClient.get('https://swapi.co/api/films');
-		this.films
+		this.user = this.httpClient.get('https://swapi.co/api/films');
+		this.user
 		.subscribe(data => {
 		  console.log('my data: ', data);
 		})
@@ -25,13 +25,13 @@ export class HomePage {
 	
 	
 
-	//load(){this.navCtrl.push(MainPage)}
+	//load(){}
 	forgotPasswordLoad(){this.navCtrl.push(ForgotPasswordPage)}
 	signupLoad(){this.navCtrl.push(SignupPage)}
 
 	logForm() {
 		console.log(this.loginForm)
-		
+		this.navCtrl.push(MainPage)
 	}
   
 

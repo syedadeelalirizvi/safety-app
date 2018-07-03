@@ -24,6 +24,7 @@ import { SafetyCatInfoPage } from '../pages/safety-cat-info/safety-cat-info';
 import { SignupPage } from '../pages/signup/signup';
 import { WorkPage } from '../pages/work/work';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-	HttpClientModule
+  HttpClientModule,
+  HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
