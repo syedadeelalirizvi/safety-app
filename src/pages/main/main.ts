@@ -4,6 +4,7 @@ import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { WorkPage } from '../work/work';
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -20,10 +21,18 @@ import { WorkPage } from '../work/work';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
 
   }
   goBack(){
+	// clearing up sessions values  
+	this.storage.remove('Session.user_name');
+	this.storage.remove('Session.user_id');
+	this.storage.remove('Session.access_token');
+	this.storage.remove('Session.token_expiry');
+	this.storage.remove('Session.profile_pic');
+	this.storage.remove('Session.company_logo');	
+	this.storage.clear();  
     this.navCtrl.pop();
   }
 

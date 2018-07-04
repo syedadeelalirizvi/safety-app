@@ -1,52 +1,111 @@
-
-
- 
 <ion-header>
-<!-- <ion-navbar> -->
-<!-- <div justify-content-center class="divnavbutton"> -->
-<!-- <ion-grid>
-  <ion-row>
-<ion-col>
-<button ion-button color="light" class="navbutton" small text-wrap>Profile Information</button>
-</ion-col>
-<ion-col>
-<button ion-button color="light" class="navbutton"  text-wrap>Information</button>
-</ion-col>
-<ion-col>
-<button ion-button color="light" class="navbutton" small text-wrap> Previous Inspections</button>
-</ion-col>
-</ion-row>
-</ion-grid>
- --><!-- </div> -->
-<!-- </ion-navbar> -->
 </ion-header>
+
 <ion-content padding class="bg-none">
- <ion-grid>
-  <ion-row>
-<ion-col>
-
-<!-- <div class="title-contianer">
-<div class="main-title">My Equipment</div>
-<div class="main-sub-title">Checker</div>
-</div> -->
-<div class="main-title"><span>My Equipment</span> Checker</div>
-</ion-col>
-</ion-row>
-  <ion-row>
-   
-  <ion-col>
-
-  <ion-row><!-- 
-  <ion-col col-1 class="icon-bottom">
-   
-<ion-icon name="ios-mail"></ion-icon>
-</ion-col> -->
+   <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="main-title"><span>My Equipment</span> Checker</div>
+      </ion-col>
+    </ion-row>
  
-<ion-col>
-    <p text-center class="Sign">{{errorResponse}}</p>
-</ion-col> 
-
-<ion-col col-12>
+    <ion-row>
+			<ion-col>	
+        	<div class="error-box-main" *ngIf="this.response">
+              User registration failed: Email already exists or Required field is missing!
+            </div>
+          <form [formGroup]="signupForm" (ngSubmit)="signUp(signupForm.value)">     
+              <ion-item>
+                  <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                  <ion-label floating>Email</ion-label> -->
+                  <ion-input type="text"  value="" [formControl]="signupForm.controls['username']" [ngClass]="{'error-border':!signupForm.controls['username'].valid}" placeholder = "User Name"></ion-input>
+                </ion-item>
+                <br/>
+                <div class="error-box" *ngIf="signupForm.controls['username'].hasError('required') && signupForm.controls['username'].touched">
+                    * User Name is required!
+                  </div>
+                  <div class="error-box" *ngIf="signupForm.get('username').hasError('pattern') && signupForm.get('username').touched">
+                      * User Name address invalid!
+                    </div>
+                <ion-item>
+                    <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                    <ion-label floating>Email</ion-label> -->
+                    <ion-input type="email"  value="" [formControl]="signupForm.controls['email']" [ngClass]="{'error-border':!signupForm.controls['email'].valid}" placeholder = "Email"></ion-input>
+                  </ion-item>
+                  <br/>
+                  <div class="error-box" *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched">
+                      * Email is required!
+                    </div>
+                    <div class="error-box" *ngIf="signupForm.get('email').hasError('pattern') && signupForm.get('email').touched">
+                        * Email address invalid!
+                      </div>
+                  <ion-item>
+                      <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                      <ion-label floating>Email</ion-label> -->
+                      <ion-input type="password"  value="" [formControl]="signupForm.controls['password']" [ngClass]="{'error-border':!signupForm.controls['password'].valid}" placeholder = "Password"></ion-input>
+                    </ion-item>
+                    <br/>
+                    <div class="error-box" *ngIf="signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched">
+                        * Password is required!
+                      </div>
+                      <div class="error-box" *ngIf="signupForm.controls['password'].hasError('minlength') && signupForm.controls['password'].touched">
+                          * Minimum password length is 8!
+                        </div>
+                    <ion-item>
+                        <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                        <ion-label floating>Email</ion-label> -->
+                        <ion-input type="password" value=""  [formControl]="signupForm.controls['confirmPass']" [ngClass]="{'error-border':!signupForm.controls['confirmPass'].valid}" placeholder = "Confirm Password"></ion-input>
+                      </ion-item>
+                      <br/>
+                      <div class="error-box" *ngIf="signupForm.controls['confirmPass'].hasError('required') && signupForm.controls['confirmPass'].touched">
+                          * Confirm Password is required!
+                        </div>
+                        <div class="error-box" *ngIf="signupForm.controls['password'].hasError('minlength') && signupForm.controls['password'].touched">
+                            * Minimum password length is 8!
+                          </div>
+                          <div class="error-box" *ngIf="signupForm.controls['confirmPass'].value != '' && signupForm.controls['password'].value != signupForm.controls['confirmPass'].value">
+                              * Passwords do not match
+                            </div>
+                      <ion-item>
+                          <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                          <ion-label floating>Email</ion-label> -->
+                          <ion-input type="text" value=""  [formControl]="signupForm.controls['department']" [ngClass]="{'error-border':!signupForm.controls['department'].valid}" placeholder = "Department"></ion-input>
+                        </ion-item>
+                        <br/>
+                        <!-- <div class="error-box" *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched">
+                            * Email is required!
+                          </div> -->
+                        <ion-item>
+                            <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                            <ion-label floating>Email</ion-label> -->
+                            <ion-input type="text" value=""  [formControl]="signupForm.controls['nameToReceiveReport']" [ngClass]="{'error-border':!signupForm.controls['nameToReceiveReport'].valid}" placeholder = "Name of Person To Receive Reports"></ion-input>
+                          </ion-item>
+                          <br/>
+                          <div class="error-box" *ngIf="signupForm.controls['nameToReceiveReport'].hasError('required') && signupForm.controls['nameToReceiveReport'].touched">
+                              * This field is required!
+                            </div>
+                          <ion-item>
+                              <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                              <ion-label floating>Email</ion-label> -->
+                              <ion-input type="email" value=""  [formControl]="signupForm.controls['emailToReceiveReport']" [ngClass]="{'error-border':!signupForm.controls['emailToReceiveReport'].valid}" placeholder = "Email of Person To Receive Reports"></ion-input>
+                            </ion-item>
+                            <br/>
+                            <div class="error-box" *ngIf="signupForm.controls['emailToReceiveReport'].hasError('required') && signupForm.controls['emailToReceiveReport'].touched">
+                                * This field is required!
+                              </div>
+                              <div class="error-box" *ngIf="signupForm.get('emailToReceiveReport').hasError('pattern') && signupForm.get('emailToReceiveReport').touched">
+                                  * Email address invalid!
+                                </div>
+                            <ion-item>
+                                <!-- <ion-icon name="ios-mail" item-left color="light"></ion-icon>
+                                <ion-label floating>Email</ion-label> -->
+                                <ion-input type="text" value="" [formControl]="signupForm.controls['company']" [ngClass]="{'error-border':!signupForm.controls['company'].valid}" placeholder = "Company" ></ion-input>
+                              </ion-item>
+                              <br/>
+                              <!-- <div class="error-box" *ngIf="signupForm.controls['company'].hasError('required') && signupForm.controls['company'].touched">
+                                  * Email is required!
+                                </div> -->
+<!-- <ion-col col-12>
  <ion-input type="text" value="User Name" [(ngModel)]="signUpForm.userName" ></ion-input>
 </ion-col>
 <ion-col col-12>
@@ -69,10 +128,10 @@
 </ion-col>
 <ion-col col-12>
  <ion-input type="text" value="Company Name" [(ngModel)]="signUpForm.userCompany"></ion-input>
-</ion-col>
-<ion-col col-12>
+</ion-col> -->
+<!-- <ion-col col-12>
     <ion-input type="file"  [(ngModel)]="signUpForm.companyLogo"></ion-input>
-   </ion-col>
+   </ion-col> -->
 <ion-col col-3>
     	</ion-col>
       <ion-col col-6>
@@ -90,15 +149,14 @@
 
 <ion-col col-10>
 <div class="lg-new text-center">
- <button ion-button (click)="signUp()" block color="light" class="lgbtn">Register Now</button>
+ <button ion-button type="submit" full [disabled]="!signupForm.valid"  block color="light" class="lgbtn">Register Now</button>
  </div>
  </ion-col>
  <ion-col col-1></ion-col>
-
+ </form>
+ </ion-col>
 </ion-row>
 
-</ion-col>
-  </ion-row>
 </ion-grid>
 
 </ion-content>

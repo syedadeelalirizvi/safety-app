@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -29,7 +31,7 @@ export class ProfilePage {
       updateForm = {}
 
       token = 'bTxCvrFmoJmWf_NyzlgTfHhx8-PvNHYC';
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder ) {
   
 
 

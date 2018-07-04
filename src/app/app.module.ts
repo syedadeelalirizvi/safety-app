@@ -24,7 +24,7 @@ import { SafetyCatInfoPage } from '../pages/safety-cat-info/safety-cat-info';
 import { SignupPage } from '../pages/signup/signup';
 import { WorkPage } from '../pages/work/work';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -51,9 +51,12 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-  HttpClientModule,
-  HttpModule
+	HttpClientModule,
+	IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'websql', 'sqlite' ]
+    }),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
