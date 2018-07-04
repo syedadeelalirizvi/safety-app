@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import { constant as ENV } from '../../configs/constant';
 
 @Component({
   selector: 'page-home',
@@ -19,17 +20,18 @@ export class HomePage {
 	authForm : FormGroup;
 	response: any;
 	//res.data:any;
+	
 	constructor(public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 		// Test API call (https://ionicacademy.com/http-calls-ionic/)
 		// for form validations (https://kamleshcode.com/form-validation-ionic3/)
 		/*
 		this.films = this.httpClient.get('https://swapi.co/api/films');
 		this.films
->>>>>>> a7fb9d6b45ec0907c2e764426bd3cf3a1c2f57df
 		.subscribe(data => {
 		  console.log('my data: ', data);
 		})
 		*/
+		console.log(ENV.BASE_URL);
 		this.response = false;
 		this.authForm = fb.group({
 		  'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
@@ -44,12 +46,12 @@ export class HomePage {
 	submitForm(value: any):void{
 		console.log('Form submitted!')
 		console.log(value.email);
-		const req = this.httpClient.post('http://clients3.5stardesigners.net/safetyapp/api/web/v1/users/app/login', {
+		const req = this.httpClient.post(ENV.BASE_URL + 'users/app/login', {
 						userEmail: value.email,
 						userPassword: value.password
 					})
 					.subscribe(
-						res => {
+						(res: any) => {
 							console.log(res);
 							// Initializing session information
 							this.storage.set('Session.user_name', res.data.userName);
