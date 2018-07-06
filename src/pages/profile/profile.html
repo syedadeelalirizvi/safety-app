@@ -149,9 +149,9 @@
               </ion-row>
               <ion-row>
               <ion-col>
-                  <div class="error-box-main" *ngIf="this.response">
+                  <!-- <div class="error-box-main" *ngIf="this.response">
                     Login failed; Invalid email or password
-                  </div>
+                  </div> -->
                   <form [formGroup]="profileForm" (ngSubmit)="update(profileForm.value)">
                     <ion-row>
                       <ion-col col-11>
@@ -287,7 +287,10 @@
                         <br/>
                     <div class="lg-new text-center">
                       <button ion-button type="submit" full [disabled]="!profileForm.valid" color="light" class="lgbtn">Update</button>
-                    </div>					
+                    </div>	
+                    <div class="lg-new text-center">
+                        <button ion-button type="button" full (click)="changeLoad()" color="light" class="lgbtn">Change Password</button>
+                      </div>				
                   </form>	
                   <!-- <p text-center><a (click)="forgotPasswordLoad()">Forgot Password</a></p> -->
                 </ion-col>

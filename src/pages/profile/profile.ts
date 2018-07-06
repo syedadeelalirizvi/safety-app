@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import { ChangepasswordPage } from '../changepassword/changepassword';
 
 /**
  * Generated class for the ProfilePage page.
@@ -123,6 +124,7 @@ export class ProfilePage {
 		// })
     // console.log("Update clicked");
   }
+  changeLoad(){this.navCtrl.push(ChangepasswordPage)}
   goBack(){
     this.navCtrl.pop();
   }
@@ -160,7 +162,7 @@ export class ProfilePage {
     }
     );
     console.log(this.userid);
-        this.user = this.httpClient.get(this.baseUrl+'users/'+this.userid,{headers:headers});
+        this.user = this.httpClient.get(ENV.BASE_URL +'users/'+this.userid,{headers:headers});
         this.user
         .subscribe(data => {
         //  console.log(headers.get('user_id'));
