@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
+import { VerificationPage } from '../verification/verification';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -19,10 +20,13 @@ export class ForgotPasswordPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
   signupLoad(){this.navCtrl.push(SignupPage)}
+  verificationLoad(){this.navCtrl.push(VerificationPage)}
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgotPasswordPage');
   }
-
+  goBack(){
+		this.navCtrl.pop();
+	}
 }
