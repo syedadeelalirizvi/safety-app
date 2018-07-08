@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
 import { MyApp } from './app.component';
+import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { HomePage } from '../pages/home/home';
 import { FailDuePage } from '../pages/fail-due/fail-due';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
@@ -21,7 +22,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { RemarksPage } from '../pages/remarks/remarks';
 import { SafetyPage } from '../pages/safety/safety';
 import { SafetyCatInfoPage } from '../pages/safety-cat-info/safety-cat-info';
+import { SetpasswordPage } from '../pages/setpassword/setpassword';
 import { SignupPage } from '../pages/signup/signup';
+import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -39,6 +42,7 @@ class CameraMock extends Camera {
 @NgModule({
   declarations: [
     MyApp,
+    ChangepasswordPage,
     HomePage,
     MainPage,
     FailDuePage,
@@ -55,7 +59,9 @@ class CameraMock extends Camera {
     RemarksPage,
     SafetyPage,
     SafetyCatInfoPage,
+    SetpasswordPage,
     SignupPage,
+    VerificationPage,
     WorkPage
 
   ],
@@ -71,6 +77,7 @@ class CameraMock extends Camera {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    ChangepasswordPage,
     HomePage,
     MainPage,
     FailDuePage,
@@ -87,7 +94,9 @@ class CameraMock extends Camera {
     RemarksPage,
     SafetyPage,
     SafetyCatInfoPage,
+    SetpasswordPage,
     SignupPage,
+    VerificationPage,
     WorkPage
   ],
   providers: [
