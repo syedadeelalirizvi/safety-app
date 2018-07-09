@@ -18,7 +18,7 @@ export class SignupPage {
 	errors : any ; 
 	signupForm : FormGroup;
 	response: any;
-	imageUpload: amy;
+	imageUpload: any;
 	base64Image: string;
 
 	constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {

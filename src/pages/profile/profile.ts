@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { ChangepasswordPage } from '../changepassword/changepassword';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ProfilePage page.
@@ -35,24 +37,116 @@ export class ProfilePage {
       profilePicture: any;
       updateForm = {}
       profileForm : FormGroup;
+      imageUpload: any;
+      base64Image: string;
+      base64ImageProfile: string;
       
       token = 'bTxCvrFmoJmWf_NyzlgTfHhx8-PvNHYC';
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
+      constructor(private alertCtrl: AlertController, 
+              public navCtrl: NavController, 
+              public navParams: NavParams, 
+              private httpClient: HttpClient,
+              private fb: FormBuilder, 
+              private storage: Storage,
+              private camera: Camera ) {
   //  console.log(ENV.BASE_URL);
-    this.response = false;
-    this.profileForm = fb.group({
-      'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
-      'department' : [],
-      'nameOfReceiveReport' : [null, Validators.compose([Validators.required])],
-      'emailOfReceiveReport' : [null, Validators.compose([Validators.required,])],
-      'company' : [],
-      'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
-      //'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
-    });
+       this.response = false;
+       this.profileForm = fb.group({
+              'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
+              'department' : [],
+              'nameOfReceiveReport' : [null, Validators.compose([Validators.required])],
+              'emailOfReceiveReport' : [null, Validators.compose([Validators.required,])],
+              'company' : [],
+              'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
+              //'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
+       });
 
 
-  }
-
+     }
+   	openCamera(){
+      console.log('openCamera');
+      // Camera options		
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
+      
+      this.camera.getPicture(options).then((imageData) => {
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64 (DATA_URL):
+          this.base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.imageUpload = true;
+        }, (err) => {
+          // Handle error
+          console.log(err);
+        });
+    }
+    
+    openGallery(){
+      console.log('openGallery');
+      // Camera options		
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+      
+      this.camera.getPicture(options).then((imageData) => {
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64 (DATA_URL):
+          this.base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.imageUpload = true;
+        }, (err) => {
+          // Handle error
+          console.log(err);
+        });
+    }  
+    openCameraProfile(){
+      console.log('openCamera');
+      // Camera options		
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
+      
+      this.camera.getPicture(options).then((imageData) => {
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64 (DATA_URL):
+          this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+          this.imageUpload = true;
+        }, (err) => {
+          // Handle error
+          console.log(err);
+        });
+    }
+    
+    openGalleryProfile(){
+      console.log('openGallery');
+      // Camera options		
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+      
+      this.camera.getPicture(options).then((imageData) => {
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64 (DATA_URL):
+          this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+          this.imageUpload = true;
+        }, (err) => {
+          // Handle error
+          console.log(err);
+        });
+    }  
   update(value: any):void{
     
     console.log(value.username);
@@ -83,7 +177,9 @@ export class ProfilePage {
       userDepartment: value.department,
       userCompany: value.company,
       nameToReceiveReport   : value.nameOfReceiveReport,
-      emailToReceiveReport:value.emailOfReceiveReport
+      emailToReceiveReport:value.emailOfReceiveReport,
+      companyLogo: this.base64Image,
+      profilePicture: this.base64ImageProfile
 
     },
     {headers:headers})
@@ -139,7 +235,7 @@ export class ProfilePage {
       //alert('User Id: '+ this.userid);  
        //resolve(value);
        //return this.userid;
-     
+      })
 
      this.storage.get("Session.access_token").then((value2) => {
       
@@ -161,7 +257,7 @@ export class ProfilePage {
       //     'user_id':'15'
     }
     );
-    console.log(this.userid);
+    console.log(this.userid+"hello");
         this.user = this.httpClient.get(ENV.BASE_URL +'users/'+this.userid,{headers:headers});
         this.user
         .subscribe(data => {
@@ -181,7 +277,7 @@ export class ProfilePage {
           this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
         })
       })
-    })
+   
     console.log('ionViewDidLoad ProfilePage');
   }
  

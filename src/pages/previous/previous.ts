@@ -27,12 +27,18 @@ export class PreviousPage {
   errors : any ; 
   userid :any;
   user :any;
-  userData :any;
+  inspectionData :any;
   userName :any;
   email: any;
   company: any;
   dept :any;
   token:any;
+
+  categoryName:any;
+  inspectionDescription: any;
+  inspectionDate:any;
+
+  inspections = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
   }
  goBack(){
@@ -75,8 +81,24 @@ export class PreviousPage {
             .subscribe(data => {
             //  console.log(headers.get('user_id'));
               console.log(this.token);
-              console.log('my data: ', data);
-            //  console.log('user: ',data['data']);
+              //console.log('my data: ', data);
+              console.log('inspections: ',data.inspections);
+              this.inspectionData = data.inspections;
+              for(var i = 0; i < data.inspections.length; i++) {
+               // console.log(this.inspectionData[i].inspection.data.inspectionDescription);
+               // console.log(this.inspectionData[i].category.data.equipmentCategoryName);
+                //console.log(i);
+                this.inspections.push(
+                  {
+                    inspection_id:this.inspectionData[i].inspection.data.inspectionId,
+                    category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
+                    inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
+                    inspection_date: this.inspectionData[i].inspection.data.createdOn
+                  }
+               );
+             
+              }
+              console.log('inspectionsData: ' ,this.inspections);
               // this.userData = data['data'];
               // console.log('userId: ',this.userData['userId']);
               // this.userName = this.userData['userName'];
@@ -94,4 +116,9 @@ export class PreviousPage {
       }
      
 buttonClick = function(){this.navCtrl.push(LiftingPage)}
+gotoDetails(id:string){
+console.log('Lifting Clicked'+id);  
+}
+
+
 }
