@@ -1,0 +1,73 @@
+
+
+ 
+<ion-header>
+    <ion-navbar hideBackButton color="lightgreen" >
+        <ion-title class="text-center" color="white">Code Verification</ion-title>
+        <ion-buttons start class="back-btn">
+                <button (click)="goBack()">
+                    <ion-icon name="md-arrow-back" color="white"></ion-icon>
+                </button>
+            </ion-buttons>
+      </ion-navbar>
+</ion-header>
+<ion-content padding class="bg-none">
+ <ion-grid>
+  <ion-row>
+<ion-col>
+
+<!-- <div class="title-contianer">
+<div class="main-title">My Equipment</div>
+<div class="main-sub-title">Checker</div>
+</div> -->
+<div class="main-title"><span>My Equipment</span> Checker</div>
+</ion-col>
+</ion-row>
+  <ion-row>
+  <ion-col>
+    	<div class="error-box-main" *ngIf="this.response">
+					Login failed; Invalid email or password
+				</div>
+      <form [formGroup]="verifyCodeForm" (ngSubmit)="verifyCode(verifyCodeForm.value)">
+  <ion-row>
+ <ion-col>
+        <div class="main-subheading" text-wrap> Code Verification
+        	<p>Enter your verification code.</p>
+        </div>
+      </ion-col>
+<ion-col col-12>
+  <ion-item>
+      
+    <ion-icon name="ios-lock" item-left color="light"></ion-icon>
+    <ion-label floating color="white" class="text-center">Code</ion-label>
+    <ion-input type="number" value="" [formControl]="verifyCodeForm.controls['code']"></ion-input>
+  </ion-item>
+  <br/>
+  <div class="error-box" *ngIf="verifyCodeForm.controls['code'].hasError('required') && verifyCodeForm.controls['code'].touched">
+    * Code is required!
+  </div>
+  <div class="error-box" *ngIf="verifyCodeForm.controls['code'].hasError('maxlength') && verifyCodeForm.controls['code'].touched">
+    * Maximum code length is 6!
+  </div>
+</ion-col>
+<!-- 
+<ion-col col-1 class="icon-bottom">
+    
+<ion-icon name="md-lock"></ion-icon>
+</ion-col> -->
+<ion-col col-1></ion-col>
+
+<ion-col col-10>
+<div class="lg-new text-center">
+ <button type="submit" full [disabled]="!verifyCodeForm.valid" ion-button block color="light" class="lgbtn">Verify Code</button>
+ </div>
+ </ion-col>
+ <ion-col col-1></ion-col>
+
+</ion-row>
+</form>
+</ion-col>
+  </ion-row>
+</ion-grid>
+<p text-center class="Sign">Don’t Have An Account? <a (click)="signupLoad()" >Sign Up</a></p>
+</ion-content>
