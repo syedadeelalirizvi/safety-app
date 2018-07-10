@@ -38,10 +38,11 @@ export class ProfilePage {
       updateForm = {}
       profileForm : FormGroup;
       imageUpload: any;
+	    imageUploadProfile: any;
       base64Image: string;
       base64ImageProfile: string;
-      
-      token:any;
+	    token: string;
+
       constructor(private alertCtrl: AlertController, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -49,8 +50,18 @@ export class ProfilePage {
               private fb: FormBuilder, 
               private storage: Storage,
               private camera: Camera ) {
-  //  console.log(ENV.BASE_URL);
+		
+		this.base64ImageProfile = '';
+		this.base64Image = '';
+		this.imageUpload = false;		  
+		this.imageUploadProfile = false;
        this.response = false;
+	   
+	   	storage.get('Session.access_token').then((val) => {
+		this.token = val;
+		});
+	  
+	   
        this.profileForm = fb.group({
               'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'department' : [],
@@ -119,7 +130,8 @@ export class ProfilePage {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64 (DATA_URL):
           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-          this.imageUpload = true;
+          this.imageUploadProfile = true;
+		  
         }, (err) => {
           // Handle error
           console.log(err);
@@ -141,7 +153,7 @@ export class ProfilePage {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64 (DATA_URL):
           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-          this.imageUpload = true;
+          this.imageUploadProfile = true;
         }, (err) => {
           // Handle error
           console.log(err);
@@ -157,20 +169,10 @@ export class ProfilePage {
     console.log(this.token);
           
 
-
-
-     const headers = new HttpHeaders({
-      
-      'Access-Control-Allow-Headers' : '*, access_token, user_id', 
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'application/json',
-      'user_id':this.userid, 
-      'access_token':this.token,
-      'Accept':'application/json',
-     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
-       //     'user_id':'15'
-     }
-     );
+		
+const headers = new HttpHeaders()
+            .set("user_id", this.userid.toString()).set("access_token", this.token);
+		  
      const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
       userEmail: value.email,
       userName: value.username,
@@ -245,18 +247,10 @@ export class ProfilePage {
      // console.log(ENV.BASE_URL);
 
 
-    const headers = new HttpHeaders({
-    
-      'Access-Control-Allow-Headers' : '*, access_token, user_id', 
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'application/json',
-      'user_id':this.userid, 
-      'access_token':this.token,
-      'Accept':'application/json',
-     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
-      //     'user_id':'15'
-    }
-    );
+const headers = new HttpHeaders()
+            .set("user_id", this.userid.toString()).set("access_token", this.token);
+		
+		
     console.log(this.userid+"hello");
         this.user = this.httpClient.get(ENV.BASE_URL +'users/'+this.userid,{headers:headers});
         this.user
@@ -273,6 +267,18 @@ export class ProfilePage {
           this.dept = this.userData['userDepartment'];
           this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
           this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
+		  
+		  if(this.userData['companyLogo'] !== 'undefined')
+		  {
+			  this.imageUpload = true;
+			  this.base64Image = "http://" + this.userData['companyLogo'];
+		  }  
+		  
+		  if(this.userData['profilePicture'] !== 'undefined')
+		  {
+			  this.imageUploadProfile = true;
+			  this.base64ImageProfile = "http://" + this.userData['profilePicture'];
+		  }  
 
           this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
         })

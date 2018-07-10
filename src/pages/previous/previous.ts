@@ -9,120 +9,88 @@ import { constant as ENV } from '../../configs/constant';
 
 import { LiftingPage } from '../lifting/lifting';
 
-/**
- * Generated class for the PreviousPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-previous',
   templateUrl: 'previous.html',
 })
 export class PreviousPage {
-  response: any;
-  baseUrl='http://clients3.5stardesigners.net/safetyapp/api/web/v1/';
-  errors : any ; 
-  userid :any;
-  user :any;
-  inspectionData :any;
-  userName :any;
-  email: any;
-  company: any;
-  dept :any;
-  token:any;
+    response: any;
+  
+    errors : any ; 
+    userid :any;
+    user :any;
+    inspectionData :any;
+    userName :any;
+    email: any;
+    company: any;
+    dept :any;
+    token:string;
 
-  categoryName:any;
-  inspectionDescription: any;
-  inspectionDate:any;
+    categoryName:any;
+    inspectionDescription: any;
+    inspectionDate:any;
 
-  inspections = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
-  }
- goBack(){
-    this.navCtrl.pop();
-  }
-  ionViewDidLoad() {
+    inspections = [];
+    constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
+        storage.get('Session.access_token').then((val) => {
+            this.token = val;
+        });
+        storage.get('Session.user_id').then((val) => {
+            this.userid = val;
+        });
+    }
+    goBack(){
+        this.navCtrl.pop();
+    }
+
+    ionViewDidLoad() {
     
         this.storage.get("Session.user_id").then((value1) => {
           
-          this.userid = value1;
+            this.userid = value1;
+
+            this.storage.get("Session.access_token").then((value2) => {
           
-          //alert('User Id: '+ this.userid);  
-           //resolve(value);
-           //return this.userid;
-         
-    
-         this.storage.get("Session.access_token").then((value2) => {
+                this.token = value2;
+                console.log(this.token);
+                
+                const headers = new HttpHeaders()
+                    .set("user_id", this.userid.toString()).set("access_token", this.token);
+
+                this.user = this.httpClient.get(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/inspection',{headers:headers});
+                this.user
+                .subscribe(data => {
+           
+                    console.log(this.token);
           
-          this.token = value2;
-          console.log(this.token);
-    
-         // console.log(ENV.BASE_URL);
-    
-    
-        const headers = new HttpHeaders({
-        
-          'Access-Control-Allow-Headers' : '*, access_token, user_id', 
-          'Access-Control-Allow-Origin':'*',
-          'Content-Type': 'application/json',
-          'user_id':this.userid, 
-          'access_token':this.token,
-          'Accept':'application/json',
-         'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
-          //     'user_id':'15'
-        }
-        );
-        console.log(this.userid);
-            this.user = this.httpClient.get(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/inspection',{headers:headers});
-            this.user
-            .subscribe(data => {
-            //  console.log(headers.get('user_id'));
-              console.log(this.token);
-              //console.log('my data: ', data);
-              console.log('inspections: ',data.inspections);
-              this.inspectionData = data.inspections;
-              for(var i = 0; i < data.inspections.length; i++) {
-               // console.log(this.inspectionData[i].inspection.data.inspectionDescription);
-               // console.log(this.inspectionData[i].category.data.equipmentCategoryName);
-                //console.log(i);
-                this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
-                this.inspections.push(
-                  {
-                    inspection_id:this.inspectionData[i].inspection.data.inspectionId,
-                    category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
-                    inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
-                    inspection_date: this.inspectionDate
-                  }
-               );
+                    console.log('inspections: ',data.inspections);
+                    this.inspectionData = data.inspections;
+                    for(var i = 0; i < data.inspections.length; i++) {
+            
+                        this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
+                        this.inspections.push(
+                        {
+                            inspection_id:this.inspectionData[i].inspection.data.inspectionId,
+                            category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
+                            inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
+                            inspection_date: this.inspectionDate
+                        });
              
-              }
-              console.log('inspectionsData: ' ,this.inspections);
-              // this.userData = data['data'];
-              // console.log('userId: ',this.userData['userId']);
-              // this.userName = this.userData['userName'];
-              // this.email  = this.userData['userEmail'];
-              // this.company = this.userData['userCompany'];
-              // this.dept = this.userData['userDepartment'];
-              // this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
-              // this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
-    
-              // this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
+                    }
+                    console.log('inspectionsData: ' ,this.inspections);
+                })
             })
-          })
         })
         console.log('ionViewDidLoad ProfilePage');
-      }
+    }
      
-buttonClick = function(){this.navCtrl.push(LiftingPage)}
-gotoDetails(id:string){
-console.log('Lifting Clicked'+id); 
-this.navCtrl.push(LiftingPage, {
-  inspectionId: id
-}); 
-}
+    gotoDetails(id:string){
+        console.log('Lifting Clicked'+id); 
+        this.navCtrl.push(LiftingPage, {
+          inspectionId: id
+        }); 
+    }
 
 
 }
