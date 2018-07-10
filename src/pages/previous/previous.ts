@@ -88,12 +88,13 @@ export class PreviousPage {
                // console.log(this.inspectionData[i].inspection.data.inspectionDescription);
                // console.log(this.inspectionData[i].category.data.equipmentCategoryName);
                 //console.log(i);
+                this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
                 this.inspections.push(
                   {
                     inspection_id:this.inspectionData[i].inspection.data.inspectionId,
                     category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
                     inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
-                    inspection_date: this.inspectionData[i].inspection.data.createdOn
+                    inspection_date: this.inspectionDate
                   }
                );
              
@@ -117,7 +118,10 @@ export class PreviousPage {
      
 buttonClick = function(){this.navCtrl.push(LiftingPage)}
 gotoDetails(id:string){
-console.log('Lifting Clicked'+id);  
+console.log('Lifting Clicked'+id); 
+this.navCtrl.push(LiftingPage, {
+  inspectionId: id
+}); 
 }
 
 

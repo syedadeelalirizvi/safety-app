@@ -41,7 +41,7 @@ export class ProfilePage {
       base64Image: string;
       base64ImageProfile: string;
       
-      token = 'bTxCvrFmoJmWf_NyzlgTfHhx8-PvNHYC';
+      token:any;
       constructor(private alertCtrl: AlertController, 
               public navCtrl: NavController, 
               public navParams: NavParams, 

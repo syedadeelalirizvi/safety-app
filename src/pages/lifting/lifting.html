@@ -5,135 +5,169 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   
-<ion-navbar hideBackButton color="lightgreen" >
-    <ion-title class="text-center" color="white">Lifting Equipment</ion-title>
-    <ion-buttons start class="back-btn">
-            <button (click)="goBack()">
-                <ion-icon name="md-arrow-back" color="white"></ion-icon>
-            </button>
-        </ion-buttons>
-
-
-
-  </ion-navbar>
-</ion-header>
-
-
-<ion-content padding class="bg-none">
-<ion-grid>
-<ion-list>
-
- <ion-row>
-  <ion-col col-12>
-  <button  (click)="buttonClick()">
-  Lifting Equipment
-</button>
+    
+  <ion-navbar hideBackButton color="lightgreen" >
+      <ion-title class="text-center" color="white"> {{category_name}}</ion-title>
+      <ion-buttons start class="back-btn">
+              <button (click)="goBack()">
+                  <ion-icon name="md-arrow-back" color="white"></ion-icon>
+              </button>
+          </ion-buttons>
   
-    <ion-label color="greyblue" class="label-date">04/05/2018</ion-label>   
- 
-  </ion-col>
- </ion-row>
-  <ion-row>
-  <ion-col col-12>
- 
   
-    <ion-label color="greyblue" font-size="subheading" >Description</ion-label>   
- <p>
-   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
- </p>
-  <ion-label color="greyblue" font-size="subheading" >Photo of the work equipment</ion-label>   
- 
- <ion-img class="profile-img" width="100%" height="200" src="../assets/imgs/company-logo.png"></ion-img>  
-
-  </ion-col>
- </ion-row>
- <ion-row>
-  <ion-col col-12>
- 
   
-    <ion-label color="greyblue" font-size="subheading" >Categories</ion-label> 
-    <ion-label>Lifting Equipment</ion-label>  
-    <ion-label><ion-icon name="ios-radio-button-on-outline"></ion-icon> MEWPS</ion-label>  
-    <ion-item-divider color="lightgreen">Lifting Equipment / MEWPS</ion-item-divider>
-  <ion-row>
-  <ion-col col-11>
-             <ion-label>Correctly marked and rated</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Pass</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>No signs of wear or damage</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>N/A</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>No signs of wear or damage</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>N/A</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>No damage to the body or none wearing parts</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Fail</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>Not excessively soiled</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Pass</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>Gauges are ok</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Fail</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>E-Stops work</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Pass</ion-label>  
-             </ion-col>
-             <ion-col col-11>
-             <ion-label>The item has an in-date and passed inspection from a competent 
-inspector as per the regulation</ion-label>  
-</ion-col>
-<ion-col col-1>
-             <ion-label>Pass</ion-label>  
-         </ion-col>
-         <ion-col col-11>    
-             <ion-label>Serviced and maintained as per manufacturers details</ion-label>  
-             </ion-col>
-             <ion-col col-1>
-             <ion-label>Pass</ion-label>  
-             </ion-col>
-
- </ion-row>
-</ion-col>
-<div class="bg-white">
- <ion-row>
-   <ion-col col-12>
-  <ion-label color="blue" font-size="subheading" >Passed and is safe to use</ion-label>   
-  </ion-col>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding class="bg-none">
+  <ion-grid>
+  <ion-list>
+  
+   <ion-row>
+    <ion-col col-12>
+    <button  (click)="buttonClick()">
+      {{category_name}}
+  </button>
+    
+      <ion-label color="greyblue" class="label-date">{{inspection_date| date:"dd/MM/yyyy"}}</ion-label>   
+   
+    </ion-col>
    </ion-row>
-
- <ion-row class="border-none">
-   <ion-col col-12>
-  <ion-label color="greyblue" font-size="date">Signature</ion-label>   
-  </ion-col>
-   <ion-col col-12>
-  <ion-label color="blue" style="margin-top:-10px; " font-size="subheading">abcd_xyz123</ion-label>   
-  </ion-col>
+    <ion-row>
+    <ion-col col-12>
+   
+    
+      <ion-label color="greyblue" font-size="subheading" >Description</ion-label>   
+   <p>
+    {{inspection_description}} </p>
+    <ion-label color="greyblue" font-size="subheading" >Photo of the work equipment</ion-label>   
+   
+   <ion-img class="profile-img" width="100%" height="200" src={{equipment_image_url}}></ion-img>  
+  
+    </ion-col>
    </ion-row>
- </div>
- </ion-row>
- 
-</ion-list>
-</ion-grid>  
-</ion-content>
+   <ion-row>
+    <ion-col col-12>
+   
+    
+      <ion-label color="greyblue" font-size="subheading" >Category</ion-label> 
+      <ion-label>Lifting Equipment</ion-label> 
+
+      <ion-label color="greyblue" font-size="subheading" >Sub Categories</ion-label> 
+      <ion-label *ngFor="let subcategory of subCategories">
+        <ion-icon name="ios-radio-button-on-outline">
+          </ion-icon> {{subcategory.sub_category_name}}
+        </ion-label>
+
+
+        <ion-row *ngFor="let results of inspectionsResults">
+            <ion-col>
+            <ion-item-divider color="lightgreen">{{results.category_name}} / {{results.sub_category_name}}</ion-item-divider>
+
+
+          <ion-row  *ngFor="let remarks of results.inspection_remarks">
+          
+            <ion-col col-11>
+                     <ion-label>{{remarks. remark_question}}</ion-label>  
+                     </ion-col>
+                     <ion-col col-1>
+                     <ion-label>{{remarks.remark_answer}}</ion-label>  
+            </ion-col>
+          </ion-row>
+       
+            </ion-col>
+          </ion-row>   
+    <!-- <ion-row >
+      <ion-col>
+      <ion-item-divider color="lightgreen">Lifting Equipment / MEWPS</ion-item-divider>
+    <ion-row>
+    <ion-col col-11>
+               <ion-label>Correctly marked and rated</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Pass</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>No signs of wear or damage</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>N/A</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>No signs of wear or damage</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>N/A</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>No damage to the body or none wearing parts</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Fail</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>Not excessively soiled</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Pass</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>Gauges are ok</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Fail</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>E-Stops work</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Pass</ion-label>  
+               </ion-col>
+               <ion-col col-11>
+               <ion-label>The item has an in-date and passed inspection from a competent 
+  inspector as per the regulation</ion-label>  
+  </ion-col>
+  <ion-col col-1>
+               <ion-label>Pass</ion-label>  
+           </ion-col>
+           <ion-col col-11>    
+               <ion-label>Serviced and maintained as per manufacturers details</ion-label>  
+               </ion-col>
+               <ion-col col-1>
+               <ion-label>Pass</ion-label>  
+               </ion-col>
+  
+   </ion-row>
+      </ion-col>
+    </ion-row> -->
+  </ion-col>
+  <div class="bg-white">
+   <ion-row>
+     <ion-col col-12>
+    <ion-label color="blue" font-size="subheading" >{{reportType}}</ion-label>   
+    </ion-col>
+     </ion-row>
+  
+   <ion-row class="border-none">
+     <ion-col col-12>
+    <ion-label color="greyblue" font-size="date">Signature</ion-label>   
+    </ion-col>
+     <ion-col col-12 *ngIf="this.signed">
+        <ion-img class="profile-img" width="100%" height="200" src={{signatureUrl}}></ion-img>  
+      
+    </ion-col>
+  <ion-col col-12 *ngIf="!this.signed">
+        
+    <ion-label color="blue" style="margin-top:-10px; " font-size="subheading">Not Signed</ion-label>   
+    </ion-col>
+   
+     </ion-row>
+   </div>
+   </ion-row>
+   
+  </ion-list>
+  </ion-grid>  
+  </ion-content>
+  
