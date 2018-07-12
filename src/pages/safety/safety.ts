@@ -87,7 +87,9 @@ buttonClick = function(){this.navCtrl.push(SafetyCatInfoPage)}
     console.log('Lifting Clicked'+id); 
     this.navCtrl.push(SafetyCatInfoPage, {
       categoryId: id,
-      category_name: name
+      category_name: name,
+      inspectionDescription: this.inspection_desc,
+      imageData:this.equipment_image
     }); 
 }
 }

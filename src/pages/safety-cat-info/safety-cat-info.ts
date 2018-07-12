@@ -8,18 +8,12 @@ import { OwnSubCatPage} from '../own-sub-cat/own-sub-cat';
 
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the SafetyCatInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -29,16 +23,22 @@ import { AlertController } from 'ionic-angular';
 export class SafetyCatInfoPage {
   categoryId : any;
   categoryName : any;
+  inspection_desc: any;
+  equipment_image: any;
   userid: any;
   user: any;
   token: string;
   sub_category: any;
   subCategories = [];
+  checkedList = [];
+  response :any;
+  subcategoryForm
   constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage) {
   
     this.categoryId = navParams.get('categoryId');
     this.categoryName = navParams.get('category_name');
-
+    this.inspection_desc = navParams.get('inspectionDescription');
+    this.equipment_image = navParams.get('imageData');
     storage.get('Session.access_token').then((val) => {
          this.token = val;
     });
@@ -46,6 +46,11 @@ export class SafetyCatInfoPage {
         this.userid = val;
     });
     console.log(this.categoryId);
+
+
+    this.subcategoryForm = this.fb.group({
+      subcategories: this.fb.array([])
+    });
   }
      goBack(){
     this.navCtrl.pop();
@@ -78,7 +83,7 @@ OwnCatLoad = function(){this.navCtrl.push(OwnSubCatPage)}
               console.log('subcategory: ',data);
               // this.categoryData = data.data;
               for(var i = 0; i < data.data.length; i++) {
-                  console.log(data.data[i].equipmentCategoryName);
+                  //console.log(data.data[i].equipmentCategoryName);
                   //this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
                   this.subCategories.push(
                   {
@@ -94,5 +99,53 @@ OwnCatLoad = function(){this.navCtrl.push(OwnSubCatPage)}
   })
     console.log('ionViewDidLoad SafetyCatInfoPage');
   }
+
+  clickSelectBox(subcategory:any){
+    console.log(subcategory);
+     const foundAt = this.checkedList.indexOf(subcategory.sub_category_id);
+     console.log(foundAt);
+     if (foundAt >= 0) {
+        this.checkedList.splice(foundAt, 1);
+     } else {
+        this.checkedList.push(subcategory.sub_category_id);
+    }
+    console.log(this.checkedList);
+
+}
+list(value: any):void{
+  console.log('Next clicked');
+  console.log(this.checkedList);
+  console.log(this.inspection_desc+" "+this.equipment_image);
+
+  const headers =  new HttpHeaders()
+  .set("user_id", this.userid.toString()).set("access_token", this.token);
+ // http://clients3.5stardesigners.net/safetyapp/api/web/v1/user-inspections/user/16/category/50/inspection
+  const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
+     equipmentInspectedImageUrl: this.equipment_image,
+     inspectionDescription :this.inspection_desc,
+     subCategory: this.checkedList
+      //newPassword: value.newPassword
+  },
+  {headers:headers})
+  .subscribe(data => {
+      //console.log(data.data.inspection);
+      console.log(data);
+
+      this.navCtrl.push(RemarksPage, {
+        // inspectionDescription: this.inspection_desc,
+        // imageData:this.equipment_image
+        data:data
+      });
+    },
+    err => {
+      this.response = true;
+      console.log("Error occurred");
+      console.log(err);
+
+    }
+ );
+
+}
+
 
 }

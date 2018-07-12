@@ -34,8 +34,11 @@
     <!-- </div> -->
   </ion-navbar>
 </ion-header>
+
+
 <ion-content padding class="bg-none">
   <ion-grid>
+			<form [formGroup]="subcategoryForm" (ngSubmit)="list(subcategoryForm.value)">
     <ion-row class="safety-div">
     	
     	<ion-col col-3>
@@ -52,121 +55,40 @@
       </ion-col>
       <ion-col col-1>
       	<ion-icon font-size="subheading" name="md-search"></ion-icon>
-      </ion-col>
+			</ion-col>
+		
+			<ion-row *ngFor="let subcategory of subCategories">
     <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
+			<!-- [formControl]="subcategoryForm.controls['subcategory']" value ="{{subcategory.sub_category_name}}" (change)="onCheckboxChange(list,$event)"  -->
+				<ion-label class="checkbox">	{{subcategory.sub_category_name}}	
+				</ion-label>
+				<!-- <ion-checkbox [formControl]="subcategoryForm.controls['subcategory.sub_category_name']" 
+				(change)="onCheckboxChange(list,$event)"></ion-checkbox>
+			 -->
+			 <ion-checkbox (click)="clickSelectBox(subcategory)"></ion-checkbox>
+			
   	</ion-col>
   	<ion-col col-2  font-size="small">
   	<ion-row>
-    <ion-col col-4  font-size="small">
+    <!-- <ion-col col-4  font-size="small">
     	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
+	</ion-col> -->
+	<ion-col col-6  font-size="small">
    	 	<ion-icon name="md-create" class="penicon"></ion-icon>
     </ion-col>
-    <ion-col col-4  font-size="small">
+    <ion-col col-6  font-size="small">
 		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
     </ion-col>
     </ion-row>
-  	</ion-col>
-	 
-	  <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
-  	</ion-col>
-  	<ion-col col-2  font-size="small">
-  	<ion-row>
-    <ion-col col-4  font-size="small">
-    	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
-   	 	<ion-icon name="md-create" class="penicon"></ion-icon>
-    </ion-col>
-    <ion-col col-4  font-size="small">
-		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-    </ion-col>
-    </ion-row>
-  	</ion-col>
-  	 <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
-  	</ion-col>
-  	<ion-col col-2  font-size="small">
-  	<ion-row>
-    <ion-col col-4  font-size="small">
-    	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
-   	 	<ion-icon name="md-create" class="penicon"></ion-icon>
-    </ion-col>
-    <ion-col col-4  font-size="small">
-		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-    </ion-col>
-    </ion-row>
-  	</ion-col>
-  	 <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
-  	</ion-col>
-  	<ion-col col-2  font-size="small">
-  	<ion-row>
-    <ion-col col-4  font-size="small">
-    	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
-   	 	<ion-icon name="md-create" class="penicon"></ion-icon>
-    </ion-col>
-    <ion-col col-4  font-size="small">
-		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-    </ion-col>
-    </ion-row>
-  	</ion-col>
-  	 <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
-  	</ion-col>
-  	<ion-col col-2  font-size="small">
-  	<ion-row>
-    <ion-col col-4  font-size="small">
-    	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
-   	 	<ion-icon name="md-create" class="penicon"></ion-icon>
-    </ion-col>
-    <ion-col col-4  font-size="small">
-		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-    </ion-col>
-    </ion-row>
-  	</ion-col>
-  	 <ion-col col-10  font-size="small">
-  	<button >
- 		Power Tools and Equipment
-	</button> 
-  	</ion-col>
-  	<ion-col col-2  font-size="small">
-  	<ion-row>
-    <ion-col col-4  font-size="small">
-    	<ion-icon name="md-remove-circle" class="penicon"></ion-icon>
-	</ion-col>
-	<ion-col col-4  font-size="small">
-   	 	<ion-icon name="md-create" class="penicon"></ion-icon>
-    </ion-col>
-    <ion-col col-4  font-size="small">
-		<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-    </ion-col>
-    </ion-row>
-  	</ion-col>
+		</ion-col>
+		</ion-row>
+	
+	
    	 
    <ion-col col-1>
       </ion-col>
       <ion-col class="inspection-new text-center">
-        <button ion-button color="light" class="inspect-btn" (click)="remarksLoad()" full text-wrap> Next
+        <button ion-button type="submit" full [disabled]="!subcategoryForm.valid" color="light" class="inspect-btn" (click)="remarksLoad()" full text-wrap> Next
         </button>
       </ion-col>
             <ion-col col-1>
@@ -175,6 +97,6 @@
     	
       
     </ion-row>
-    
+	</form>
   </ion-grid>
 </ion-content>
