@@ -69,4 +69,25 @@ export class HomePage {
 						}
 					);		
 	}	
+	
+	ionViewCanEnter() {
+		this.storage.ready().then(() => {
+		this.storage.get('Session.access_token').then((val) => {
+			//console.log(val + "ionViewWillEnter")
+			if (val !== null){
+				this.navCtrl.push(MainPage);
+				
+			}
+			/*if (val == null){
+				console.log(val + "enterinside");
+				
+			}else
+			{
+				console.log(val + "enterinsideelse");
+				this.navCtrl.push(MainPage);
+			}*/
+		})
+		});
+        console.log('page loaded');
+    }
 }

@@ -62,7 +62,7 @@ import { WorkPage } from '../pages/work/work';
 	HttpClientModule,
 	IonicStorageModule.forRoot({
       name: '__mydb',
-         driverOrder: ['indexeddb', 'websql', 'sqlite' ]
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     IonicModule.forRoot(MyApp)
   ],

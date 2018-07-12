@@ -4,6 +4,7 @@ import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { WorkPage } from '../work/work';
+import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 
 
@@ -24,16 +25,20 @@ export class MainPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
 
   }
-  goBack(){
-	// clearing up sessions values  
-	this.storage.remove('Session.user_name');
-	this.storage.remove('Session.user_id');
-	this.storage.remove('Session.access_token');
-	this.storage.remove('Session.token_expiry');
-	this.storage.remove('Session.profile_pic');
-	this.storage.remove('Session.company_logo');	
-	this.storage.clear();  
-    this.navCtrl.pop();
+  
+  logout(){
+	console.log('logout');  
+	// clearing up sessions values 
+	this.storage.ready().then(() => {
+		this.storage.remove('Session.user_name').then(() => { console.log('deleted')});
+		this.storage.remove('Session.user_id');
+		this.storage.remove('Session.access_token');
+		this.storage.remove('Session.token_expiry');
+		this.storage.remove('Session.profile_pic');
+		this.storage.remove('Session.company_logo');	
+		this.storage.clear();  
+	});	
+    this.navCtrl.push(HomePage);
   }
 
   ionViewDidLoad() {
