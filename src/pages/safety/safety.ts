@@ -22,6 +22,10 @@ import { AlertController } from 'ionic-angular';
 export class SafetyPage {
     inspection_desc: any;
     equipment_image: any;
+    userid: any;
+    token: any;
+    category: any;
+    categories = [];
     constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage,private camera: Camera ) {
       this.inspection_desc = navParams.get('inspectionDescription');
       this.equipment_image = navParams.get('imageData');
@@ -42,7 +46,48 @@ OwnCatLoad = function(){
 buttonClick = function(){this.navCtrl.push(SafetyCatInfoPage)}
 
   ionViewDidLoad() {
+    this.storage.get("Session.user_id").then((value1) => {
+          
+      this.userid = value1;
+
+      this.storage.get("Session.access_token").then((value2) => {
+    
+          this.token = value2;
+          console.log(this.token);
+          
+          const headers = new HttpHeaders()
+              .set("user_id", this.userid.toString()).set("access_token", this.token);
+
+          this.category = this.httpClient.get(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category',{headers:headers});
+          this.category
+          .subscribe(data => {
+     
+              console.log(this.token);
+    
+              console.log('category: ',data);
+              // this.categoryData = data.data;
+              for(var i = 0; i < data.data.length; i++) {
+                  console.log(data.data[i].equipmentCategoryName);
+                  //this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
+                  this.categories.push(
+                  {
+                      category_id:data.data[i].equipmentCategoryId,
+                      category_name: data.data[i].equipmentCategoryName, 
+                     
+                  });
+       
+              }
+              // console.log('inspectionsData: ' ,this.inspections);
+          })
+      })
+  })
     console.log('ionViewDidLoad SafetyPage');
   }
-
+  gotoDetails(id:string,name:string){
+    console.log('Lifting Clicked'+id); 
+    this.navCtrl.push(SafetyCatInfoPage, {
+      categoryId: id,
+      category_name: name
+    }); 
+}
 }

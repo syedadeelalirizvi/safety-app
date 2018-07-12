@@ -33,8 +33,8 @@ import { WorkPage } from '../pages/work/work';
 @NgModule({
   declarations: [
     MyApp,
-	HomePage
-    /*ChangepasswordPage,
+	HomePage,
+    ChangepasswordPage,
     HomePage,
     MainPage,
     FailDuePage,
@@ -55,7 +55,7 @@ import { WorkPage } from '../pages/work/work';
     SignupPage,
     VerificationPage,
     WorkPage
-	*/
+	
   ],
   imports: [
     BrowserModule,

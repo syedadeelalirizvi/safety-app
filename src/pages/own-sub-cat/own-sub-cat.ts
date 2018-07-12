@@ -4,12 +4,6 @@ import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 
-/**
- * Generated class for the OwnSubCatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,9 +11,11 @@ import { PreviousPage} from '../previous/previous';
   templateUrl: 'own-sub-cat.html',
 })
 export class OwnSubCatPage {
+ 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams ){
+  
+    }
    goBack(){
     this.navCtrl.pop();
   }
@@ -28,6 +24,8 @@ previousLoad = function(){this.navCtrl.push(PreviousPage)}
 informationLoad = function(){this.navCtrl.push(InformationPage)}
 
   ionViewDidLoad() {
+    
+
     console.log('ionViewDidLoad OwnSubCatPage');
   }
 
