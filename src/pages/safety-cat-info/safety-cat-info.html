@@ -65,7 +65,7 @@
 				<!-- <ion-checkbox [formControl]="subcategoryForm.controls['subcategory.sub_category_name']" 
 				(change)="onCheckboxChange(list,$event)"></ion-checkbox>
 			 -->
-			 <ion-checkbox (click)="clickSelectBox(subcategory)"></ion-checkbox>
+			 <ion-checkbox id="{{subcategory.sub_category_id}}" (click)="clickSelectBox(subcategory)"></ion-checkbox>
 			
   	</ion-col>
   	<ion-col col-2  font-size="small">
@@ -88,7 +88,7 @@
    <ion-col col-1>
       </ion-col>
       <ion-col class="inspection-new text-center">
-        <button ion-button type="submit" full [disabled]="!subcategoryForm.valid" color="light" class="inspect-btn" (click)="remarksLoad()" full text-wrap> Next
+        <button ion-button type="submit" full [disabled]="!subcategoryForm.valid" color="light" class="inspect-btn"  full text-wrap> Next 
         </button>
       </ion-col>
             <ion-col col-1>

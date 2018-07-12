@@ -58,7 +58,7 @@ export class SafetyCatInfoPage {
 profileLoad = function(){this.navCtrl.push(ProfilePage)}
 previousLoad = function(){this.navCtrl.push(PreviousPage)}
 informationLoad = function(){this.navCtrl.push(InformationPage)}
-remarksLoad = function(){this.navCtrl.push(RemarksPage)}
+//remarksLoad = function(){this.navCtrl.push(RemarksPage)}
 OwnCatLoad = function(){this.navCtrl.push(OwnSubCatPage)}
 
   ionViewDidLoad() {
@@ -130,7 +130,7 @@ list(value: any):void{
   .subscribe(data => {
       //console.log(data.data.inspection);
       console.log(data);
-
+	  
       this.navCtrl.push(RemarksPage, {
         // inspectionDescription: this.inspection_desc,
         // imageData:this.equipment_image
