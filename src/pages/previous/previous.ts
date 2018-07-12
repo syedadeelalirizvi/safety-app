@@ -66,18 +66,21 @@ export class PreviousPage {
           
                     console.log('inspections: ',data.inspections);
                     this.inspectionData = data.inspections;
-                    for(var i = 0; i < data.inspections.length; i++) {
-            
-                        this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
-                        this.inspections.push(
-                        {
-                            inspection_id:this.inspectionData[i].inspection.data.inspectionId,
-                            category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
-                            inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
-                            inspection_date: this.inspectionDate
-                        });
-             
-                    }
+					if(data.inspections && data.inspections.length)
+					{	
+						for(var i = 0; i < data.inspections.length; i++) {
+				
+							this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
+							this.inspections.push(
+							{
+								inspection_id:this.inspectionData[i].inspection.data.inspectionId,
+								category_name: this.inspectionData[i].category.data.equipmentCategoryName, 
+								inspection_description: this.inspectionData[i].inspection.data.inspectionDescription,
+								inspection_date: this.inspectionDate
+							});
+				 
+						}
+					}
                     console.log('inspectionsData: ' ,this.inspections);
                 })
             })
