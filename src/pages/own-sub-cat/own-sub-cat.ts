@@ -28,5 +28,9 @@ informationLoad = function(){this.navCtrl.push(InformationPage)}
 
     console.log('ionViewDidLoad OwnSubCatPage');
   }
-
+  addQuestion(){
+   console.log('Add clicked.');
+  var dummy = '	 <ion-col col-12 ><ion-input type="text" value="Additional Question" name="questions[]"></ion-input></ion-col>\r\n';
+  document.getElementById('wrapper').innerHTML += dummy;      
+ }
 }
