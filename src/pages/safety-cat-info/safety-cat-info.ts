@@ -128,7 +128,7 @@ list(value: any):void{
   },
   {headers:headers})
   .subscribe(data => {
-      //console.log(data.data.inspection);
+      console.log("Going");
       console.log(data);
 	  
       this.navCtrl.push(RemarksPage, {
