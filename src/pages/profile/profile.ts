@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
@@ -48,7 +48,9 @@ export class ProfilePage {
 	    token: string;
       action:string;
       pageName="profile";
-      constructor(private alertCtrl: AlertController, 
+      constructor(
+		public actionSheetCtrl: ActionSheetController,
+				private alertCtrl: AlertController, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
               private httpClient: HttpClient,
@@ -62,7 +64,7 @@ export class ProfilePage {
 		this.base64ImageProfile = navParams.get('base64ImageProfile');
 		this.base64Image = '';
 		this.imageUpload = false;		  
-    this.imageUploadProfile = navParams.get('imageUploadProfile');
+    this.imageUploadProfile = false;
     this.updateClicked =false;
        this.response = false;
 	   
@@ -83,6 +85,33 @@ export class ProfilePage {
 
 
      }
+	 
+	public presentActionSheet() 
+	{
+		let actionSheet = this.actionSheetCtrl.create({
+		title: 'SET PICTURE',
+		buttons: [
+			{
+				text: 'choose from albums',
+				handler: () => {
+					this.openGalleryProfile();
+				}
+			},
+			{
+				text: 'take a photo',
+				handler: () => {
+					this.openCameraProfile();
+				}
+			},
+			{
+				text: 'cancel',
+				role: 'cancel'
+			}
+		]});
+		actionSheet.present();
+	}
+  	 
+	 
    	openCamera(){
       console.log('openCamera');
       // Camera options		
@@ -125,49 +154,51 @@ export class ProfilePage {
           console.log(err);
         });
     }  
-    // openCameraProfile(){
-    //   console.log('openCamera');
-    //   // Camera options		
-    //   const options: CameraOptions = {
-    //     quality: 100,
-    //     destinationType: this.camera.DestinationType.FILE_URI,
-    //     encodingType: this.camera.EncodingType.JPEG,
-    //     mediaType: this.camera.MediaType.PICTURE
-    //   }
+	
+     openCameraProfile(){
+       console.log('openCamera');
+       // Camera options		
+       const options: CameraOptions = {
+         quality: 100,
+         destinationType: this.camera.DestinationType.FILE_URI,
+         encodingType: this.camera.EncodingType.JPEG,
+         mediaType: this.camera.MediaType.PICTURE
+       }
       
-    //   this.camera.getPicture(options).then((imageData) => {
-    //       // imageData is either a base64 encoded string or a file URI
-    //       // If it's base64 (DATA_URL):
-    //       this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-    //       this.imageUploadProfile = true;
+       this.camera.getPicture(options).then((imageData) => {
+           // imageData is either a base64 encoded string or a file URI
+           // If it's base64 (DATA_URL):
+           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+           this.imageUploadProfile = true;
 		  
-    //     }, (err) => {
-    //       // Handle error
-    //       console.log(err);
-    //     });
-    // }
+         }, (err) => {
+           // Handle error
+           console.log(err);
+         });
+     }
     
-    // openGalleryProfile(){
-    //   console.log('openGallery');
-    //   // Camera options		
-    //   const options: CameraOptions = {
-    //     quality: 100,
-    //     destinationType: this.camera.DestinationType.FILE_URI,
-    //     encodingType: this.camera.EncodingType.JPEG,
-    //     mediaType: this.camera.MediaType.PICTURE,
-    //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    //   }
+     openGalleryProfile(){
+       console.log('openGallery');
+       // Camera options		
+       const options: CameraOptions = {
+         quality: 100,
+         destinationType: this.camera.DestinationType.FILE_URI,
+         encodingType: this.camera.EncodingType.JPEG,
+         mediaType: this.camera.MediaType.PICTURE,
+         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+       }
       
-    //   this.camera.getPicture(options).then((imageData) => {
-    //       // imageData is either a base64 encoded string or a file URI
-    //       // If it's base64 (DATA_URL):
-    //       this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-    //       this.imageUploadProfile = true;
-    //     }, (err) => {
-    //       // Handle error
-    //       console.log(err);
-    //     });
-    // }  
+       this.camera.getPicture(options).then((imageData) => {
+           // imageData is either a base64 encoded string or a file URI
+           // If it's base64 (DATA_URL):
+           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+           this.imageUploadProfile = true;
+         }, (err) => {
+           // Handle error
+           console.log(err);
+         });
+     }  
+	
   update(value: any):void{
     
     console.log(value.username);
@@ -278,7 +309,7 @@ const headers = new HttpHeaders()
           this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
           this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
 		  
-      if(this.userData['companyLogo'] !== 'undefined' || this.updateClicked==false)
+      if(this.userData['companyLogo'] !== undefined && this.userData['companyLogo'] !== 'undefined')
 		  {
         this.imageUpload = true;
        
@@ -286,7 +317,7 @@ const headers = new HttpHeaders()
         console.log("http://" + this.userData['companyLogo']);
 		  }  
 		  
-		  if(this.userData['profilePicture'] !== 'undefined' || this.updateClicked==false)
+		  if(this.userData['profilePicture'] !== undefined && this.userData['profilePicture'] !== 'undefined')
 		  {
         this.imageUploadProfile = true;
         //this.base64ImageProfile="http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
@@ -300,9 +331,6 @@ const headers = new HttpHeaders()
    
     console.log('ionViewDidLoad ProfilePage');
   }
-  presentProfileModal() {
-    let profileModal = this.modalCtrl.create(ModalPage, { pageName: this.pageName });
-    profileModal.present();
-  }
+ 
 
 }

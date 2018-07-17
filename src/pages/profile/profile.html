@@ -13,8 +13,10 @@
 		<ion-row>
 			<ion-col col-12>
 					<ion-label class="text-center">Profile Picture</ion-label>	
-					<div text-center><ion-img *ngIf="imageUploadProfile == true" class="profile-img" width="80" height="80" src="{{base64ImageProfile}}" (click)="presentProfileModal()" ></ion-img> </div>   
-				<ion-img *ngIf="imageUploadProfile == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="presentProfileModal()"></ion-img>
+				
+				<div><img *ngIf="imageUploadProfile == true" [src]="base64ImageProfile" width="80" height="80" (click)="presentActionSheet()" /> </div> 
+					<ion-img  *ngIf="imageUploadProfile == false" class="profile-img" (click)="presentActionSheet()" width="80" height="80" src="../assets/imgs/profile-img.png"></ion-img>
+				
 				<!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCameraProfile()">Open Camera</button>
 				<button  type="button" style="width: 49%;float: right;" ion-button (click)="openGalleryProfile()">Open Gallery</button>	 -->
             </ion-col>

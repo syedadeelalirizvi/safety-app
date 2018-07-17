@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -29,7 +29,7 @@ export class WorkPage {
   inspection_desc : any;
   pageName="work";
 
-  constructor(private alertCtrl: AlertController,   private modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage,private camera: Camera ) {
+  constructor( public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController,   private modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage,private camera: Camera ) {
 
    
      
@@ -55,6 +55,31 @@ export class WorkPage {
       });
   }
 
+	public presentActionSheet() 
+	{
+		let actionSheet = this.actionSheetCtrl.create({
+		title: 'SET PICTURE',
+		buttons: [
+			{
+				text: 'choose from albums',
+				handler: () => {
+					this.openGallery();
+				}
+			},
+			{
+				text: 'take a photo',
+				handler: () => {
+					this.openCamera();
+				}
+			},
+			{
+				text: 'cancel',
+				role: 'cancel'
+			}
+		]});
+		actionSheet.present();
+	}
+  
   openCamera(){
       console.log('openCamera');
       // Camera options		
@@ -140,9 +165,4 @@ export class WorkPage {
     console.log(this.userid+" "+this.token);
     })
   }
-  presentProfileModal() {
-    let profileModal = this.modalCtrl.create(ModalPage, { pageName: this.pageName });
-    profileModal.present();
-  }
-
 }
