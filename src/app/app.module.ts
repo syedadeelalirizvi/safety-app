@@ -16,6 +16,8 @@ import { InformationPage } from '../pages/information/information';
 import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 import { LiftingPage } from '../pages/lifting/lifting';
 import { MainPage } from '../pages/main/main';
+import { ModalPage } from '../pages/modal/modal';
+
 import { OwnCatPage } from '../pages/own-cat/own-cat';
 import { OwnSubCatPage } from '../pages/own-sub-cat/own-sub-cat';
 import { PassObservationPage } from '../pages/pass-observation/pass-observation';
@@ -48,6 +50,7 @@ class CameraMock extends Camera {
     ChangepasswordPage,
     HomePage,
     MainPage,
+    ModalPage,
     FailDuePage,
     ForgotPasswordPage,
     InformationPage,
@@ -83,6 +86,7 @@ class CameraMock extends Camera {
     ChangepasswordPage,
     HomePage,
     MainPage,
+    ModalPage,
     FailDuePage,
     ForgotPasswordPage,
     InformationPage,

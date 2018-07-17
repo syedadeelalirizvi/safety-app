@@ -94,9 +94,9 @@
 					<ion-col col-6>
 						<ion-label class="text-center">Company Logo</ion-label>
 						<div text-center><img *ngIf="imageUpload == true" [src]="base64Image" /> </div> 
-						<ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png"></ion-img>
-						<button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button>
-						<button  type="button" style="width: 49%;float: right;" ion-button (click)="openGallery()">Open Gallery</button>	
+						<ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="openGallery()" ></ion-img>
+						<!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button> -->
+						<!-- <button  type="button" style="width: 49%;float: right;" ion-button >Open Gallery</button>	 -->
 							
 						<!-- <button ion-button full (click)="uploadImage()">Upload Image</button> -->
 					</ion-col>

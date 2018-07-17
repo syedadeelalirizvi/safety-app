@@ -11,10 +11,14 @@
 <ion-content padding class="bg-none">
 	<ion-grid>
 		<ion-row>
-			<ion-col col-12>	
-				<ion-img class="profile-img" width="80" height="80" src="{{profilePicture}}"></ion-img>  
+			<ion-col col-12>
+					<ion-label class="text-center">Profile Picture</ion-label>	
+					<div text-center><ion-img *ngIf="imageUploadProfile == true" class="profile-img" width="80" height="80" src="{{base64ImageProfile}}" (click)="presentProfileModal()" ></ion-img> </div>   
+				<ion-img *ngIf="imageUploadProfile == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="presentProfileModal()"></ion-img>
+				<!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCameraProfile()">Open Camera</button>
+				<button  type="button" style="width: 49%;float: right;" ion-button (click)="openGalleryProfile()">Open Gallery</button>	 -->
             </ion-col>
-            <ion-col col-1></ion-col>
+            <!-- <ion-col col-1></ion-col>
 			<ion-col col-10>
 				<ion-label class="text-center">Profile Picture</ion-label>
 					<div text-center><img *ngIf="imageUploadProfile == true" [src]="base64ImageProfile" /> </div> 
@@ -22,7 +26,7 @@
 					<button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCameraProfile()">Open Camera</button>
                     <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGalleryProfile()">Open Gallery</button>	
             </ion-col>
-            <ion-col col-1></ion-col>
+            <ion-col col-1></ion-col> -->
 		</ion-row>
 		<ion-row>
 			<ion-col col-12>
@@ -125,10 +129,10 @@
 						<ion-col col-1></ion-col>
 						<ion-col col-10>
 							<ion-label class="text-center">Company Logo</ion-label>
-							<div text-center><img *ngIf="imageUpload == true" [src]="base64Image" /> </div> 
-                            <ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png"></ion-img>
-                            <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button>
-                            <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGallery()">Open Gallery</button>	
+							<div text-center><img *ngIf="imageUpload == true" [src]="base64Image" (click)="openGallery()"/> </div> 
+                            <ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="openGallery()"></ion-img>
+                            <!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button> -->
+                            <!-- <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGallery()">Open Gallery</button>	 -->
 						</ion-col>
 						<ion-col col-1></ion-col>
 					</ion-row>

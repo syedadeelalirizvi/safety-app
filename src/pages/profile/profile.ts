@@ -6,8 +6,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { ChangepasswordPage } from '../changepassword/changepassword';
+import { ModalPage } from '../modal/modal';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the ProfilePage page.
@@ -41,20 +43,25 @@ export class ProfilePage {
 	    imageUploadProfile: any;
       base64Image: string;
       base64ImageProfile: string;
+      updateClicked:any;
 	    token: string;
-
+      action:string;
       constructor(private alertCtrl: AlertController, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
               private httpClient: HttpClient,
               private fb: FormBuilder, 
               private storage: Storage,
-              private camera: Camera ) {
+              private camera: Camera,
+              private modalCtrl: ModalController ) {
+                  this.action = navParams.get('action');
+                  
 		
-		this.base64ImageProfile = '';
+		this.base64ImageProfile = navParams.get('base64ImageProfile');
 		this.base64Image = '';
 		this.imageUpload = false;		  
-		this.imageUploadProfile = false;
+    this.imageUploadProfile = navParams.get('imageUploadProfile');
+    this.updateClicked =false;
        this.response = false;
 	   
 	   	storage.get('Session.access_token').then((val) => {
@@ -116,49 +123,49 @@ export class ProfilePage {
           console.log(err);
         });
     }  
-    openCameraProfile(){
-      console.log('openCamera');
-      // Camera options		
-      const options: CameraOptions = {
-        quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
-      }
+    // openCameraProfile(){
+    //   console.log('openCamera');
+    //   // Camera options		
+    //   const options: CameraOptions = {
+    //     quality: 100,
+    //     destinationType: this.camera.DestinationType.FILE_URI,
+    //     encodingType: this.camera.EncodingType.JPEG,
+    //     mediaType: this.camera.MediaType.PICTURE
+    //   }
       
-      this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-          this.imageUploadProfile = true;
+    //   this.camera.getPicture(options).then((imageData) => {
+    //       // imageData is either a base64 encoded string or a file URI
+    //       // If it's base64 (DATA_URL):
+    //       this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+    //       this.imageUploadProfile = true;
 		  
-        }, (err) => {
-          // Handle error
-          console.log(err);
-        });
-    }
+    //     }, (err) => {
+    //       // Handle error
+    //       console.log(err);
+    //     });
+    // }
     
-    openGalleryProfile(){
-      console.log('openGallery');
-      // Camera options		
-      const options: CameraOptions = {
-        quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-      }
+    // openGalleryProfile(){
+    //   console.log('openGallery');
+    //   // Camera options		
+    //   const options: CameraOptions = {
+    //     quality: 100,
+    //     destinationType: this.camera.DestinationType.FILE_URI,
+    //     encodingType: this.camera.EncodingType.JPEG,
+    //     mediaType: this.camera.MediaType.PICTURE,
+    //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    //   }
       
-      this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-          this.imageUploadProfile = true;
-        }, (err) => {
-          // Handle error
-          console.log(err);
-        });
-    }  
+    //   this.camera.getPicture(options).then((imageData) => {
+    //       // imageData is either a base64 encoded string or a file URI
+    //       // If it's base64 (DATA_URL):
+    //       this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
+    //       this.imageUploadProfile = true;
+    //     }, (err) => {
+    //       // Handle error
+    //       console.log(err);
+    //     });
+    // }  
   update(value: any):void{
     
     console.log(value.username);
@@ -172,6 +179,7 @@ export class ProfilePage {
 		
 const headers = new HttpHeaders()
             .set("user_id", this.userid.toString()).set("access_token", this.token);
+            console.log(this.base64ImageProfile);
 		  
      const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
       userEmail: value.email,
@@ -268,16 +276,20 @@ const headers = new HttpHeaders()
           this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
           this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
 		  
-		  if(this.userData['companyLogo'] !== 'undefined')
+      if(this.userData['companyLogo'] !== 'undefined' || this.updateClicked==false)
 		  {
-			  this.imageUpload = true;
-			  this.base64Image = "http://" + this.userData['companyLogo'];
+        this.imageUpload = true;
+       
+        this.base64Image = "http://" + this.userData['companyLogo'];
+        console.log("http://" + this.userData['companyLogo']);
 		  }  
 		  
-		  if(this.userData['profilePicture'] !== 'undefined')
+		  if(this.userData['profilePicture'] !== 'undefined' || this.updateClicked==false)
 		  {
-			  this.imageUploadProfile = true;
-			  this.base64ImageProfile = "http://" + this.userData['profilePicture'];
+        this.imageUploadProfile = true;
+        //this.base64ImageProfile="http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
+       this.base64ImageProfile = "http://" + this.userData['profilePicture'];
+        console.log("http://" + this.userData['profilePicture']);
 		  }  
 
           this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
@@ -286,6 +298,9 @@ const headers = new HttpHeaders()
    
     console.log('ionViewDidLoad ProfilePage');
   }
- 
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(ModalPage, { userId: 8675309 });
+    profileModal.present();
+  }
 
 }
