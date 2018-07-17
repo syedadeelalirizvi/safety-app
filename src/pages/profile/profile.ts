@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { ChangepasswordPage } from '../changepassword/changepassword';
+import { MainPage } from '../main/main';
 import { ModalPage } from '../modal/modal';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -46,6 +47,7 @@ export class ProfilePage {
       updateClicked:any;
 	    token: string;
       action:string;
+      pageName="profile";
       constructor(private alertCtrl: AlertController, 
               public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -232,7 +234,7 @@ const headers = new HttpHeaders()
   }
   changeLoad(){this.navCtrl.push(ChangepasswordPage)}
   goBack(){
-    this.navCtrl.pop();
+    this.navCtrl.push(MainPage);
   }
 
 
@@ -299,7 +301,7 @@ const headers = new HttpHeaders()
     console.log('ionViewDidLoad ProfilePage');
   }
   presentProfileModal() {
-    let profileModal = this.modalCtrl.create(ModalPage, { userId: 8675309 });
+    let profileModal = this.modalCtrl.create(ModalPage, { pageName: this.pageName });
     profileModal.present();
   }
 

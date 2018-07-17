@@ -4,13 +4,14 @@ import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { SafetyPage } from '../safety/safety';
+import { ModalPage } from '../modal/modal';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AlertController } from 'ionic-angular';
+import { AlertController,ModalController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -19,19 +20,19 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'work.html',
 })
 export class WorkPage {
-  imageUpload: any;
+  imageUpload= false;
   base64Image: string;
   response: any;
   token: string;
   userid :any;
   inspectionForm : FormGroup;
   inspection_desc : any;
+  pageName="work";
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage,private camera: Camera ) {
+  constructor(private alertCtrl: AlertController,   private modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage,private camera: Camera ) {
 
+   
      
-      this.base64Image = '';
-      this.imageUpload = false;		  
      
       this.response = false;
 
@@ -113,7 +114,12 @@ export class WorkPage {
     this.navCtrl.push(InformationPage)
   }
   create(value: any):void{
+    this.base64Image = this.navParams.get('base64ImageProfile');
+    
+   this.imageUpload = this.navParams.get('imageUploadProfile');
   
+  //this.base64Image = this.navParams.get('base64ImageProfile');
+   
       this.navCtrl.push(SafetyPage, {
         inspectionDescription: value.description,
         imageData:this.base64Image
@@ -121,6 +127,8 @@ export class WorkPage {
   }
 
   ionViewDidLoad() {
+    	 
+    console.log(this.base64Image);
     console.log('ionViewDidLoad WorkPage');
     this.storage.get("Session.access_token").then((value2) => {
       
@@ -131,6 +139,10 @@ export class WorkPage {
         this.userid = value1;
     console.log(this.userid+" "+this.token);
     })
+  }
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(ModalPage, { pageName: this.pageName });
+    profileModal.present();
   }
 
 }

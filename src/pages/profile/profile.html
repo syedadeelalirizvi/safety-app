@@ -53,7 +53,7 @@
 						<ion-col col-11>
 							<ion-item>
 								<ion-label floating color="greyblue">Email</ion-label>
-								<ion-input type="email" value="{{email}}" [formControl]="profileForm.controls['email']" ></ion-input>
+								<ion-input type="email" value="{{email}}" [formControl]="profileForm.controls['email']" disabled="true"></ion-input>
 							</ion-item>
 							<br/>
 							<div class="error-box" *ngIf="profileForm.controls['email'].hasError('required') && profileForm.controls['email'].touched">
@@ -64,7 +64,7 @@
 							</div>
 						</ion-col>
 						<ion-col col-1>
-							<ion-icon name="create" class="penicon"  ></ion-icon>
+							<!-- <ion-icon name="create" class="penicon"  ></ion-icon> -->
 						</ion-col>
 					</ion-row>
 					<ion-row>

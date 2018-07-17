@@ -60,6 +60,13 @@ export class ForgotPasswordPage {
                   this.response = true;
                   console.log("Error occurred");
                   console.log(err);
+                //   let alert = this.alertCtrl.create({
+                //     title: 'Success',
+                //     subTitle: 'Your account registered!',
+                //     buttons: ['Dismiss']
+                //   });
+                //  alert.present();
+                // this.navCtrl.pop();
                   this.navCtrl.push(VerificationPage, {
                     userEmail: value.email
                   });
