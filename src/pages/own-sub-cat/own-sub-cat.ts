@@ -30,7 +30,10 @@ informationLoad = function(){this.navCtrl.push(InformationPage)}
   }
   addQuestion(){
    console.log('Add clicked.');
-  var dummy = '	 <ion-col col-12 ><ion-input type="text" value="Additional Question" name="questions[]"></ion-input></ion-col>\r\n';
-  document.getElementById('wrapper').innerHTML += dummy;      
+  //  <ion-row class="row"><ion-col col-12 ><ion-input type="text" value="Additional Question" ></ion-input></ion-col></ion-row>
+  var dummy = '	<ion-row><ion-col col-12 ><ion-input type="text" value="Additional Question" </ion-input></ion-col></ion-row></br>';
+  var div = document.getElementById( 'wrapper' );
+  div.insertAdjacentHTML( 'beforeend', dummy );
+  //document.getElementById('wrapper').innerHTML += dummy;      
  }
 }

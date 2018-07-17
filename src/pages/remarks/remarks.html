@@ -36,7 +36,7 @@
     <ion-grid>
       <form>
           <ion-row class="safety-div" >
-              <ion-row *ngFor="let subcategory of allQuestions">
+              <ion-row *ngFor="let subcategory of allQuestions" formControlName = "">
           
                   <ion-col col-12 >	
                         <ion-item-divider color="lightgreen">
@@ -60,28 +60,62 @@
                           </ion-row>
                         </ion-item-divider>
                   </ion-col>
+                  <ion-list radio-group  *ngFor="let questions of subcategory.inspection_questions" id="questions.question_id">
+                      <ion-row>
+                        <ion-col col-6 font-size="small">
+                      <ion-label>
+                            {{questions.question_title}}
+                      </ion-label>
+                    </ion-col>
+                    <ion-col col-4 font-size="small">
+                        <ion-row>
+                        <ion-col  >
+                      <ion-item>
+                       
+                        <ion-radio value="cord" (click)="answerList(questions,'pass')"></ion-radio>
+                      </ion-item>
+                        </ion-col>
+                        <ion-col  >
+                      <ion-item>
+                     
+                        <ion-radio value="duesenberg" (click)="answerList(questions,'fail')"></ion-radio>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col >
+                    
+                      <ion-item>
+                        <ion-radio value="hudson" (click)="answerList(questions,'N/a')"></ion-radio>
+                      </ion-item>
+
+                    </ion-col>
+                    </ion-row>
+                   
+                    </ion-col>
+                    <ion-col col-2></ion-col>
+                      </ion-row>
+                    </ion-list>
                   <!-- *ngFor="let questions of subcategory.inspection_questions" -->
-                  <ion-row *ngFor="let questions of subcategory.inspection_questions" >
-                  <ion-col col-8  font-size="small">
-                      <button >
-                          {{questions.question_title}}
-                      </button> 
-                  </ion-col>
-                  <ion-col col-4  font-size="small">
-                      <div class="form-group radio">
-                          <!-- <h4>Super power:</h4> -->
-                          <ion-col col-4  font-size="small">
-                              <label class="center-block"><input type="radio" name="power" value="flight" class="penicon"></label>
-                          </ion-col>
-                          <ion-col col-4  font-size="small">
-                              <label class="center-block"><input type="radio" name="power" value="x-ray vision" class="penicon"></label>
-                          </ion-col>
-                          <ion-col col-4  font-size="small">
-                              <label class="center-block"><input type="radio" name="power" value="strength" class="penicon"></label>
-                          </ion-col>
-                        </div>
-                  </ion-col>
-                  </ion-row>
+                                <!-- <ion-row *ngFor="let questions of subcategory.inspection_questions" >
+                                <ion-col col-8  font-size="small">
+                                    <button >
+                                        {{questions.question_title}}
+                                    </button> 
+                                </ion-col>
+                                <ion-col col-4  font-size="small">
+                                    <div class="form-group radio">
+                                        
+                                        <ion-col col-4  font-size="small">
+                                            <label class="center-block"><ion-input type="radio" name="power" value="flight" class="penicon" ></ion-input></label>
+                                        </ion-col>
+                                        <ion-col col-4  font-size="small">
+                                            <label class="center-block"><ion-input type="radio" name="power" value="x-ray vision" class="penicon" ></ion-input></label>
+                                        </ion-col>
+                                        <ion-col col-4  font-size="small">
+                                            <label class="center-block"><ion-input type="radio" name="power" value="strength" class="penicon" ></ion-input></label>
+                                        </ion-col>
+                                        </div>
+                                </ion-col>
+                                </ion-row> -->
                   <!-- <ion-row>
                   <ion-col col-8  font-size="small">
                       <button >

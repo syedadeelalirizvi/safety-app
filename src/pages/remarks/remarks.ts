@@ -97,28 +97,28 @@ export class RemarksPage {
                          .subscribe(dataquestions => {
                            this.inspectionQuestions[i]=[];
                             console.log('questions: ',dataquestions);
-            //                for(var j = 0; j < dataquestions.data.length; j++) {
+                           for(var j = 0; j < dataquestions.data.length; j++) {
                            
-            //               // console.log(data.data[j].equipmentQuestionId);
-            //                   this.inspectionQuestions[i].push(
-            //                   {
-            //                     question_id: dataquestions.data[j].equipmentQuestionId,
-            //                     question_title: dataquestions.data[j].equipmentQuestionTitle, 
+                          // console.log(data.data[j].equipmentQuestionId);
+                              this.inspectionQuestions[i].push(
+                              {
+                                question_id: dataquestions.data[j].equipmentQuestionId,
+                                question_title: dataquestions.data[j].equipmentQuestionTitle, 
                       
-            //                   });
-            //               }
-            //               console.log(this.inspectionQuestions[i]);
+                              });
+                          }
+                          console.log(this.inspectionQuestions[i]);
                         
-            // // console.log('subcategoryquestions', this.inspectionQuestions[i].length);  
-            //               this.allQuestions.push(
-            //               {
-            //                   category_name:datacategory.data[0].equipmentCategoryName,
-            //                 // sub_category_id: data.category.subCategories[i].equipmentSubCategoryId,
-            //                   sub_category_name:datasubcategory.data[0].equipmentSubCategoryName, 
-            //                   inspection_questions: this.inspectionQuestions[i]
-            //             });    
-            //             console.log('subcategoryname',this.sub_category_name);
-            //              console.log('categoryname',this.category_name);
+            // console.log('subcategoryquestions', this.inspectionQuestions[i].length);  
+                          this.allQuestions.push(
+                          {
+                              category_name:datacategory.data[0].equipmentCategoryName,
+                            // sub_category_id: data.category.subCategories[i].equipmentSubCategoryId,
+                              sub_category_name:datasubcategory.data[0].equipmentSubCategoryName, 
+                              inspection_questions: this.inspectionQuestions[i]
+                        });    
+                        console.log('subcategoryname',this.sub_category_name);
+                         console.log('categoryname',this.category_name);
                          })
                          
                          })
@@ -129,6 +129,18 @@ export class RemarksPage {
                 //console.log('categoryname',this.category_name);
              })
       console.log('ionViewDidLoad RemarksPage');
+    }
+    answerList(questions:any, value:any){
+        console.log(value);
+        console.log(questions);
+        const foundAt = this.checkedList.indexOf(questions.question_id);
+        console.log(foundAt);
+        if (foundAt >= 0) {
+           this.checkedList.splice(foundAt, 1);
+        } else {
+           this.checkedList.push();
+       }
+       console.log(this.checkedList);
     }
 
 }
