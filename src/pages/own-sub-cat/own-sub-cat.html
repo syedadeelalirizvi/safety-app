@@ -53,12 +53,14 @@
         
       </ion-col>
       <ion-col col-1>
-  <ion-icon font-size="subheading" item-right name="md-add"></ion-icon>  
+  <ion-icon font-size="subheading" item-right name="md-add" (click)="addQuestion()"></ion-icon>  
 </ion-col>
-      <ion-col col-12>
-      	<ion-input type="text" value="Additional Question"></ion-input>
+<ion-row id = "wrapper">
+      <ion-col col-12 >
+      	<ion-input type="text" value="Additional Question" name="questions[]"></ion-input>
       	        <!-- <ion-textarea> Click below and complete a pre-use inspection for your work equipment. </ion-textarea> -->
       </ion-col>
+</ion-row>
       <ion-col col-1></ion-col>
 
 <ion-col col-10>
