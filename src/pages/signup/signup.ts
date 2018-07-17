@@ -29,7 +29,7 @@ export class SignupPage {
 			'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
 			'department' : [],
 			'nameToReceiveReport' : [null, Validators.compose([Validators.required])],
-			'emailToReceiveReport' : [null, Validators.compose([Validators.required,])],
+			'emailToReceiveReport' : [null, Validators.compose([Validators.required,Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
 			'company' : [],
 			'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
 			'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 

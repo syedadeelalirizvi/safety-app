@@ -76,8 +76,8 @@ export class ProfilePage {
        this.profileForm = fb.group({
               'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'department' : [],
-              'nameOfReceiveReport' : [null, Validators.compose([Validators.required])],
-              'emailOfReceiveReport' : [null, Validators.compose([Validators.required,])],
+              'nameOfReceiveReport' : [null, Validators.compose([Validators.required ])],
+              'emailOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'company' : [],
               'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
               //'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
@@ -229,6 +229,13 @@ const headers = new HttpHeaders()
     .subscribe(
       (res: any) => {
         console.log(res);
+        let alert = this.alertCtrl.create({
+          title: 'Success',
+          subTitle: 'Profile Updated Successfully!',
+          buttons: ['Dismiss']
+        });
+       alert.present();
+       this.navCtrl.pop();
         // Initializing session information
         // this.storage.set('Session.user_name', res.data.userName);
         // this.storage.set('Session.user_id', res.data.userId);

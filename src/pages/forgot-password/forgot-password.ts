@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import { AlertController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -20,7 +21,7 @@ export class ForgotPasswordPage {
     forgotPasswordForm : FormGroup;
     response: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+    constructor(private alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         this.response = false;
         this.forgotPasswordForm = fb.group({
             'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
@@ -59,17 +60,21 @@ export class ForgotPasswordPage {
                 err => {
                   this.response = true;
                   console.log("Error occurred");
-                  console.log(err);
-                //   let alert = this.alertCtrl.create({
-                //     title: 'Success',
-                //     subTitle: 'Your account registered!',
-                //     buttons: ['Dismiss']
-                //   });
-                //  alert.present();
+                  console.log('message',err.error.error.message);
+                   if(err.error.error.message=='This email address does not exist.'){
+                  let alert = this.alertCtrl.create({
+                    title: 'Success',
+                    subTitle: 'This email address does not exist!',
+                    buttons: ['Dismiss']
+                  });
+                 alert.present();
+                }
                 // this.navCtrl.pop();
+                else{
                   this.navCtrl.push(VerificationPage, {
                     userEmail: value.email
                   });
+                }
                 }
               );
     }

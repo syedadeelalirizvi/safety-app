@@ -29,7 +29,7 @@
 						* User Name is required!
 					</div>
 					<div class="error-box" *ngIf="signupForm.get('username').hasError('pattern') && signupForm.get('username').touched">
-						* User Name address invalid!
+						* Invalid User Name!
                     </div>
 					<ion-item>
 						<ion-input type="email"  value="" [formControl]="signupForm.controls['email']" [ngClass]="{'error-border':!signupForm.controls['email'].valid}" placeholder = "Email"></ion-input>
