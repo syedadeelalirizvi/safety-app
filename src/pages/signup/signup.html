@@ -74,7 +74,10 @@
 					<br/>
 						<div class="error-box" *ngIf="signupForm.controls['nameToReceiveReport'].hasError('required') && signupForm.controls['nameToReceiveReport'].touched">
                               * This field is required!
-                        </div>
+						</div>
+						<div class="error-box" *ngIf="signupForm.get('nameToReceiveReport').hasError('pattern') && signupForm.get('nameToReceiveReport').touched">
+							* Invalid Name!
+						</div>
                     <ion-item>
 						<ion-input type="email" value=""  [formControl]="signupForm.controls['emailToReceiveReport']" [ngClass]="{'error-border':!signupForm.controls['emailToReceiveReport'].valid}" placeholder = "Email of Person To Receive Reports"></ion-input>
                     </ion-item>
@@ -86,7 +89,7 @@
 						* Email address invalid!
                     </div>
 					<ion-item>
-						<ion-input type="text" value="" [formControl]="signupForm.controls['company']" [ngClass]="{'error-border':!signupForm.controls['company'].valid}" placeholder = "Company" ></ion-input>
+						<ion-input type="text" value="" [formControl]="signupForm.controls['company']" [ngClass]="{'error-border':!signupForm.controls['company'].valid}" placeholder = "Company Name" ></ion-input>
 					</ion-item>
                     <br/>
 					<ion-col col-3>
@@ -105,7 +108,7 @@
 					<ion-col col-1></ion-col>
 					<ion-col col-10>
 						<div class="lg-new text-center">
-							<button ion-button type="submit" full [disabled]="!signupForm.valid"  block color="light" class="lgbtn">Register Now</button>
+							<button ion-button type="submit" full [disabled]="!signupForm.valid"  autocapitalize="none" block color="light" class="lgbtn">Register Now</button>
 						</div>
 					</ion-col>
 					<ion-col col-1></ion-col>
