@@ -75,7 +75,10 @@
 			</ion-col>
 
 			<ion-col col-8>
-				<ion-input type="text" color="greyblue" value="Signature (Unique Identity)"></ion-input>
+				<button ion-button full color="greyblue" (click)="openSignatureModel()">
+					Signature (Unique Identity)
+				</button>
+				<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 			</ion-col>
 
 			<ion-col col-2>
@@ -98,7 +101,11 @@
 			</ion-col>
 
 			<ion-col col-8>
-				   <ion-img class="profile-img" width="100%" height="100" src="../assets/imgs/company-logo.png"></ion-img> 
+				<div>
+					<img *ngIf="imageUpload == true" [src]="base64Image"  (click)="presentActionSheet()" /> 
+				</div> 
+				<ion-img  *ngIf="imageUpload == false || base64Image == ''" width="100%" height="80" (click)="presentActionSheet()" src="../assets/imgs/company-logo.png"></ion-img>
+				
 			</ion-col>
 
 			<ion-col col-2>
@@ -110,7 +117,7 @@
 			</ion-col>
 
 			<ion-col col-8>
-				<button ion-button block (click)="presentAlert()" color="white">Safe and finish inspection</button>
+				<button ion-button block (click)="SubmitInspection()" color="white">Safe and finish inspection</button>
 
 			</ion-col>
 

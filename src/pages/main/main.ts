@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
+import { PassObservationPage} from '../pass-observation/pass-observation';
 import { WorkPage } from '../work/work';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
@@ -45,6 +46,7 @@ export class MainPage {
    console.log('ionViewDidLoad MainPage');
   }
 
+//profileLoad = function(){this.navCtrl.push(PassObservationPage); console.log('click');}  
 profileLoad = function(){this.navCtrl.push(ProfilePage)}
 previousLoad = function(){this.navCtrl.push(PreviousPage)}
 informationLoad = function(){this.navCtrl.push(InformationPage)}
