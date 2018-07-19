@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
-import { PassObservationPage} from '../pass-observation/pass-observation';
-import { InspectionRemarksPage } from '../inspection-remarks/inspection-remarks';
+//import { PassObservationPage} from '../pass-observation/pass-observation';
+//import { InspectionRemarksPage } from '../inspection-remarks/inspection-remarks';
 import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';

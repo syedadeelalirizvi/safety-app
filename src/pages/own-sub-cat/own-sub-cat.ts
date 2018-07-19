@@ -102,6 +102,7 @@ export class OwnSubCatPage {
 	manage(val : any) : void
 	{
 		console.dir(val);
+		console.log(val);
 		
 		// API call to add sub category
 		const headers =  new HttpHeaders()
@@ -113,7 +114,8 @@ export class OwnSubCatPage {
 		},
 		{headers:headers})
 		.subscribe(data => {
-			console.log(data);
+
+			console.log("subCategoryId>"+data.data.equipmentSubCategoryId);
 			console.log(val.questions[0]);
 			//API call to add questions under sub category
 			const req = this.httpClient.post(ENV.BASE_URL +'equipment-questions/subcategory/'+data.data.equipmentSubCategoryId+'/questions', {

@@ -8,6 +8,9 @@ import {SignaturePage} from '../signature/signature';
 import {InspectionRemarksPage} from '../inspection-remarks/inspection-remarks';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { constant as ENV } from '../../configs/constant';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 /**
  * Generated class for the PassObservationPage page.
@@ -25,8 +28,13 @@ export class PassObservationPage {
 
 	public signatureImage : any;
 	imageUpload: any;
-    base64Image: string;
-	
+	base64Image: string;
+	inspection_result:any;
+	observation=false;
+	safe=false;
+	critical=false;
+	description:any;
+	resultForm : FormGroup;
 	constructor(
 		public navCtrl: NavController, 
 		public actionSheetCtrl: ActionSheetController,
@@ -34,6 +42,8 @@ export class PassObservationPage {
 		private alertCtrl: AlertController,
 		public modalController:ModalController,
 		private storage: Storage,
+		private fb: FormBuilder, 
+		private httpClient: HttpClient,
 		private camera: Camera)	 
 	{
 		
@@ -52,10 +62,11 @@ export class PassObservationPage {
 		this.inspection_desc = navParams.get('inspection_desc');
 		this.equipment_image = navParams.get('equipment_image');
 		this.subCategoriesIds = JSON.parse(navParams.get('subCategories'));
-		if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
+		if(navParams.get('allQuestions')) this.allQuestions = navParams.get('allQuestions');
 		this.inspection_result = navParams.get('inspection_result');
 		this.signatureImage = navParams.get('signatureImage');
 		this.base64Image = navParams.get('equipment_image_last');
+		this.observation_desc = navParams.get('observation_desc');
 		
 		
 		//Pass values check
@@ -68,10 +79,15 @@ export class PassObservationPage {
 		console.log('allQuestions>' + this.allQuestions); 
 		console.log('inspection_result>' + this.inspection_result);
 		console.log('signatureImage>' + this.signatureImage);
+
+		this.resultForm = fb.group({
+			'description' : [null, Validators.compose([Validators.required])],
+		});
 		  
 	}
 
 	openSignatureModel(){
+		console.log(this.resultForm.value.description);
 		setTimeout(() => {
 			
 			let modal = this.modalController.create(SignaturePage, 	{
@@ -82,14 +98,70 @@ export class PassObservationPage {
 																		subCategories: JSON.stringify(this.subCategoriesIds), 
 																		allQuestions: JSON.stringify(this.allQuestions),
 																		inspection_result: this.inspection_result,
-																		equipment_image_last: this.base64Image
+																		equipment_image_last: this.base64Image,
+																		observation_desc: this.resultForm.value.description
 																	}); 
 			modal.present();
 		}, 300);
 	}	
 		
-	SubmitInspection() {
+	SubmitInspection(value:any):void
+	 {
+		if(this.inspection_result!='fail'){
+			this.description = value.description;
+		} 
+		else
+		this.description ="";
+		console.log(value.description);
+		this.subCategoriesIds = this.navParams.get('subCategories');
+		console.log(this.subCategoriesIds);
+		if(this.navParams.get('allQuestions')) this.allQuestions = JSON.parse(this.navParams.get('allQuestions'));
 		
+
+		const headers =  new HttpHeaders()
+		.set("user_id", this.userid.toString())
+		.set("access_token", this.token);
+		//user/{userid}/category/{id}/inspection
+		const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
+			equipmentInspectedImageUrl: this.equipment_image,
+			inspectionDescription : this.inspection_desc,
+			subCategory : JSON.parse(this.subCategoriesIds),
+			answers: JSON.parse(this.allQuestions)
+			// this.categoryId 
+			// this.categoryName 		
+			// this.inspection_desc 
+			// this.equipment_image 
+			// this.subCategoriesIds 
+			// if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
+			// this.inspection_result = navParams.get('inspection_result');
+			// this.signatureImage = navParams.get('signatureImage');
+			// this.base64Image = navParams.get('equipment_image_last');
+		},
+		{headers:headers})
+		.subscribe(data => {
+				 console.log(data.data.inspectionId);
+				//inspection/{id}/report
+				const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
+					reportType: this.inspection_result,
+					observationDescription : this.description,
+					signatureUrl : this.signatureImage,
+					mediaUrl: this.base64Image
+					// this.categoryId 
+					// this.categoryName 		
+					// this.inspection_desc 
+					// this.equipment_image 
+					// this.subCategoriesIds 
+					// if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
+					// this.inspection_result = navParams.get('inspection_result');
+					// this.signatureImage = navParams.get('signatureImage');
+					// this.base64Image = navParams.get('equipment_image_last');
+				},
+				{headers:headers})
+				.subscribe(dataNested => {
+						console.log(dataNested);
+				})
+				
+		})		
 		// All steps data available on this page
 		// Now do API call and create inspection via API 
 		// After success redirect user to inspection listing
@@ -141,7 +213,16 @@ export class PassObservationPage {
 	informationLoad = function(){this.navCtrl.push(InformationPage)}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PassObservationPage');
+	console.log('ionViewDidLoad PassObservationPage');
+	if(this.inspection_result=='observation'){
+		this.observation=true;
+	}
+	if(this.inspection_result=='safe'){
+		this.safe=true;
+	}
+	if(this.inspection_result=='critical'){
+		this.critical=true;
+	}
   }
 
   

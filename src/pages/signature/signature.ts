@@ -27,6 +27,7 @@ export class SignaturePage {
 		if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
 		this.inspection_result = navParams.get('inspection_result');
 		this.equipment_image_last = navParams.get('equipment_image_last');
+		this.observation_desc = navParams.get('observation_desc');
 		
 		this.signatureImage = '';
 		
@@ -54,7 +55,8 @@ export class SignaturePage {
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result,
-			equipment_image_last: this.equipment_image_last
+			equipment_image_last: this.equipment_image_last,
+			observation_desc: this.observation_desc
 		});
   }
 
@@ -69,7 +71,8 @@ export class SignaturePage {
 			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result,
 			signatureImage : this.signatureImage,
-			equipment_image_last: this.equipment_image_last
+			equipment_image_last: this.equipment_image_last,
+			observation_desc :this.observation_desc
 		});
 
   }

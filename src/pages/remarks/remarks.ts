@@ -110,7 +110,7 @@ export class RemarksPage {
 	{
 		console.log("Submit Form!");
 		console.log(value);
-		console.log(this.allQuestions);
+		console.log('wht is this value>'+this.allQuestions);
 		
 		this.navCtrl.push(InspectionRemarksPage, {
 			categoryId: this.categoryId,
@@ -173,6 +173,6 @@ export class RemarksPage {
 			}	
 		}
 		
-		console.log(this.allQuestions);
+		console.log('answerList>'+this.allQuestions);
     }
 }
