@@ -236,7 +236,7 @@ const headers = new HttpHeaders()
           buttons: ['Dismiss']
         });
        alert.present();
-       this.navCtrl.pop();
+       this.navCtrl.push(MainPage);
         // Initializing session information
         // this.storage.set('Session.user_name', res.data.userName);
         // this.storage.set('Session.user_id', res.data.userId);

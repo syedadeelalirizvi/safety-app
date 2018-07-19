@@ -71,7 +71,7 @@ export class SafetyPage {
 	goBack(){
 		this.navCtrl.push(WorkPage, {
 			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image
+			equipment_image: this.equipment_image
 		});
 	}
 	
