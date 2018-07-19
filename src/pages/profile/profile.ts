@@ -48,6 +48,7 @@ export class ProfilePage {
 	    token: string;
       action:string;
       pageName="profile";
+	  
       constructor(
 		public actionSheetCtrl: ActionSheetController,
 				private alertCtrl: AlertController, 

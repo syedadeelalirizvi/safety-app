@@ -5,7 +5,7 @@ import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { RemarksPage} from '../remarks/remarks';
 import { OwnSubCatPage} from '../own-sub-cat/own-sub-cat';
-
+import { SafetyPage } from '../safety/safety';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
@@ -20,132 +20,185 @@ import { AlertController } from 'ionic-angular';
   selector: 'page-safety-cat-info',
   templateUrl: 'safety-cat-info.html',
 })
+
 export class SafetyCatInfoPage {
-  categoryId : any;
-  categoryName : any;
-  inspection_desc: any;
-  equipment_image: any;
-  userid: any;
-  user: any;
-  token: string;
-  sub_category: any;
-  subCategories = [];
-  checkedList = [];
-  response :any;
-  subcategoryForm
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage) {
+	categoryId : any;
+	categoryName : any;
+	inspection_desc: any;
+	equipment_image: any;
+	userid: any;
+	user: any;
+	token: string;
+	sub_category: any;
+	subCategories = [];
+	checkedList = [];
+	filter: any;
+	allQuestions: any;
+	selectedAnswers: any;
+	response :any;
+	subcategoryForm: FormGroup;
   
-    this.categoryId = navParams.get('categoryId');
-    this.categoryName = navParams.get('category_name');
-    this.inspection_desc = navParams.get('inspectionDescription');
-    this.equipment_image = navParams.get('imageData');
-    storage.get('Session.access_token').then((val) => {
-         this.token = val;
-    });
-    storage.get('Session.user_id').then((val) => {
-        this.userid = val;
-    });
-    console.log(this.categoryId);
+	constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams, 
+		private httpClient: HttpClient,
+		private fb: FormBuilder, 
+		private storage: Storage) 
+	{
+		storage.get('Session.access_token').then((access_token) => {
+			this.token = access_token;
+		});
+		storage.get('Session.user_id').then((user_id) => {
+			this.userid = user_id;
+		});
+		
+		this.categoryId = navParams.get('categoryId');
+		this.categoryName = navParams.get('category_name');
+		this.inspection_desc = navParams.get('inspection_desc');
+		this.equipment_image = navParams.get('equipment_image');
+		if(navParams.get('subCategories')) this.checkedList = JSON.parse(navParams.get('subCategories'));
+		if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
+		
+		
+		//Pass values check
+		console.log('page> safety-cat-info.ts (3rd step)');
+		console.log('inspection_desc>' + this.inspection_desc);
+		console.log('equipment_image>' + this.equipment_image);
+		console.log('categoryId>' + this.categoryId);
+		console.log('category_name>' + this.categoryName);
+		console.log('checkedList>' , this.checkedList);
+		console.log('allQuestions>' , this.allQuestions);
+		
+		this.subcategoryForm = this.fb.group({});
+	}
+		
+	//Main Navigation links
+	profileLoad = function()
+	{
+		this.navCtrl.push(ProfilePage)
+	}
+  
+	previousLoad = function()
+	{
+		this.navCtrl.push(PreviousPage)
+	}
+  
+	informationLoad = function()
+	{
+		this.navCtrl.push(InformationPage)
+	}
+	
+	goBack(){
+		this.navCtrl.push(SafetyPage, {
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			categoryId: this.categoryId,
+			category_name: this.categoryName
+		});
+	}
+	
+	OwnCatLoad = function()
+	{
+		this.navCtrl.push(OwnSubCatPage, {
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			categoryId: this.categoryId,
+			category_name: this.categoryName
+		});
+	}
 
+	ionViewDidLoad() 
+	{
+		console.log('ionViewDidLoad');
+		this.storage.get("Session.access_token").then((access_token) => {
+			this.token = access_token;
+			console.log(this.token + this.userid);
+			const headers = new HttpHeaders()
+              .set("user_id", this.userid.toString())
+			  .set("access_token", this.token);
 
-    this.subcategoryForm = this.fb.group({
-      subcategories: this.fb.array([])
-    });
-  }
-     goBack(){
-    this.navCtrl.pop();
-  }
-profileLoad = function(){this.navCtrl.push(ProfilePage)}
-previousLoad = function(){this.navCtrl.push(PreviousPage)}
-informationLoad = function(){this.navCtrl.push(InformationPage)}
-//remarksLoad = function(){this.navCtrl.push(RemarksPage)}
-OwnCatLoad = function(){this.navCtrl.push(OwnSubCatPage)}
+			this.sub_category = this.httpClient.get(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory',{headers:headers});
+			this.sub_category
+			.subscribe(data => {
+				console.log("Length" + data.data.length);
+				console.log(data);
+				if(data.data && typeof data.data === 'object' && data.data.constructor === Array)
+				{	
+					for(var i = 0; i < data.data.length; i++) {
+						this.subCategories.push(
+						{
+							sub_category_id:data.data[i].equipmentSubCategoryId,
+							sub_category_name: data.data[i].equipmentSubCategoryName, 
+						});
+					}
+					this.subCategoriesCopy = Object.assign([], this.subCategories);
+				}
+			})
+		})
+		console.log(this.subCategories);
+		console.log('ionViewDidLoad SafetyCatInfoPage');
+	}
 
-  ionViewDidLoad() {
-    this.storage.get("Session.user_id").then((value1) => {
-          
-      this.userid = value1;
+	clickSelectBox(subcategory:any)
+	{
+		const foundAt = this.checkedList.indexOf(subcategory.sub_category_id);
+		if (foundAt >= 0) {
+			this.checkedList.splice(foundAt, 1);
+		} 
+		else 
+		{
+			this.checkedList.push(subcategory.sub_category_id);
+		}
+		console.log(this.checkedList);
+		console.log(JSON.stringify(this.checkedList));
+		
+	}
+	
+	list(value: any):void
+	{
+		console.log(value);
+		console.log(this.checkedList);
+		this.navCtrl.push(RemarksPage, {
+				categoryId: this.categoryId,
+				category_name: this.categoryName,
+				inspection_desc: this.inspection_desc,
+				equipment_image:this.equipment_image,
+				subCategories: JSON.stringify(this.checkedList),
+				allQuestions: JSON.stringify(this.allQuestions)
+		});
+	}
+	
+	filterSubCategories() : void
+	{
+		console.log('filterSubCategories>' + this.filter);
+	
+		let val : string 	= this.filter;
 
-      this.storage.get("Session.access_token").then((value2) => {
-    
-          this.token = value2;
-          console.log(this.token);
-          console.log(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory');
-          const headers = new HttpHeaders()
-              .set("user_id", this.userid.toString()).set("access_token", this.token);
-
-          this.sub_category = this.httpClient.get(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory',{headers:headers});
-          this.sub_category
-          .subscribe(data => {
-     
-              console.log(this.token);
-    
-              console.log('subcategory: ',data);
-              // this.categoryData = data.data;
-              for(var i = 0; i < data.data.length; i++) {
-                  //console.log(data.data[i].equipmentCategoryName);
-                  //this.inspectionDate = new Date(this.inspectionData[i].inspection.data.createdOn);
-                  this.subCategories.push(
-                  {
-                      sub_category_id:data.data[i].equipmentSubCategoryId,
-                      sub_category_name: data.data[i].equipmentSubCategoryName, 
-                     
-                  });
-       
-              }
-              // console.log('inspectionsData: ' ,this.inspections);
-          })
-      })
-  })
-    console.log('ionViewDidLoad SafetyCatInfoPage');
-  }
-
-  clickSelectBox(subcategory:any){
-    console.log(subcategory);
-     const foundAt = this.checkedList.indexOf(subcategory.sub_category_id);
-     console.log(foundAt);
-     if (foundAt >= 0) {
-        this.checkedList.splice(foundAt, 1);
-     } else {
-        this.checkedList.push(subcategory.sub_category_id);
-    }
-    console.log(this.checkedList);
-
-}
-list(value: any):void{
-  console.log('Next clicked');
-  console.log(this.checkedList);
-  console.log(this.inspection_desc+" "+this.equipment_image);
-
-  const headers =  new HttpHeaders()
-  .set("user_id", this.userid.toString()).set("access_token", this.token);
- // http://clients3.5stardesigners.net/safetyapp/api/web/v1/user-inspections/user/16/category/50/inspection
-  const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
-     equipmentInspectedImageUrl: this.equipment_image,
-     inspectionDescription :this.inspection_desc,
-     subCategory: this.checkedList
-      //newPassword: value.newPassword
-  },
-  {headers:headers})
-  .subscribe(data => {
-      console.log("Going");
-      console.log(data);
-	  
-      this.navCtrl.push(RemarksPage, {
-        // inspectionDescription: this.inspection_desc,
-        // imageData:this.equipment_image
-        data:data
-      });
-    },
-    err => {
-      this.response = true;
-      console.log("Error occurred");
-      console.log(err);
-
-    }
- );
-
-}
-
+		//set default every time
+		this.subCategories = this.subCategoriesCopy
+		
+		if (val.trim() == '')
+		{
+			this.subCategories = this.subCategoriesCopy; 
+		}
+		else
+		{
+			this.subCategories = this.subCategories.filter((item) =>
+			{
+				return item.sub_category_name.toLowerCase().indexOf(val.toLowerCase()) > -1;
+			})
+		}  
+	}
+	
+	check(subcat_id : any)
+	{
+		let result : any;
+		result = this.checkedList.indexOf(subcat_id);
+		if (result !== -1)
+		{
+			return true;
+		}	
+		return false;	
+	}
 
 }

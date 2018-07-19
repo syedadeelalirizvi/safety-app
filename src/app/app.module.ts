@@ -7,7 +7,7 @@ import { Camera } from '@ionic-native/camera';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-
+import { SignaturePage } from '../pages/signature/signature';
 import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { HomePage } from '../pages/home/home';
 import { FailDuePage } from '../pages/fail-due/fail-due';
@@ -31,6 +31,7 @@ import { SetpasswordPage } from '../pages/setpassword/setpassword';
 import { SignupPage } from '../pages/signup/signup';
 import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 // mocking services for testing
 class CameraMock extends Camera {
@@ -67,6 +68,7 @@ class CameraMock extends Camera {
     SafetyCatInfoPage,
     SetpasswordPage,
     SignupPage,
+	SignaturePage,
     VerificationPage,
     WorkPage
 	
@@ -74,6 +76,7 @@ class CameraMock extends Camera {
   imports: [
     BrowserModule,
 	HttpClientModule,
+	SignaturePadModule,
 	IonicStorageModule.forRoot({
       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -84,6 +87,7 @@ class CameraMock extends Camera {
   entryComponents: [
     MyApp,
     ChangepasswordPage,
+	SignaturePage,
     HomePage,
     MainPage,
     ModalPage,

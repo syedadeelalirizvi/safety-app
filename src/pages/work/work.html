@@ -1,108 +1,84 @@
-<!--
-  Generated template for the WorkPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-	 <ion-navbar hideBackButton color="lightgreen" >
-    <ion-title class="text-center" color="white">Work Equipment Inspections</ion-title>
-    <ion-buttons start class="back-btn">
-            <button (click)="goBack()">
-                <ion-icon name="md-arrow-back" color="white"></ion-icon>
-            </button>
-        </ion-buttons>
-
-
-
-  </ion-navbar>
-  <ion-navbar>
-    <!-- <div justify-content-center class="divnavbutton"> -->
-    <ion-grid>
-      <ion-row nowrap align-items-center justify-content-center class="header-home ion-col-pad-set">
-        <ion-col col-4>
-          <button ion-button color="light" class="navbutton" (click)="profileLoad()" small text-wrap>Profile Information</button>
-        </ion-col>
-        <ion-col col-4>
-          <button ion-button color="light" class="navbutton" (click)="informationLoad()" small text-wrap>Information</button>
-        </ion-col>
-        <ion-col col-4>
-          <button ion-button color="light" class="navbutton" (click)="previousLoad()" small text-wrap> Previous Inspections</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <!-- </div> -->
-  </ion-navbar>
+	<ion-navbar hideBackButton color="lightgreen" >
+		<ion-title class="text-center" color="white">Work Equipment Inspections</ion-title>
+		<ion-buttons start class="back-btn">
+			<button (click)="goBack()">
+					<ion-icon name="md-arrow-back" color="white"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+	<ion-navbar>
+		<ion-grid>
+			<ion-row nowrap align-items-center justify-content-center class="header-home ion-col-pad-set">
+				<ion-col col-4>
+					<button ion-button color="light" class="navbutton" (click)="profileLoad()" small text-wrap>Profile Information</button>
+				</ion-col>
+				<ion-col col-4>
+					<button ion-button color="light" class="navbutton" (click)="informationLoad()" small text-wrap>Information</button>
+				</ion-col>
+				<ion-col col-4>
+					<button ion-button color="light" class="navbutton" (click)="previousLoad()" small text-wrap> Previous Inspections</button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-navbar>
 </ion-header>
 <ion-content padding class="bg-none">
-  <ion-grid>
-      <form [formGroup]="inspectionForm" (ngSubmit)="create(inspectionForm.value)">
-    <ion-row>
-    	<ion-col col-1>
-    	</ion-col>
-      <ion-col col-10>
-        <div text-wrap class="text-center text-wrap">Add description or I.D number of the work equipment you are about to inspect.</div>
-      </ion-col>
-      <ion-col col-1>
-      </ion-col>
-    
-    <ion-col col-1>
-    </ion-col>
-      <ion-col col-10>
-      	<ion-textarea #msgInput rows="1" [formControl]="inspectionForm.controls['description']" maxLength="500" placeholder="Add Description"></ion-textarea>
-        <!-- <ion-textarea> Click below and complete a pre-use inspection for your work equipment. </ion-textarea> -->
-      </ion-col>
-      <ion-col col-1>
-      </ion-col>
-     
-      <ion-col col-1>
-        </ion-col>
-        <ion-col col-10 class="error-box" *ngIf="inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched">
-          <div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
-        </ion-col>
-        <!-- <ion-col col-10 class="error-box" *ngIf=!("inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched)">
-            <div text-wrap class="text-center text-wrap"></div>
-          </ion-col> -->
-        <ion-col col-1>
-        </ion-col>
-        
-      <ion-col col-1>
-        </ion-col>
-        <ion-col col-10>
-          <div text-wrap class="text-center text-wrap"> * Maximun characters allowed: 500!</div>
-        </ion-col>
-        <ion-col col-1>
-        </ion-col>
-      <ion-col col-1>
-    	</ion-col>
-      <ion-col col-10>
-        <div text-wrap class="text-center text-wrap">Add photo of the work equipment you are about to inspect.</div>
-      </ion-col>
-      <ion-col col-1>
-      </ion-col>
-      
-
-      <ion-col col-3>
-    	</ion-col>
-      <ion-col col-6>
-          <ion-label class="text-center">Equipment Image</ion-label>
-          <div text-center><img *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> </div> 
-          <ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="presentActionSheet()"></ion-img>
-          <!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button>
-          <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGallery()">Open Gallery</button>	 -->
-            
-      </ion-col>
-      <ion-col col-3>
-      </ion-col>
-    
-          <ion-col col-1>
-      </ion-col>
-      <ion-col class="inspection-new text-center">
-        <button ion-button type="submit" full [disabled]="!inspectionForm.valid" color="light" class="inspect-btn"  full text-wrap>Next</button>
-      </ion-col>
-            <ion-col col-1>
-      </ion-col>
-    </ion-row>
-    </form>
-  </ion-grid>
+	<ion-grid>
+		<form [formGroup]="inspectionForm" (ngSubmit)="create(inspectionForm.value)">
+			<ion-row text-center>
+				<ion-col col-10>
+					<div text-wrap class="text-center text-wrap">
+						Add description or I.D number of the work equipment you are about to inspect.
+					</div>
+				</ion-col>
+			</ion-row>
+			<ion-row text-center>	
+				<ion-col col-10>
+					<ion-textarea 
+						[(ngModel)]="inspection_desc" 
+						name="inspection_desc" 
+						autocomplete="on" 
+						autocorrect="on" 
+						#msgInput 
+						rows="1" 
+						[formControl]="inspectionForm.controls['description']" 
+						maxLength="500" 
+						placeholder="Add Description"></ion-textarea>
+				</ion-col>
+				<ion-col col-10 
+					class="error-box" 
+					*ngIf="inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched">
+					<div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
+				</ion-col>
+				<ion-col col-10>
+					<div text-wrap class="text-center text-wrap"> * Maximun characters allowed: 500!</div>
+				</ion-col>
+			</ion-row>
+			<ion-row text-center>	
+				<ion-col col-10>
+					<div text-wrap class="text-center text-wrap">Add photo of the work equipment you are about to inspect.</div>
+				</ion-col>
+				<ion-col col-6>
+					<ion-label class="text-center">Equipment Image</ion-label>
+					<div text-center>
+						<img *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> 
+					</div> 
+					<ion-img 
+						*ngIf="imageUpload == false" 
+						class="profile-img" 
+						width="100%" height="80" 
+						src="../assets/imgs/company-logo.png" 
+						(click)="presentActionSheet()"></ion-img>           
+				</ion-col>
+			</ion-row>
+			<ion-row text-center>
+				<ion-col class="inspection-new text-center">
+					<button ion-button type="submit" full [disabled]="!inspectionForm.valid" color="light" class="inspect-btn"  full text-wrap>
+						Next
+					</button>
+				</ion-col>
+			</ion-row>
+		</form>
+	</ion-grid>
 </ion-content>
