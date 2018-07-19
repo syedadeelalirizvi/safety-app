@@ -21,6 +21,7 @@ page-main {
     -moz-box-shadow: 0 2px 4px 2px #272c66;
     box-shadow: 0 2px 4px 2px #272c66;
     font-size: .88em;
+    text-transform: none;
   }
   .bg-none {
     background: none;
@@ -60,11 +61,13 @@ page-main {
     box-shadow: 0 2px 5px  #2c4b7a;
     padding: 1.2em 2em;
     font-weight: 500;
+    text-transform: none;
   }
   .log-out {
     color: #ffffff;
     background-color: transparent;
     border:2px solid #ffffff;
+    text-transform: none;
     //position: absolute;
     //right: 30vw;
     //top: 20vh;

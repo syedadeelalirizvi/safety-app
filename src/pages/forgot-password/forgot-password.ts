@@ -61,20 +61,20 @@ export class ForgotPasswordPage {
                   this.response = true;
                   console.log("Error occurred");
                   console.log('message',err.error.error.message);
-                //    if(err.error.error.message=='This email address does not exist.'){
-                //   let alert = this.alertCtrl.create({
-                //     title: 'Success',
-                //     subTitle: 'This email address does not exist!',
-                //     buttons: ['Dismiss']
-                //   });
-                //  alert.present();
-                // }
+                   if(err.error.error.message=='This email address does not exist.'){
+                  let alert = this.alertCtrl.create({
+                    title: 'Success',
+                    subTitle: 'This email address does not exist!',
+                    buttons: ['Dismiss']
+                  });
+                 alert.present();
+                }
                 // this.navCtrl.pop();
-                //else{
+                else{
                   this.navCtrl.push(VerificationPage, {
                     userEmail: value.email
                   });
-               // }
+                }
                 }
               );
     }

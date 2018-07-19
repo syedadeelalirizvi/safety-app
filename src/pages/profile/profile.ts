@@ -77,7 +77,7 @@ export class ProfilePage {
        this.profileForm = fb.group({
               'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'department' : [],
-              'nameOfReceiveReport' : [null, Validators.compose([Validators.required ])],
+              'nameOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z._-\\s]{2,}') ])],
               'emailOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'company' : [],
               'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
@@ -213,7 +213,7 @@ export class ProfilePage {
 		
 const headers = new HttpHeaders()
             .set("user_id", this.userid.toString()).set("access_token", this.token);
-            console.log(this.base64ImageProfile);
+            console.log("profile>"+this.base64ImageProfile);
 		  
      const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
       userEmail: value.email,
