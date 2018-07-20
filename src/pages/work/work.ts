@@ -22,7 +22,7 @@ import { AlertController,ModalController } from 'ionic-angular';
 
 export class WorkPage {
 	imageUpload= false;
-	base64Image: string;
+	base64Image: string = '';
 	response: any;
 	token: string;
 	userid :any;
@@ -48,12 +48,17 @@ export class WorkPage {
 		});
 
 		// setting values on next & previous actions
-		this.inspection_desc = this.navParams.get('inspection_desc');    
-		this.base64Image = (this.navParams.get('equipment_image')) ? this.navParams.get('equipment_image') : '';
+		this.inspection_desc = this.navParams.get('inspection_desc');
+		if(this.navParams.get('equipment_image'))
+		{
+			this.base64Image = this.navParams.get('equipment_image');
+			this.imageUpload = true;
+		}		
+		
 		//Pass values check
-		console.log('page> work.ts');
+		console.log('page> work.ts', this.navParams.get('equipment_imasdasdasdage'));
 		console.log('inspection_desc>' + this.inspection_desc);
-		console.log('equipment_image>' + this.equipment_image);
+		console.log('equipment_image>' + this.base64Image);
 
 		this.inspectionForm = fb.group({
 			'description' : [null, Validators.compose([Validators.required])],
@@ -155,7 +160,7 @@ export class WorkPage {
 	{
 		this.navCtrl.push(SafetyPage, {
 			inspection_desc: value.description,
-			equipment_image:this.base64Image
+			equipment_image: this.base64Image
 		});
 	}
 

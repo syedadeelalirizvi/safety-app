@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ModalController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
+import { MainPage } from '../main/main';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { AlertController } from 'ionic-angular';
@@ -34,7 +35,17 @@ export class PassObservationPage {
 	safe=false;
 	critical=false;
 	description:any;
+	token: any;
+	userid: any;
+	categoryId: any;
+	categoryName: any;
+	inspection_desc: any;
+	equipment_image: any;
+	observation_desc: any;
+	allQuestions: any;
+	subCategoriesIds: any;
 	resultForm : FormGroup;
+	
 	constructor(
 		public navCtrl: NavController, 
 		public actionSheetCtrl: ActionSheetController,
@@ -159,6 +170,14 @@ export class PassObservationPage {
 				{headers:headers})
 				.subscribe(dataNested => {
 						console.log(dataNested);
+							
+						let alert = this.alertCtrl.create({
+							//title: 'Low battery',
+							subTitle: 'Your Report Has Been Sent Successfully',
+							buttons: ['Dismiss']
+						  });
+						  alert.present();
+						this.navCtrl.push(MainPage);
 				})
 				
 		})		
@@ -182,12 +201,7 @@ export class PassObservationPage {
 		
 		
 		
-	  let alert = this.alertCtrl.create({
-		//title: 'Low battery',
-		subTitle: 'Your Report Has Been Sent Successfully',
-		buttons: ['Dismiss']
-	  });
-	  alert.present();
+	  
 	}
 
 
