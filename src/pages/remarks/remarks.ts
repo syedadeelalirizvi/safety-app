@@ -25,7 +25,7 @@ export class RemarksPage {
     subdata: any = {};
     userid: any;
     inspectionQuestions = [];
-    allQuestions = [];
+	allQuestions = [];
     categories:any;
     subcategories:any;
     questions:any;
@@ -39,7 +39,11 @@ export class RemarksPage {
     checkedList = [];
     response :any;
 	myform: FormGroup;
-	
+	inspection_desc:any;
+	equipment_image:any;
+	inspection_result: any;
+	subCategoriesIds:any;
+	collections:any;
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 

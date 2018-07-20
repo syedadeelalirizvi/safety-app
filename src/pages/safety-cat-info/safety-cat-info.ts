@@ -36,7 +36,9 @@ export class SafetyCatInfoPage {
 	allQuestions: any;
 	selectedAnswers: any;
 	response :any;
+	subCategoriesCopy = [];
 	subcategoryForm: FormGroup;
+	
   
 	constructor(
 		public navCtrl: NavController, 

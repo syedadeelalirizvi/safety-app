@@ -31,9 +31,15 @@ import { RemarksPage} from '../remarks/remarks';
   templateUrl: 'inspection-remarks.html',
 })
 export class InspectionRemarksPage {
-
+	userid:any;
+	token:string;
+	categoryId:any;
+	categoryName:any;
+	inspection_desc:any;
+	equipment_image:any;
 	inspection_result: any;
-
+	subCategoriesIds:any;
+	allQuestions:any;
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 

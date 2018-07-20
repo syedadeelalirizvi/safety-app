@@ -16,7 +16,15 @@ import { constant as ENV } from '../../configs/constant';
 })
 
 export class OwnSubCatPage {
-
+	userid :any;
+	token :string;
+	categoryId :any;
+	categoryName :any;
+	inspection_desc :any;
+	equipment_image :any;
+	inspection_result : any;
+	subCategoriesIds :any;
+	allQuestions :any;
 	public form 	: FormGroup;
  
     constructor(

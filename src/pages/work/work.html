@@ -27,14 +27,14 @@
 	<ion-grid>
 		<form [formGroup]="inspectionForm" (ngSubmit)="create(inspectionForm.value)">
 			<ion-row text-center>
-				<ion-col col-10>
-					<div text-wrap class="text-center text-wrap">
+				<ion-col col-12>
+					<div text-wrap class="text-center text-wrap top-set-desc">
 						Add description or I.D number of the work equipment you are about to inspect.
 					</div>
 				</ion-col>
 			</ion-row>
 			<ion-row text-center>	
-				<ion-col col-10>
+				<ion-col col-12>
 					<ion-textarea 
 						[(ngModel)]="inspection_desc" 
 						name="inspection_desc" 
@@ -46,31 +46,33 @@
 						maxLength="500" 
 						placeholder="Add Description"></ion-textarea>
 				</ion-col>
-				<ion-col col-10 
+				<ion-col col-12 
 					class="error-box" 
 					*ngIf="inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched">
 					<div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
 				</ion-col>
-				<ion-col col-10>
+				<ion-col col-12>
 					<div text-wrap class="text-center text-wrap"> * Maximun characters allowed: 500!</div>
 				</ion-col>
 			</ion-row>
 			<ion-row text-center>	
-				<ion-col col-10>
+				<ion-col col-12>
 					<div text-wrap class="text-center text-wrap">Add photo of the work equipment you are about to inspect.</div>
 				</ion-col>
-				<ion-col col-6>
-					<ion-label class="text-center">Equipment Image</ion-label>
-					<div text-center>
-						<img *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> 
-					</div> 
-					<ion-img 
-						*ngIf="imageUpload == false" 
-						class="profile-img" 
-						width="100%" height="80" 
-						src="../assets/imgs/company-logo.png" 
-						(click)="presentActionSheet()"></ion-img>           
-				</ion-col>
+				<div class="align-center">
+					<ion-col col-6>
+						<ion-label class="text-center">Equipment Image</ion-label>
+						<div text-center>
+							<img *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> 
+						</div> 
+						<ion-img 
+							*ngIf="imageUpload == false" 
+							class="profile-img" 
+							width="100%" height="80" 
+							src="../assets/imgs/company-logo.png" 
+							(click)="presentActionSheet()"></ion-img>           
+					</ion-col>
+				</div>
 			</ion-row>
 			<ion-row text-center>
 				<ion-col class="inspection-new text-center">

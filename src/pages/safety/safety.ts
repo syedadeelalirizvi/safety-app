@@ -27,7 +27,8 @@ export class SafetyPage {
     token: any;
     category: any;
 	filter: any;
-    categories = [];
+	categories = [];
+	categoriesCopy = [];
     
 	constructor(
 		private alertCtrl: AlertController, 

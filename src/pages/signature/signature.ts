@@ -9,6 +9,17 @@ import { PassObservationPage} from '../pass-observation/pass-observation';
   templateUrl: 'signature.html',
 })
 export class SignaturePage {
+
+	categoryId : any;
+	categoryName : any;
+	inspection_desc:any;
+	equipment_image:any;
+	inspection_result: any;
+	subCategoriesIds:any;
+	allQuestions = [];
+	equipment_image_last : any;
+	observation_desc : any;
+
   @ViewChild(SignaturePad) public signaturePad : SignaturePad;
 
   public signaturePadOptions : Object = {

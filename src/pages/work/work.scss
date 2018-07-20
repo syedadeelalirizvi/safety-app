@@ -5,6 +5,9 @@ page-work {
   ion-row.header-home.row {
     text-align: center;
   }
+  .text-center.text-wrap.top-set-desc {
+    margin-top: 15%; 
+  }
   .toolbar-background-ios, .toolbar-background-md {
     background: none;
   }
@@ -22,6 +25,9 @@ page-work {
   }
   .bg-none {
     background: none;
+  }
+  textarea.text-input.text-input-md {
+    padding: 10px
   }
   .main-title {
     width: 100%;
@@ -60,6 +66,21 @@ page-work {
     font-weight: 500;
     text-transform: none;
   }
+  .align-center {
+    margin: 0 auto;
+    align-items: center;
+    align-content: center;
+}
+.align-center ion-img {
+  background: transparent;
+} 
+.align-center img {
+  border-radius: 5px;
+  background: transparent;
+  border-color: transparent;
+  height: 80px;
+}
+
   .log-out {
     color: #ffffff;
     background-color: transparent;
