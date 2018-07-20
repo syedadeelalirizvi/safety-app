@@ -24,8 +24,7 @@ export class RemarksPage {
     categoryName : any;
     subdata: any = {};
     userid: any;
-    inspectionQuestions = [];
-	allQuestions = [];
+	allQuestions: any;
     categories:any;
     subcategories:any;
     questions:any;
@@ -132,7 +131,7 @@ export class RemarksPage {
 	{
 		//  this.subdata = navParams.get('data');
 		if(!this.navParams.get('allQuestions'))
-		{	
+		{	 
 			this.storage.get("Session.user_id").then((user_id) => 
 			{
 				this.userid = user_id;
@@ -151,11 +150,11 @@ export class RemarksPage {
 						this.allQuestions = collection_data.data;
 						console.log(this.allQuestions);
 					}
-				},
+				}),
 				err => {				
 					console.log("Error occurred");
 					console.log(err);
-				})
+				}
 			})
 		}
 		console.log('ionViewDidLoad RemarksPage');
@@ -163,16 +162,17 @@ export class RemarksPage {
 	
     answerList(questions:any, value:any)
 	{
+		console.log("answerList");
         console.log(value);
         console.log(questions);
 		
-		for (let i = 0; i < this.allQuestions.subcategories.length; i++)
+		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++)
 		{
-			for (let j = 0; j < this.allQuestions.subcategories[i].questions.length; j++)
+			for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++)
 			{
-				if(this.allQuestions.subcategories[i].questions[j].questionId == questions.questionId)
+				if(this.allQuestions.userSubCategories[i].questions[j].questionId == questions.questionId)
 				{
-					this.allQuestions.subcategories[i].questions[j]['answer'] = value;
+					this.allQuestions.userSubCategories[i].questions[j]['answer'] = value;
 				}	//break;
 			}	
 		}

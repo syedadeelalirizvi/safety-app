@@ -63,16 +63,25 @@ export class LiftingPage {
                 
                 this.user = this.httpClient.get(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/inspection/'+this.inspectionId,{headers:headers});
                 this.user
-                .subscribe(data => {
-                
+                .subscribe((data:any) => {
+					    console.log("Response Data");
+						console.log(data);	
                       this.inspection_id=data.inspection.data.inspectionId;
                       this.category_name=data.category.data.equipmentCategoryName; 
                       this.inspection_description= data.inspection.data.inspectionDescription;
                       this.inspection_date= new Date(data.inspection.data.createdOn);
                       this.equipment_image_url = data.inspection.data.equipmentInspectedImageUrl;
-                      this.reportType = data.inspection.report.reportType;
-                      this.signatureUrl = data.inspection.report.signatureUrl;
-
+                      
+						if (data.inspection.report !== null)
+						{  
+							this.reportType = data.inspection.report.reportType;
+							this.signatureUrl = data.inspection.report.signatureUrl;
+						}
+						else
+						{
+							this.reportType = null;
+							this.signatureUrl = null;
+						}	
                       if(data.inspection.data.inspectionStatus=="Completed" || data.inspection.data.inspectionStatus=="Incomplete"){
                           this.signed = false;
                       }

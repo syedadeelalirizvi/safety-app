@@ -149,7 +149,7 @@ export class PassObservationPage {
 			// this.base64Image = navParams.get('equipment_image_last');
 		},
 		{headers:headers})
-		.subscribe(data => {
+		.subscribe((data:any) => {
 				 console.log(data.data.inspectionId);
 				//inspection/{id}/report
 				const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
@@ -157,18 +157,9 @@ export class PassObservationPage {
 					observationDescription : this.description,
 					signatureUrl : this.signatureImage,
 					mediaUrl: this.base64Image
-					// this.categoryId 
-					// this.categoryName 		
-					// this.inspection_desc 
-					// this.equipment_image 
-					// this.subCategoriesIds 
-					// if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
-					// this.inspection_result = navParams.get('inspection_result');
-					// this.signatureImage = navParams.get('signatureImage');
-					// this.base64Image = navParams.get('equipment_image_last');
 				},
 				{headers:headers})
-				.subscribe(dataNested => {
+				.subscribe((dataNested:any) => {
 						console.log(dataNested);
 							
 						let alert = this.alertCtrl.create({
@@ -178,30 +169,17 @@ export class PassObservationPage {
 						  });
 						  alert.present();
 						this.navCtrl.push(MainPage);
+				},
+				err => {				
+					console.log("Error occurred - 2nd Step");
+					console.log(err);
 				})
 				
+		},
+		err => {				
+			console.log("Error occurred - 1st step");
+			console.log(err);
 		})		
-		// All steps data available on this page
-		// Now do API call and create inspection via API 
-		// After success redirect user to inspection listing
-		// Nousheen you will work on this (here)
-		// all data below
-		
-		/*
-		this.categoryId = navParams.get('categoryId');
-		this.categoryName = navParams.get('category_name');
-		this.inspection_desc = navParams.get('inspection_desc');
-		this.equipment_image = navParams.get('equipment_image');
-		this.subCategoriesIds = JSON.parse(navParams.get('subCategories'));
-		if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
-		this.inspection_result = navParams.get('inspection_result');
-		this.signatureImage = navParams.get('signatureImage');
-		this.base64Image = navParams.get('equipment_image_last');
-		*/
-		
-		
-		
-	  
 	}
 
 

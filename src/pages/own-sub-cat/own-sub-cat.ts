@@ -107,9 +107,9 @@ export class OwnSubCatPage {
 		}); 
 	}
 	
+
 	manage(val : any) : void
 	{
-		console.dir(val);
 		console.log(val);
 		
 		// API call to add sub category
@@ -121,16 +121,17 @@ export class OwnSubCatPage {
 			equipmentSubCategoryName: val.name
 		},
 		{headers:headers})
-		.subscribe(data => {
+		//.map((data: HttpResponse) => data)
+		.subscribe((data:any) => {
 
 			console.log("subCategoryId>"+data.data.equipmentSubCategoryId);
 			console.log(val.questions[0]);
 			//API call to add questions under sub category
-			const req = this.httpClient.post(ENV.BASE_URL +'equipment-questions/subcategory/'+data.data.equipmentSubCategoryId+'/questions', {
+			const req = this.httpClient.post<any>(ENV.BASE_URL +'equipment-questions/subcategory/'+data.data.equipmentSubCategoryId+'/questions', {
 			questions: val.questions // Need to refactor API to get response as array 
 			},
 			{headers:headers})
-			.subscribe(dataNested => {
+			.subscribe((dataNested:any) => {
 				console.log(dataNested);
 				// all done redirect to main page
 				this.navCtrl.push(SafetyCatInfoPage, {
