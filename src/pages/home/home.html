@@ -1,6 +1,6 @@
 <ion-header>
 </ion-header>
-<ion-content padding class="bg-none">
+<ion-content padding class="bg-none" scrollable="false">
 	<ion-grid>
 		<ion-row>
 			<ion-col>
@@ -8,7 +8,7 @@
 			</ion-col>
 		</ion-row>
 		<ion-row>
-			<ion-col>	
+			<ion-col>
 				<div class="error-box-main" *ngIf="this.response">
 					Login failed; Invalid email or password
 				</div>
@@ -40,8 +40,8 @@
 					<br/>
 					<div class="lg-new text-center">
 						<button ion-button type="submit" full [disabled]="!authForm.valid" color="light" class="lgbtn">Log In</button>
-					</div>					
-				</form>	
+					</div>
+				</form>
 				<p text-center><a (click)="forgotPasswordLoad()">Forgot Password</a></p>
 			</ion-col>
 		</ion-row>
