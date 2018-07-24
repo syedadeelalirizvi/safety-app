@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import { AlertController, ModalController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class SetpasswordPage {
 		setPasswordForm : FormGroup;
 		response: any;
 		email:any;
-		constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+		constructor(private alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
 				this.email = navParams.get('userEmail');
 				this.response = false;
 				this.setPasswordForm = fb.group({
@@ -41,6 +42,12 @@ export class SetpasswordPage {
 							.subscribe(
 								res => {
 									console.log(res);
+									let alert = this.alertCtrl.create({
+										title: 'Success',
+										subTitle: 'Password Updated Successfully!',
+										buttons: ['OK']
+									  });
+									 alert.present();
 									this.navCtrl.push(HomePage);
 								},
 								err => {

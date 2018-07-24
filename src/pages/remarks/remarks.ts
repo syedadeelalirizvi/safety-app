@@ -24,7 +24,7 @@ export class RemarksPage {
     categoryName : any;
     subdata: any = {};
     userid: any;
-	allQuestions: any;
+	allQuestions:any;
     categories:any;
     subcategories:any;
     questions:any;
@@ -50,6 +50,7 @@ export class RemarksPage {
 		private fb: FormBuilder, 
 		private storage: Storage) 
 	{
+		this.allQuestions = [];
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -72,7 +73,7 @@ export class RemarksPage {
 		console.log('categoryId>' + this.categoryId);
 		console.log('category_name>' + this.categoryName);
 		console.log('subCategoriesIds>' + this.subCategoriesIds);
-		console.log('allQuestions>' + this.allQuestions);
+		console.log('allQuestions>' +  this.allQuestions);
       
 		//this.myform = this.fb.group({ });
     }

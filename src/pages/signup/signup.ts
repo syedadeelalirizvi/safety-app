@@ -116,8 +116,8 @@ export class SignupPage {
 				console.log(res);
 				let alert = this.alertCtrl.create({
 						title: 'Success',
-						subTitle: 'Your account registered!',
-						buttons: ['Dismiss']
+						subTitle: 'Your account has been registered!',
+						buttons: ['OK']
 					});
 				 alert.present();
 				this.navCtrl.pop();

@@ -63,9 +63,9 @@ export class ForgotPasswordPage {
                   console.log('message',err.error.error.message);
                    if(err.error.error.message=='This email address does not exist.'){
                   let alert = this.alertCtrl.create({
-                    title: 'Success',
+                    title: 'Invalid Email Address',
                     subTitle: 'This email address does not exist!',
-                    buttons: ['Dismiss']
+                    buttons: ['OK']
                   });
                  alert.present();
                 }

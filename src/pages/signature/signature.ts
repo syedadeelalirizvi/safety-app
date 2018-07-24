@@ -79,7 +79,7 @@ export class SignaturePage {
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image,
 			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions),
+			allQuestions: JSON.parse(JSON.stringify(this.allQuestions)),
 			inspection_result: this.inspection_result,
 			signatureImage : this.signatureImage,
 			equipment_image_last: this.equipment_image_last,

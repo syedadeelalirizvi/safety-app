@@ -123,22 +123,27 @@ export class PassObservationPage {
 		} 
 		else
 		this.description ="";
+
 		console.log(value.description);
 		this.subCategoriesIds = this.navParams.get('subCategories');
 		console.log(this.subCategoriesIds);
-		if(this.navParams.get('allQuestions')) this.allQuestions = JSON.parse(this.navParams.get('allQuestions'));
+		if(this.navParams.get('allQuestions')) this.allQuestions = this.navParams.get('allQuestions');
+		console.log("questions>"+this.allQuestions);
 		
 
 		const headers =  new HttpHeaders()
 		.set("user_id", this.userid.toString())
 		.set("access_token", this.token);
+		// .set("Content-Type","application/json")
+		// .set("Accept","application/json");
 		//user/{userid}/category/{id}/inspection
+		 
 		const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
 			equipmentInspectedImageUrl: this.equipment_image,
 			inspectionDescription : this.inspection_desc,
 			subCategory : JSON.parse(this.subCategoriesIds),
 			answers: JSON.parse(this.allQuestions)
-			// this.categoryId 
+						// this.categoryId 
 			// this.categoryName 		
 			// this.inspection_desc 
 			// this.equipment_image 
@@ -150,8 +155,8 @@ export class PassObservationPage {
 		},
 		{headers:headers})
 		.subscribe((data:any) => {
-				 console.log(data.data.inspectionId);
-				//inspection/{id}/report
+				console.log(data.data.inspectionId);
+			//	inspection/{id}/report
 				const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
 					reportType: this.inspection_result,
 					observationDescription : this.description,
@@ -165,7 +170,7 @@ export class PassObservationPage {
 						let alert = this.alertCtrl.create({
 							//title: 'Low battery',
 							subTitle: 'Your Report Has Been Sent Successfully',
-							buttons: ['Dismiss']
+							buttons: ['OK']
 						  });
 						  alert.present();
 						this.navCtrl.push(MainPage);

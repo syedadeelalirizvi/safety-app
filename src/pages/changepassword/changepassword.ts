@@ -71,7 +71,7 @@ export class ChangepasswordPage {
                   let alert = this.alertCtrl.create({
                     title: 'Success',
                     subTitle: 'Password Updated Successfully!',
-                    buttons: ['Dismiss']
+                    buttons: ['OK']
                   });
                  alert.present();
         
