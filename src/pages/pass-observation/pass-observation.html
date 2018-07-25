@@ -69,7 +69,7 @@
 							autocomplete="on" 
 							autocorrect="on" 
 							#msgInput 
-							rows="1" 
+							rows="10" 
 							[formControl]="resultForm.controls['description']" 
 							maxLength="500" 
 							placeholder="Observation Description">
@@ -139,7 +139,7 @@
 
 			<ion-col col-8>
 					<!-- (click)="SubmitInspection()" -->
-				<button  ion-button block type="submit" color="white">Save and finish inspection</button>
+				<button  ion-button block type="submit" id="create-inspection-submit" color="white">Save and finish inspection</button>
 
 			</ion-col>
 

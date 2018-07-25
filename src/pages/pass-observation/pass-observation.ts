@@ -118,6 +118,11 @@ export class PassObservationPage {
 		
 	SubmitInspection(value:any):void
 	 {
+		
+		document.getElementById("create-inspection-submit").disabled = true;
+		document.getElementById("create-inspection-submit").innerHTML = "Please wait..";
+		
+		 
 		if(this.inspection_result!='fail'){
 			this.description = value.description;
 		} 
@@ -143,15 +148,6 @@ export class PassObservationPage {
 			inspectionDescription : this.inspection_desc,
 			subCategory : JSON.parse(this.subCategoriesIds),
 			answers: JSON.parse(this.allQuestions)
-						// this.categoryId 
-			// this.categoryName 		
-			// this.inspection_desc 
-			// this.equipment_image 
-			// this.subCategoriesIds 
-			// if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
-			// this.inspection_result = navParams.get('inspection_result');
-			// this.signatureImage = navParams.get('signatureImage');
-			// this.base64Image = navParams.get('equipment_image_last');
 		},
 		{headers:headers})
 		.subscribe((data:any) => {
@@ -166,22 +162,26 @@ export class PassObservationPage {
 				{headers:headers})
 				.subscribe((dataNested:any) => {
 						console.log(dataNested);
-							
+						this.navCtrl.push(MainPage);	
 						let alert = this.alertCtrl.create({
-							//title: 'Low battery',
+							title: 'Inspection created',
 							subTitle: 'Your Report Has Been Sent Successfully',
 							buttons: ['OK']
 						  });
 						  alert.present();
 						this.navCtrl.push(MainPage);
 				},
-				err => {				
+				err => {
+					document.getElementById("create-inspection-submit").disabled = false;
+					document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";	
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
-		err => {				
+		err => {
+			document.getElementById("create-inspection-submit").disabled = false;
+			document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";		
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		
