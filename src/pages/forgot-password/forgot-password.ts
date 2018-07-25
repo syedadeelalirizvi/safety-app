@@ -20,6 +20,7 @@ import { AlertController } from 'ionic-angular';
 export class ForgotPasswordPage {
     forgotPasswordForm : FormGroup;
     response: any;
+	
 
     constructor(private alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         this.response = false;
@@ -41,8 +42,11 @@ export class ForgotPasswordPage {
     }
   
     requestPass(value: any):void{
+		document.getElementById("forgot-password-submit").disabled = true;
+		document.getElementById("forgot-password-submit").innerHTML = "Please wait..";
+
         console.log('Forgot Pass clicked');
-        console.log(value.email);
+        console.log(value);
         console.log('Form submitted!')
         console.log(value.email);
         const req = this.httpClient.post(ENV.BASE_URL +'users/app/reset-password-request', {
@@ -60,22 +64,9 @@ export class ForgotPasswordPage {
                 err => {
                   this.response = true;
                   console.log("Error occurred");
-                  console.log('message',err.error.error.message);
-                   if(err.error.error.message=='This email address does not exist.'){
-                  let alert = this.alertCtrl.create({
-                    title: 'Invalid Email Address',
-                    subTitle: 'This email address does not exist!',
-                    buttons: ['OK']
-                  });
-                 alert.present();
-                }
-                // this.navCtrl.pop();
-                else{
-                  this.navCtrl.push(VerificationPage, {
-                    userEmail: value.email
-                  });
-                }
-                }
-              );
+				document.getElementById("forgot-password-submit").disabled = false;
+				document.getElementById("forgot-password-submit").innerHTML = "Reset password";
+	
+				});
     }
 }

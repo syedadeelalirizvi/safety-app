@@ -95,6 +95,9 @@ export class SignupPage {
 	}
   
 	signUp(value: any):void {
+		document.getElementById("signup-submit").disabled = true;
+		document.getElementById("signup-submit").innerHTML = "Please wait..";
+
 		console.log('signup clicked');
         console.log(value.email);
         const headers = new HttpHeaders({
@@ -115,7 +118,7 @@ export class SignupPage {
 			res => {
 				console.log(res);
 				let alert = this.alertCtrl.create({
-						title: 'Success',
+						title: 'Please login',
 						subTitle: 'Your account has been registered!',
 						buttons: ['OK']
 					});
@@ -124,6 +127,8 @@ export class SignupPage {
 			},
 			err => {
 				this.response = true;
+				document.getElementById("signup-submit").disabled = false;
+				document.getElementById("signup-submit").innerHTML = "Register now";
 				console.log("Error occurred");
 				console.log(err);
 			}

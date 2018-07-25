@@ -1,6 +1,3 @@
-
-
- 
 <ion-header>
     <ion-navbar hideBackButton color="lightgreen" >
         <ion-title class="text-center" color="white">Code Verification</ion-title>
@@ -26,12 +23,12 @@
   <ion-row>
   <ion-col>
     	<div class="error-box-main" *ngIf="this.response">
-					Login failed; Invalid email or password
+					Invalid security code
 				</div>
       <form [formGroup]="verifyCodeForm" (ngSubmit)="verifyCode(verifyCodeForm.value)">
   <ion-row>
  <ion-col>
-        <div class="main-subheading" text-wrap> Forgot Password
+        <div class="main-subheading" text-wrap> Prove Your Identity
         	<p>Enter your verification code.</p>
         </div>
       </ion-col>
@@ -59,7 +56,7 @@
 
 <ion-col col-10>
 <div class="lg-new text-center">
- <button type="submit" full [disabled]="!verifyCodeForm.valid" ion-button block color="light" class="lgbtn">Verify Code</button>
+ <button type="submit" id="account-verification-submit" full [disabled]="!verifyCodeForm.valid" ion-button block color="light" class="lgbtn">Verify code</button>
  </div>
  </ion-col>
  <ion-col col-1></ion-col>

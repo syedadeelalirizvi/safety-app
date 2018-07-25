@@ -30,6 +30,9 @@ export class SetpasswordPage {
 	
 		}
 		setPassword(value: any):void{
+				document.getElementById("setpassword-submit").disabled = true;
+				document.getElementById("setpassword-submit").innerHTML = "Please wait..";
+
 				console.log(value.password);
 				console.log('Forgot Pass clicked');
 				console.log(this.email);
@@ -43,15 +46,24 @@ export class SetpasswordPage {
 								res => {
 									console.log(res);
 									let alert = this.alertCtrl.create({
-										title: 'Success',
-										subTitle: 'Password Updated Successfully!',
+										title: 'Please login',
+										subTitle: 'Password reset successfully!',
 										buttons: ['OK']
 									  });
 									 alert.present();
 									this.navCtrl.push(HomePage);
 								},
 								err => {
+									document.getElementById("setpassword-submit").disabled = false;
+									document.getElementById("setpassword-submit").innerHTML = "Reset password";
+
 									this.response = true;
+									let alert = this.alertCtrl.create({
+										title: 'Some error occurred',
+										subTitle: 'Please try again later.',
+										buttons: ['OK']
+									  });
+									 alert.present();
 									console.log("Error occurred");
 									console.log(err);
 									//this.navCtrl.push(VerificationPage)
