@@ -4,7 +4,7 @@ import { PassSafePage } from './pass-safe';
 
 @NgModule({
   declarations: [
-    PassSafePage,
+    //PassSafePage,
   ],
   imports: [
     IonicPageModule.forChild(PassSafePage),

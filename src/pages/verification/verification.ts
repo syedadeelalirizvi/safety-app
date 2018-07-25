@@ -39,8 +39,8 @@ export class VerificationPage {
       this.navCtrl.pop();
     }
     verifyCode(value: any):void{
-		document.getElementById("account-verification-submit").disabled = true;
-		document.getElementById("account-verification-submit").innerHTML = "Please wait..";
+		(<HTMLInputElement> document.getElementById("account-verification-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("account-verification-submit")).innerHTML = "Please wait..";
 
         console.log('Forgot Pass clicked');
         console.log(this.email);
@@ -58,8 +58,8 @@ export class VerificationPage {
               });
                 },
                 err => {
-					document.getElementById("account-verification-submit").disabled = false;
-					document.getElementById("account-verification-submit").innerHTML = "Verify code";
+					(<HTMLInputElement> document.getElementById("account-verification-submit")).disabled = false;
+					(<HTMLInputElement> document.getElementById("account-verification-submit")).innerHTML = "Verify code";
 
                   this.response = true;
                   console.log("Error occurred");

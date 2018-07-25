@@ -30,8 +30,8 @@ export class SetpasswordPage {
 	
 		}
 		setPassword(value: any):void{
-				document.getElementById("setpassword-submit").disabled = true;
-				document.getElementById("setpassword-submit").innerHTML = "Please wait..";
+				(<HTMLInputElement> document.getElementById("setpassword-submit")).disabled = true;
+				(<HTMLInputElement> document.getElementById("setpassword-submit")).innerHTML = "Please wait..";
 
 				console.log(value.password);
 				console.log('Forgot Pass clicked');
@@ -55,8 +55,8 @@ export class SetpasswordPage {
 									
 								},
 								err => {
-									document.getElementById("setpassword-submit").disabled = false;
-									document.getElementById("setpassword-submit").innerHTML = "Reset password";
+									(<HTMLInputElement> document.getElementById("setpassword-submit")).disabled = false;
+									(<HTMLInputElement> document.getElementById("setpassword-submit")).innerHTML = "Reset password";
 
 									this.response = true;
 									let alert = this.alertCtrl.create({

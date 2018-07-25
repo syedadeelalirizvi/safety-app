@@ -4,7 +4,7 @@ import { RemarksPage } from './remarks';
 
 @NgModule({
   declarations: [
-    RemarksPage,
+    //RemarksPage,
   ],
   imports: [
     IonicPageModule.forChild(RemarksPage),

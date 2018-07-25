@@ -42,8 +42,9 @@ export class ChangepasswordPage {
     }
     
     changePassword(value: any):void{
-		document.getElementById("changepassword-submit").disabled = true;
-		document.getElementById("changepassword-submit").innerHTML = "Please wait..";
+		
+		(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Please wait..";
 
         console.log(value.oldPassword);
         console.log(value.oldPassword);
@@ -81,8 +82,8 @@ export class ChangepasswordPage {
     
                 },
                 err => {
-					document.getElementById("changepassword-submit").disabled = false;
-					document.getElementById("changepassword-submit").innerHTML = "Reset new password";
+					(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = false;
+					(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Reset new password";
 	
                   this.response = true;
                   console.log("Error occurred");

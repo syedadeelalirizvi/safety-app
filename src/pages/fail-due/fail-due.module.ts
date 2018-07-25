@@ -4,7 +4,7 @@ import { FailDuePage } from './fail-due';
 
 @NgModule({
   declarations: [
-    FailDuePage,
+    //FailDuePage,
   ],
   imports: [
     IonicPageModule.forChild(FailDuePage),

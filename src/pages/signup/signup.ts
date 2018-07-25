@@ -95,8 +95,8 @@ export class SignupPage {
 	}
   
 	signUp(value: any):void {
-		document.getElementById("signup-submit").disabled = true;
-		document.getElementById("signup-submit").innerHTML = "Please wait..";
+		(<HTMLInputElement> document.getElementById("signup-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("signup-submit")).innerHTML = "Please wait..";
 
 		console.log('signup clicked');
         console.log(value.email);
@@ -128,8 +128,8 @@ export class SignupPage {
 			},
 			err => {
 				this.response = true;
-				document.getElementById("signup-submit").disabled = false;
-				document.getElementById("signup-submit").innerHTML = "Register now";
+				(<HTMLInputElement> document.getElementById("signup-submit")).disabled = false;
+				(<HTMLInputElement> document.getElementById("signup-submit")).innerHTML = "Register now";
 				console.log("Error occurred");
 				console.log(err);
 			}

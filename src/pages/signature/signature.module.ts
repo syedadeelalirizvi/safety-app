@@ -4,7 +4,7 @@ import { SignaturePage } from './signature';
 
 @NgModule({
   declarations: [
-    SignaturePage,
+    //SignaturePage,
   ],
   imports: [
     IonicPageModule.forChild(SignaturePage),

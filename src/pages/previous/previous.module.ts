@@ -4,7 +4,7 @@ import { PreviousPage } from './previous';
 
 @NgModule({
   declarations: [
-    PreviousPage,
+    //PreviousPage,
   ],
   imports: [
     IonicPageModule.forChild(PreviousPage),

@@ -44,8 +44,8 @@ export class HomePage {
 	signupLoad(){this.navCtrl.push(SignupPage)}
 
 	submitForm(value: any):void{
-		document.getElementById("login-submit").disabled = true;
-		document.getElementById("login-submit").innerHTML = "Please wait..";
+		(<HTMLInputElement> document.getElementById("login-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("login-submit")).innerHTML = "Please wait..";
 
 		console.log('Form submitted!')
 		console.log(value.email);
@@ -67,8 +67,8 @@ export class HomePage {
 						},
 						err => {
 							this.response = true;
-							document.getElementById("login-submit").disabled = false;
-							document.getElementById("login-submit").innerHTML = "Log in";
+							(<HTMLInputElement> document.getElementById("login-submit")).disabled = false;
+							(<HTMLInputElement> document.getElementById("login-submit")).innerHTML = "Log in";
 
 							console.log("Error occurred");
 							console.log(err);

@@ -4,7 +4,7 @@ import { OwnCatPage } from './own-cat';
 
 @NgModule({
   declarations: [
-    OwnCatPage,
+    //OwnCatPage,
   ],
   imports: [
     IonicPageModule.forChild(OwnCatPage),

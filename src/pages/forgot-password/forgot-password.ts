@@ -42,8 +42,8 @@ export class ForgotPasswordPage {
     }
   
     requestPass(value: any):void{
-		document.getElementById("forgot-password-submit").disabled = true;
-		document.getElementById("forgot-password-submit").innerHTML = "Please wait..";
+		(<HTMLInputElement> document.getElementById("forgot-password-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("forgot-password-submit")).innerHTML = "Please wait..";
 
         console.log('Forgot Pass clicked');
         console.log(value);
@@ -64,8 +64,8 @@ export class ForgotPasswordPage {
                 err => {
                   this.response = true;
                   console.log("Error occurred");
-				document.getElementById("forgot-password-submit").disabled = false;
-				document.getElementById("forgot-password-submit").innerHTML = "Reset password";
+				(<HTMLInputElement> document.getElementById("forgot-password-submit")).disabled = false;
+				(<HTMLInputElement> document.getElementById("forgot-password-submit")).innerHTML = "Reset password";
 	
 				});
     }

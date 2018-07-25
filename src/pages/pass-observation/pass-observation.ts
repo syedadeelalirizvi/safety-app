@@ -118,9 +118,6 @@ export class PassObservationPage {
 		
 	SubmitInspection(value:any):void
 	 {
-		document.getElementsByName("create-inspection-submit").disabled = true;
-		document.getElementsByName("create-inspection-submit").innerHTML = "Please wait..";
-		
 		 
 		if(this.inspection_result!='fail'){
 			this.description = value.description;
@@ -171,16 +168,14 @@ export class PassObservationPage {
 						this.navCtrl.push(MainPage);
 				},
 				err => {
-					document.getElementsByName("create-inspection-submit").disabled = false;
-					document.getElementsByName("create-inspection-submit").innerHTML = "Save and finish inspection";	
+					
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
 		err => {
-			document.getElementsByName("create-inspection-submit").disabled = false;
-			document.getElementsByName("create-inspection-submit").innerHTML = "Save and finish inspection";		
+			
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		

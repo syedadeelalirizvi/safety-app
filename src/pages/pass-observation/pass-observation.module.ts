@@ -4,7 +4,7 @@ import { PassObservationPage } from './pass-observation';
 
 @NgModule({
   declarations: [
-    PassObservationPage,
+    //PassObservationPage,
   ],
   imports: [
     IonicPageModule.forChild(PassObservationPage),
