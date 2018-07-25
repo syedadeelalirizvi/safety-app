@@ -4,7 +4,7 @@ import { SetpasswordPage } from './setpassword';
 
 @NgModule({
   declarations: [
-    SetpasswordPage,
+    //SetpasswordPage,
   ],
   imports: [
     IonicPageModule.forChild(SetpasswordPage),

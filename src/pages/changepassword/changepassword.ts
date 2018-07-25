@@ -42,6 +42,10 @@ export class ChangepasswordPage {
     }
     
     changePassword(value: any):void{
+		
+		(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Please wait..";
+
         console.log(value.oldPassword);
         console.log(value.oldPassword);
         console.log(value.oldPassword);
@@ -68,16 +72,19 @@ export class ChangepasswordPage {
               .subscribe(
                 res => {
                   console.log(res);
+				  this.navCtrl.push(ProfilePage);
                   let alert = this.alertCtrl.create({
                     title: 'Success',
                     subTitle: 'Password Updated Successfully!',
-                    buttons: ['Dismiss']
+                    buttons: ['OK']
                   });
                  alert.present();
-        
-                  this.navCtrl.push(ProfilePage)
+    
                 },
                 err => {
+					(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = false;
+					(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Reset new password";
+	
                   this.response = true;
                   console.log("Error occurred");
                   console.log(err);

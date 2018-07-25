@@ -4,7 +4,7 @@ import { SafetyPage } from './safety';
 
 @NgModule({
   declarations: [
-    SafetyPage,
+    //SafetyPage,
   ],
   imports: [
     IonicPageModule.forChild(SafetyPage),

@@ -4,7 +4,7 @@ import { VerificationPage } from './verification';
 
 @NgModule({
   declarations: [
-    VerificationPage,
+    //VerificationPage,
   ],
   imports: [
     IonicPageModule.forChild(VerificationPage),

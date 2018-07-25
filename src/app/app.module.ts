@@ -34,15 +34,12 @@ import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
-// mocking services for testing
-import { CameraMock } from "./camera.mock";
-// mocking services end
-
-
 @NgModule({
   declarations: [
     MyApp,
 	HomePage,
+	SignaturePage,
+	SignupPage,
     ChangepasswordPage,
     HomePage,
     MainPage,
@@ -62,7 +59,6 @@ import { CameraMock } from "./camera.mock";
     SafetyPage,
     SafetyCatInfoPage,
     SetpasswordPage,
-    SignupPage,
 	SignaturePage,
     VerificationPage,
     WorkPage
@@ -108,9 +104,8 @@ import { CameraMock } from "./camera.mock";
   providers: [
     StatusBar,
     SplashScreen,
-    Keyboard
-	//Camera,
-	{ provide: Camera, useClass: CameraMock },
+    Keyboard,
+  	Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

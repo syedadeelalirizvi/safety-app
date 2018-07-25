@@ -27,7 +27,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 })
 export class PassObservationPage {
 
-	public signatureImage : any;
+	public signatureImage : any = '';
 	imageUpload: any;
 	base64Image: string;
 	inspection_result:any;
@@ -118,40 +118,37 @@ export class PassObservationPage {
 		
 	SubmitInspection(value:any):void
 	 {
+		 
 		if(this.inspection_result!='fail'){
 			this.description = value.description;
 		} 
 		else
 		this.description ="";
+
 		console.log(value.description);
 		this.subCategoriesIds = this.navParams.get('subCategories');
 		console.log(this.subCategoriesIds);
-		if(this.navParams.get('allQuestions')) this.allQuestions = JSON.parse(this.navParams.get('allQuestions'));
+		if(this.navParams.get('allQuestions')) this.allQuestions = this.navParams.get('allQuestions');
+		console.log("questions>"+this.allQuestions);
 		
 
 		const headers =  new HttpHeaders()
 		.set("user_id", this.userid.toString())
 		.set("access_token", this.token);
+		// .set("Content-Type","application/json")
+		// .set("Accept","application/json");
 		//user/{userid}/category/{id}/inspection
+		 
 		const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
 			equipmentInspectedImageUrl: this.equipment_image,
 			inspectionDescription : this.inspection_desc,
 			subCategory : JSON.parse(this.subCategoriesIds),
 			answers: JSON.parse(this.allQuestions)
-			// this.categoryId 
-			// this.categoryName 		
-			// this.inspection_desc 
-			// this.equipment_image 
-			// this.subCategoriesIds 
-			// if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
-			// this.inspection_result = navParams.get('inspection_result');
-			// this.signatureImage = navParams.get('signatureImage');
-			// this.base64Image = navParams.get('equipment_image_last');
 		},
 		{headers:headers})
 		.subscribe((data:any) => {
-				 console.log(data.data.inspectionId);
-				//inspection/{id}/report
+				console.log(data.data.inspectionId);
+			//	inspection/{id}/report
 				const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
 					reportType: this.inspection_result,
 					observationDescription : this.description,
@@ -161,22 +158,24 @@ export class PassObservationPage {
 				{headers:headers})
 				.subscribe((dataNested:any) => {
 						console.log(dataNested);
-							
+						this.navCtrl.push(MainPage);	
 						let alert = this.alertCtrl.create({
-							//title: 'Low battery',
+							title: 'Inspection created',
 							subTitle: 'Your Report Has Been Sent Successfully',
-							buttons: ['Dismiss']
+							buttons: ['OK']
 						  });
 						  alert.present();
 						this.navCtrl.push(MainPage);
 				},
-				err => {				
+				err => {
+					
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
-		err => {				
+		err => {
+			
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		

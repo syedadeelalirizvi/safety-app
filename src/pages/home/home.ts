@@ -46,6 +46,9 @@ export class HomePage {
 	signupLoad(){this.navCtrl.push(SignupPage)}
 
 	submitForm(value: any):void{
+		(<HTMLInputElement> document.getElementById("login-submit")).disabled = true;
+		(<HTMLInputElement> document.getElementById("login-submit")).innerHTML = "Please wait..";
+
 		console.log('Form submitted!')
 		console.log(value.email);
 		const req = this.httpClient.post(ENV.BASE_URL + 'users/app/login', {
@@ -66,6 +69,9 @@ export class HomePage {
 						},
 						err => {
 							this.response = true;
+							(<HTMLInputElement> document.getElementById("login-submit")).disabled = false;
+							(<HTMLInputElement> document.getElementById("login-submit")).innerHTML = "Log in";
+
 							console.log("Error occurred");
 							console.log(err);
 						}

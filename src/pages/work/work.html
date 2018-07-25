@@ -41,7 +41,7 @@
 						autocomplete="on" 
 						autocorrect="on" 
 						#msgInput 
-						rows="1" 
+						rows="10" 
 						[formControl]="inspectionForm.controls['description']" 
 						maxLength="500" 
 						placeholder="Add Description"></ion-textarea>
@@ -63,20 +63,24 @@
 					<ion-col col-6>
 						<ion-label class="text-center">Equipment Image</ion-label>
 						<div text-center>
-							<img *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> 
+							<img  *ngIf="imageUpload == true" [src]="base64Image" (click)="presentActionSheet()" /> 
 						</div> 
 						<ion-img 
 							*ngIf="imageUpload == false" 
 							class="profile-img" 
 							width="100%" height="80" 
 							src="../assets/imgs/company-logo.png" 
+							
 							(click)="presentActionSheet()"></ion-img>           
+					</ion-col>
+					<ion-col *ngIf="this.base64Image == ''" col-12 class="error-box" >
+						<div text-wrap class="text-center text-wrap"> * Equipment image is required</div>
 					</ion-col>
 				</div>
 			</ion-row>
 			<ion-row text-center>
 				<ion-col class="inspection-new text-center">
-					<button ion-button type="submit" full [disabled]="!inspectionForm.valid" color="light" class="inspect-btn"  full text-wrap>
+					<button ion-button type="submit" full [disabled]="!inspectionForm.valid || this.base64Image == ''" color="light" class="inspect-btn"  full text-wrap>
 						Next
 					</button>
 				</ion-col>

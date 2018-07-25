@@ -4,7 +4,7 @@ import { SafetyCatInfoPage } from './safety-cat-info';
 
 @NgModule({
   declarations: [
-    SafetyCatInfoPage,
+    //SafetyCatInfoPage,
   ],
   imports: [
     IonicPageModule.forChild(SafetyCatInfoPage),

@@ -4,7 +4,7 @@ import { InspectionRemarksPage } from './inspection-remarks';
 
 @NgModule({
   declarations: [
-    InspectionRemarksPage,
+    //InspectionRemarksPage,
   ],
   imports: [
     IonicPageModule.forChild(InspectionRemarksPage),

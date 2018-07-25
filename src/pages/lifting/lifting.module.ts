@@ -4,7 +4,7 @@ import { LiftingPage } from './lifting';
 
 @NgModule({
   declarations: [
-    LiftingPage,
+    //LiftingPage,
   ],
   imports: [
     IonicPageModule.forChild(LiftingPage),

@@ -62,7 +62,10 @@ export class WorkPage {
 
 		this.inspectionForm = fb.group({
 			'description' : [null, Validators.compose([Validators.required])],
+			//'equipment_image' : [null, Validators.compose([Validators.required])],
 		});
+		
+		
 	}
 
 	//Main Navigation links
