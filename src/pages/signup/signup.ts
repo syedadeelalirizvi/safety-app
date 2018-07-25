@@ -117,13 +117,14 @@ export class SignupPage {
 		.subscribe(
 			res => {
 				console.log(res);
+				this.navCtrl.pop();
 				let alert = this.alertCtrl.create({
 						title: 'Please login',
 						subTitle: 'Your account has been registered!',
 						buttons: ['OK']
 					});
 				 alert.present();
-				this.navCtrl.pop();
+				
 			},
 			err => {
 				this.response = true;

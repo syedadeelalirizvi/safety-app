@@ -45,13 +45,14 @@ export class SetpasswordPage {
 							.subscribe(
 								res => {
 									console.log(res);
+									this.navCtrl.push(HomePage);
 									let alert = this.alertCtrl.create({
 										title: 'Please login',
 										subTitle: 'Password reset successfully!',
 										buttons: ['OK']
 									  });
 									 alert.present();
-									this.navCtrl.push(HomePage);
+									
 								},
 								err => {
 									document.getElementById("setpassword-submit").disabled = false;
