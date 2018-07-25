@@ -27,7 +27,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 })
 export class PassObservationPage {
 
-	public signatureImage : any;
+	public signatureImage : any = '';
 	imageUpload: any;
 	base64Image: string;
 	inspection_result:any;
@@ -118,9 +118,8 @@ export class PassObservationPage {
 		
 	SubmitInspection(value:any):void
 	 {
-		
-		document.getElementById("create-inspection-submit").disabled = true;
-		document.getElementById("create-inspection-submit").innerHTML = "Please wait..";
+		document.getElementsByName("create-inspection-submit").disabled = true;
+		document.getElementsByName("create-inspection-submit").innerHTML = "Please wait..";
 		
 		 
 		if(this.inspection_result!='fail'){
@@ -172,16 +171,16 @@ export class PassObservationPage {
 						this.navCtrl.push(MainPage);
 				},
 				err => {
-					document.getElementById("create-inspection-submit").disabled = false;
-					document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";	
+					document.getElementsByName("create-inspection-submit").disabled = false;
+					document.getElementsByName("create-inspection-submit").innerHTML = "Save and finish inspection";	
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
 		err => {
-			document.getElementById("create-inspection-submit").disabled = false;
-			document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";		
+			document.getElementsByName("create-inspection-submit").disabled = false;
+			document.getElementsByName("create-inspection-submit").innerHTML = "Save and finish inspection";		
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		
