@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-
+import { Keyboard } from '@ionic-native/keyboard';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -21,7 +21,7 @@ export class HomePage {
 	response: any;
 	//res.data:any;
 	
-	constructor(public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+	constructor(private keyboard: Keyboard,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 		// Test API call (https://ionicacademy.com/http-calls-ionic/)
 		// for form validations (https://kamleshcode.com/form-validation-ionic3/)
 		/*
@@ -37,6 +37,8 @@ export class HomePage {
 		  'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
 		  'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
+    
+    	keyboard.disableScroll(true)
 	}
 
 	//load(){}

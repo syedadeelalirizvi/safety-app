@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -21,7 +21,7 @@ export class SignupPage {
 	imageUpload: any;
 	base64Image: string;
 
-	constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
+	constructor(private keyboard: Keyboard,private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
 		this.base64Image = '';
 		this.imageUpload = false;
 		this.response = false;
@@ -35,6 +35,7 @@ export class SignupPage {
 			'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
 			'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
+    keyboard.disableScroll(true);
 	}
 	
 	
