@@ -143,5 +143,45 @@ export class SafetyPage {
 			})
 		}  
 	}
+	delete(value:string) {
+		let alert = this.alertCtrl.create({
+			title: 'Confirm delete category',
+			message: 'Are you sure you want to permanently delete this category alongwith its data?',
+			buttons: [
+				{
+					text: 'No',
+					handler: () => {
+						console.log('Cancel clicked');
+					}
+				},
+				{
+					text: 'Yes',
+					handler: () => {
+						console.log('Delete clicked '+value+" "+this.userid);
+						const headers = new HttpHeaders()
+						.set("user_id", this.userid.toString())
+						.set("access_token", this.token);
+
+		this.category = this.httpClient.delete(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category/'+value,{headers:headers});
+		this.category.subscribe(data => 
+		{
+			console.log(data);
+			this.navCtrl.push(SafetyPage, {
+			
+				inspection_desc: this.inspection_desc,
+				equipment_image:this.equipment_image
+			}); 
+		}),
+		err => {				
+			console.log("Error occurred");
+			console.log(err);
+		}
+
+					}
+				}
+			]
+		});
+		alert.present();
+	  }
 
 }

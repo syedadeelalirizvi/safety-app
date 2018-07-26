@@ -131,8 +131,8 @@ export class RemarksPage {
     ionViewDidLoad() 
 	{
 		//  this.subdata = navParams.get('data');
-		if(!this.navParams.get('allQuestions'))
-		{	 
+		// if(!this.navParams.get('allQuestions'))
+		// {	 
 			this.storage.get("Session.user_id").then((user_id) => 
 			{
 				this.userid = user_id;
@@ -157,7 +157,7 @@ export class RemarksPage {
 					console.log(err);
 				}
 			})
-		}
+		//}
 		console.log('ionViewDidLoad RemarksPage');
     }
 	

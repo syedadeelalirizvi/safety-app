@@ -49,7 +49,9 @@
 				<ion-icon name="md-create" class="penicon"></ion-icon>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon name="md-close-circle" class="penicon"></ion-icon>
+				<button  (click)="delete(category.category_id)">
+					<ion-icon name="md-close-circle" class="penicon"></ion-icon>
+				</button>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
