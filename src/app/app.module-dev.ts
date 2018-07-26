@@ -33,7 +33,7 @@ import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
-// mocking services for testing
+// m0ocking services for testing
 class CameraMock extends Camera {
   getPicture(options) {
     return new Promise((resolve, reject) => {
@@ -44,10 +44,13 @@ class CameraMock extends Camera {
 // mocking services end
 
 
+
 @NgModule({
   declarations: [
     MyApp,
 	HomePage,
+	SignaturePage,
+	SignupPage,
     ChangepasswordPage,
     HomePage,
     MainPage,
@@ -67,7 +70,6 @@ class CameraMock extends Camera {
     SafetyPage,
     SafetyCatInfoPage,
     SetpasswordPage,
-    SignupPage,
 	SignaturePage,
     VerificationPage,
     WorkPage
@@ -113,8 +115,8 @@ class CameraMock extends Camera {
   providers: [
     StatusBar,
     SplashScreen,
-	//Camera,
-	{ provide: Camera, useClass: CameraMock },
+//	Camera,
+    { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
