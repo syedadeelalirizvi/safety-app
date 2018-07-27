@@ -119,10 +119,14 @@ export class WorkPage {
 		console.log('openCamera');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 100,
+			quality: 50,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
-			mediaType: this.camera.MediaType.PICTURE
+			mediaType: this.camera.MediaType.PICTURE,
+			targetWidth: 150,
+			targetHeight: 100,
+			saveToPhotoAlbum: false,
+			allowEdit : false
 		}
 			
 		this.camera.getPicture(options).then((imageData) => {
@@ -141,11 +145,15 @@ export class WorkPage {
 		console.log('openGallery');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 100,
+			quality: 50,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE,
-			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+			targetWidth: 150,
+			targetHeight: 100,
+			saveToPhotoAlbum: false,
+			allowEdit : false
 		}
 			this.camera.getPicture(options).then((imageData) => {
 			// imageData is either a base64 encoded string or a file URI

@@ -43,10 +43,14 @@ export class SignupPage {
 		console.log('openCamera');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 100,
+			quality: 50,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
-			mediaType: this.camera.MediaType.PICTURE
+			mediaType: this.camera.MediaType.PICTURE,
+			targetWidth: 150,
+			targetHeight: 100,
+			saveToPhotoAlbum: false,
+			allowEdit : false
 		}
 		
 		this.camera.getPicture(options).then((imageData) => {
@@ -64,11 +68,15 @@ export class SignupPage {
 		console.log('openGallery');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 100,
+			quality: 50,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE,
-			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+			targetWidth: 150,
+			targetHeight: 100,
+			saveToPhotoAlbum: false,
+			allowEdit : false
 		}
 		
 		this.camera.getPicture(options).then((imageData) => {
