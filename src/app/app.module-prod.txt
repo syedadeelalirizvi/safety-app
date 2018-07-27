@@ -37,6 +37,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
   declarations: [
     MyApp,
 	HomePage,
+	SignaturePage,
+	SignupPage,
     ChangepasswordPage,
     HomePage,
     MainPage,
@@ -56,7 +58,6 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     SafetyPage,
     SafetyCatInfoPage,
     SetpasswordPage,
-    SignupPage,
 	SignaturePage,
     VerificationPage,
     WorkPage
@@ -103,7 +104,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     StatusBar,
     SplashScreen,
 	Camera,
-	//{ provide: Camera, useClass: CameraMock },
+    //{ provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
