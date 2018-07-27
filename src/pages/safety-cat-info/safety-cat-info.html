@@ -54,10 +54,14 @@
 						</ion-col>
 			
 						<ion-col col-1>
-							<ion-icon name="md-create" class="penicon"></ion-icon>
+							<button  type ="button" (click)="editSubCategory(subcategory)">
+								<ion-icon name="md-create" class="penicon"></ion-icon>
+							</button>
 						</ion-col>
 						<ion-col col-1>
-							<ion-icon name="md-close-circle" class="penicon"></ion-icon>
+								<button  type ="button" (click)="deleteSubCat(subcategory.sub_category_id)">
+									<ion-icon name="md-close-circle" class="penicon"></ion-icon>
+								</button>
 						</ion-col>
 					
 					</div>
