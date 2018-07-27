@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { HomePage } from '../pages/home/home';
+import firebase from "firebase";
+import { firebaseSettings } from "../configs/constant";
 @Component({
   templateUrl: 'app.html'
 })
@@ -18,6 +20,7 @@ export class MyApp {
       splashScreen.show();
       keyboard.disableScroll(true);
     });
+  firebase.initializeApp(firebaseSettings);
   }
 }
 
