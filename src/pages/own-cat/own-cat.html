@@ -23,7 +23,7 @@
 		</ion-grid>
 	</ion-navbar>
 </ion-header>
-<ion-content padding class="bg-none">
+<ion-content padding class="bg-none" *ngIf="!this.editCat">
 	<ion-grid>
 		<form [formGroup]="categoryForm" (ngSubmit)="create(categoryForm.value)">
 			<ion-row class="safety-div">	
@@ -49,3 +49,29 @@
 		</form>
 	</ion-grid>
 </ion-content>
+<ion-content padding class="bg-none" *ngIf="this.editCat">
+		<ion-grid>
+			<form [formGroup]="categoryForm" (ngSubmit)="edit(categoryForm.value)">
+				<ion-row class="safety-div">	
+					<ion-col col-12>
+						<ion-label  color="lightgreen">EDIT CATEGORY</ion-label>
+					</ion-col>
+					<ion-col col-12>
+						<ion-input type="text" [value] ="this.category.category_name" [formControl]="categoryForm.controls['name']" ></ion-input>
+					</ion-col>
+					<br/>
+					<div class="error-box" *ngIf="categoryForm.controls['name'].hasError('required') && categoryForm.controls['name'].touched">
+						* Category Name is required!
+					</div>
+					<div class="error-box" *ngIf="categoryForm.get('name').hasError('pattern') && categoryForm.get('name').touched">
+						* Category Name invalid!
+					</div>
+					<ion-col col-10>
+						<div class="lg-new text-center">
+							<button ion-button type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
+						</div>
+					</ion-col>     
+				</ion-row>
+			</form>
+		</ion-grid>
+	</ion-content>

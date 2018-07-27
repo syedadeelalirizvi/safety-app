@@ -76,11 +76,22 @@ export class SafetyPage {
 		});
 	}
 	
-	OwnCatLoad = function(){
+	OwnCatLoad(){
 		this.navCtrl.push(OwnCatPage, {
 			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image
+			equipment_image:this.equipment_image,
+			action: "add"
 		});
+	}
+	editCategory(category:any){
+		console.log(category);
+		this.navCtrl.push(OwnCatPage, {
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			categoryinfo: category,
+			action : "edit"
+		});
+
 	}
 	
 	buttonClick = 	function(){

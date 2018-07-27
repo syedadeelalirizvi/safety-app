@@ -24,7 +24,10 @@ export class OwnCatPage {
     categoryForm : FormGroup;
     response: any;
     inspection_desc: any;
-    equipment_image: any;
+	equipment_image: any;
+	category: any;
+	action:string;
+	editCat = false;
     
 	constructor(
 		private alertCtrl: AlertController, 
@@ -43,14 +46,22 @@ export class OwnCatPage {
 		});
 		this.inspection_desc = navParams.get('inspection_desc');
 		this.equipment_image = navParams.get('equipment_image');
+		if(navParams.get('categoryinfo')) this.category = navParams.get('categoryinfo');
+		this.action = navParams.get('action');
 		//Pass values check
 		console.log('page> own-cat.ts');
 		console.log('inspection_desc>' + this.inspection_desc);
 		console.log('equipment_image>' + this.equipment_image);
+		if(this.category) console.log('categoryinfo> ' + this.category.category_id);
+		console.log('action> ' + this.action);
+		if(this.action=="edit"){
+			this.editCat=true;
+		}
+		
 		
 
 		this.categoryForm = fb.group({
-            'name' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
+            'name' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-\\s]{2,}') ])],
 		});
     }
 		
@@ -108,5 +119,31 @@ export class OwnCatPage {
 					console.log(err);
 				});
 		})
-    }
+	}
+	edit(value: any):void{
+		console.log(value);
+		console.log(this.category.category_id+ " "+this.userid);
+		const headers =  new HttpHeaders()
+		.set("user_id", this.userid.toString())
+		.set("access_token", this.token);
+		
+	const req = this.httpClient.post(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category/'+this.category.category_id, {
+		equipmentCategoryName: value.name,
+	},
+	{headers:headers})
+	.subscribe(
+		res => {
+			console.log(res);
+			this.navCtrl.push(SafetyPage, {
+				inspection_desc: this.inspection_desc,
+				equipment_image:this.equipment_image
+			});
+		},
+		err => {
+			this.response = true;
+			console.log("Error occurred");
+			console.log(err);
+		});
+	
+	}
 }

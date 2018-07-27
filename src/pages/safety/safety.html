@@ -46,7 +46,9 @@
 				</button> 
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon name="md-create" class="penicon"></ion-icon>
+				<button  (click)="editCategory(category)">
+					<ion-icon name="md-create" class="penicon"></ion-icon>
+				</button>
 			</ion-col>
 			<ion-col col-1>
 				<button  (click)="delete(category.category_id)">
