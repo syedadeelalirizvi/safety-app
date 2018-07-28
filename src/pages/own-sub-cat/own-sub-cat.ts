@@ -104,7 +104,18 @@ export class OwnSubCatPage {
 	
 	ionViewDidLoad() 
 	{
-    
+		if(this.editCat)
+		{
+			console.log('categoryinfoComplete>> ', this.subcategoryinfo);
+			
+			for (let i=0; i < this.subcategoryinfo.questions.length - 1; i++)
+			{
+				//this.addNewInputField(this.subcategoryinfo.questions[i]);
+				const control = <FormArray>this.form.controls.questions;
+				control.push(this.initQuestionsFields());
+			}
+			
+		}	
 	}
 	
 	save()
@@ -163,16 +174,72 @@ export class OwnSubCatPage {
 		
 	}
 	
-	addNewInputField() : void
+	
+	edit(val : any) : void
 	{
+		//USE THIS TO SEND DATA (this.subcategoryinfo see below - nousheen) - this is required array
+		console.log(this.subcategoryinfo.questions);
+		console.log(val);
+		
+		this.navCtrl.push(SafetyCatInfoPage, {
+					categoryId: this.categoryId,
+					category_name: this.categoryName,
+					inspection_desc: this.inspection_desc,
+					equipment_image:this.equipment_image
+				});  
+	}
+	
+	update_array(index, label = '')
+	{
+		console.log("update>" + index + "|Label>" , label);
+		this.subcategoryinfo.questions[index].questionTitle = label;
+		console.log(this.subcategoryinfo.questions);
+	}
+	
+	addNewInputField(i : number) : void
+	{
+		if(this.editCat && this.subcategoryinfo.questions && this.subcategoryinfo.questions.length > 0)
+		{
+			console.log("ACTUAL ARRAY" , this.subcategoryinfo.questions);
+			console.log("INDEX>>" , this.subcategoryinfo.questions.length);
+			console.log("LAST>>" , this.subcategoryinfo.questions[this.subcategoryinfo.questions.length - 1]);
+			
+			this.subcategoryinfo.questions.push({
+				questionId: null,
+				questionTitle: ""
+			}); 
+			//this.subcategoryinfo.questions[this.subcategoryinfo.questions.length].questionTitle = '';
+			//this.subcategoryinfo.questions[this.subcategoryinfo.questions.length].questionId = null;
+			console.log("NEW ELEMENT>>", this.subcategoryinfo.questions);
+		}
+		
 		const control = <FormArray>this.form.controls.questions;
 		control.push(this.initQuestionsFields());
 	}
 	
 	removeInputField(i : number) : void
 	{
+		//handle edit case remove questions
+		//delete this.subcategoryinfo.questions[i];
+		
 		const control = <FormArray>this.form.controls.questions;
 		control.removeAt(i);
+		
+		if(this.editCat && this.subcategoryinfo.questions && this.subcategoryinfo.questions[i] != null)
+		{
+			this.subcategoryinfo.questions.forEach( (item, index) => {
+				console.log("Looping", item, index);
+				if(index === i)
+				{
+					this.subcategoryinfo.questions.splice(index,1);
+					console.log(this.subcategoryinfo.questions);
+				}
+			});
+		
+			console.log("In but no record found");
+			   
+		}
+		console.log('Its out I>>' + i );
 	}
 	
 }

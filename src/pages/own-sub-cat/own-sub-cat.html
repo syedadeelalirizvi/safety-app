@@ -120,9 +120,12 @@
 										<ion-item>
 											<ion-label floating>Questions:</ion-label>
 											 <ion-input
+												value = "{{(this.subcategoryinfo.questions[i] != null) ? this.subcategoryinfo.questions[i].questionTitle : ''}}"
 												type="text"
 												maxlength="50"
-												formControlName="name"></ion-input>
+												formControlName="name"
+												(change)="update_array(i, $event.target.value)"
+												></ion-input>
 										</ion-item>
 	
 										<!-- Allow generated input field to be removed -->
