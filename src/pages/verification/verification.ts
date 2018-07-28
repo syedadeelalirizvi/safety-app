@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 
-@IonicPage()
 @Component({
   selector: 'page-verification',
   templateUrl: 'verification.html',

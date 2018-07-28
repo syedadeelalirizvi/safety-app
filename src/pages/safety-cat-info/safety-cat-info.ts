@@ -15,7 +15,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 
 
-@IonicPage()
 @Component({
   selector: 'page-safety-cat-info',
   templateUrl: 'safety-cat-info.html',

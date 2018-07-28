@@ -13,14 +13,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { constant as ENV } from '../../configs/constant';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
-/**
- * Generated class for the PassObservationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-pass-observation',
   templateUrl: 'pass-observation.html',

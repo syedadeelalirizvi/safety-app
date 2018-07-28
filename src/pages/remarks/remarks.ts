@@ -13,8 +13,6 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-
-@IonicPage()
 @Component({
     selector: 'page-remarks',
     templateUrl: 'remarks.html',

@@ -1,25 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { ChangepasswordPage } from '../changepassword/changepassword';
 import { MainPage } from '../main/main';
-import { ModalPage } from '../modal/modal';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -41,11 +32,11 @@ export class ProfilePage {
       updateForm = {}
       profileForm : FormGroup;
       imageUpload: any;
-	  imageUploadProfile: any;
+	    imageUploadProfile: any;
       base64Image: string;
       base64ImageProfile: string;
       updateClicked:any;
-	  token: string;
+	    token: string;
       action:string;
       pageName="profile";
 	  
@@ -110,112 +101,54 @@ export class ProfilePage {
 			}
 		]});
 		actionSheet.present();
-	}
-  	 
-	 
-   	openCamera(){
-      console.log('openCamera');
-      // Camera options		
+  }
+// Button goBack
+goBack(){ this.navCtrl.push(MainPage);}
+// Button ChangePassword
+changeLoad(){this.navCtrl.push(ChangepasswordPage)}
+// Camera openCamera for image upload
+async openCamera(): Promise<any>{
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
+  try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+} 
+// Gallery openGallery for image upload
+async openGallery(): Promise<any>{
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+  }
+  try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+}   
+// Camera openCamera for profile
+    async openCameraProfile(): Promise<any>{
       const options: CameraOptions = {
-        quality: 50,
+        quality: 100,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
+        mediaType: this.camera.MediaType.PICTURE
       }
-      
-      this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.imageUpload = true;
-        }, (err) => {
-          // Handle error
-          console.log(err);
-        });
+      try{ this.base64ImageProfile = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUploadProfile = true;}catch(e){ console.log(e);}
     }
-    
-    openGallery(){
-      console.log('openGallery');
-      // Camera options		
+// Gallery openGallery for profile
+    async openGalleryProfile(): Promise<any>{
       const options: CameraOptions = {
-        quality: 50,
+        quality: 100,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
-      
-      this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.imageUpload = true;
-        }, (err) => {
-          // Handle error
-          console.log(err);
-        });
-    }  
-	
-     openCameraProfile(){
-       console.log('openCamera');
-       // Camera options		
-       const options: CameraOptions = {
-         quality: 50,
-         destinationType: this.camera.DestinationType.DATA_URL,
-         encodingType: this.camera.EncodingType.JPEG,
-         mediaType: this.camera.MediaType.PICTURE,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
-       }
-      
-       this.camera.getPicture(options).then((imageData) => {
-           // imageData is either a base64 encoded string or a file URI
-           // If it's base64 (DATA_URL):
-           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-           this.imageUploadProfile = true;
-		  
-         }, (err) => {
-           // Handle error
-           console.log(err);
-         });
-     }
-    
-     openGalleryProfile(){
-       console.log('openGallery');
-       // Camera options		
-       const options: CameraOptions = {
-         quality: 50,
-         destinationType: this.camera.DestinationType.DATA_URL,
-         encodingType: this.camera.EncodingType.JPEG,
-         mediaType: this.camera.MediaType.PICTURE,
-         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
-       }
-      
-       this.camera.getPicture(options).then((imageData) => {
-           // imageData is either a base64 encoded string or a file URI
-           // If it's base64 (DATA_URL):
-           this.base64ImageProfile = 'data:image/jpeg;base64,' + imageData;
-           this.imageUploadProfile = true;
-         }, (err) => {
-           // Handle error
-           console.log(err);
-         });
-     }  
-	
+      try{ this.base64ImageProfile = 'data:image/jpeg;base64,' + await this.camera.getPicture(options);  this.imageUploadProfile = true;}catch(e){ console.log(e);}
+    }
+  // checking
 	isBase64(str) {
 		str = str.replace("data:image/jpeg;base64,","");
 		try {
@@ -224,64 +157,82 @@ export class ProfilePage {
 			return false;
 		}
 	}
-	
+  // Update Button : When user pressing update button
 	update(value: any):void
 	{
     
-		console.log(this.base64ImageProfile);
-		console.log(this.isBase64(this.base64ImageProfile));
-		console.log(this.base64Image);
-		console.log(this.isBase64(this.base64Image));
-		
+    console.log(value.username);
+    console.log(value.email);
+
+    console.log(value.username);
+    console.log(this.userid);
+    console.log(this.token);
+          
 
 		
-		const headers = new HttpHeaders()
+const headers = new HttpHeaders()
             .set("user_id", this.userid.toString()).set("access_token", this.token);
-            
-		console.log("profile>"+this.base64ImageProfile);
-		
-		const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
-			  userEmail: value.email,
-			  userName: value.username,
-			  userDepartment: value.department,
-			  userCompany: value.company,
-			  nameToReceiveReport   : value.nameOfReceiveReport,
-			  emailToReceiveReport:value.emailOfReceiveReport,
-			  companyLogo: this.base64Image,
-			  profilePicture: this.base64ImageProfile
+            console.log("profile>"+this.base64ImageProfile);
+		  
+     const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
+      userEmail: value.email,
+      userName: value.username,
+      userDepartment: value.department,
+      userCompany: value.company,
+      nameToReceiveReport   : value.nameOfReceiveReport,
+      emailToReceiveReport:value.emailOfReceiveReport,
+      companyLogo: this.base64Image,
+      profilePicture: this.base64ImageProfile
 
-		},
-		{headers:headers})
-		.subscribe(
-			(res: any) => {
-				console.log(res);
-				this.navCtrl.push(MainPage);
-				let alert = this.alertCtrl.create({
-				  title: 'Success',
-				  subTitle: 'Profile Updated Successfully!',
-				  buttons: ['Dismiss']
-				});
-			   alert.present();
-			
-		},
-		err => {
-			this.response = true;
-			console.log("Error occurred");
-			let alert = this.alertCtrl.create({
-			  title: 'Some error occurred',
-			  subTitle: 'Please try again later',
-			  buttons: ['Dismiss']
-			});
-		   alert.present();
-			console.log(err);
-		});	
-	}
+    },
+    {headers:headers})
+    .subscribe(
+      (res: any) => {
+        console.log(res);
+        let alert = this.alertCtrl.create({
+          title: 'Success',
+          subTitle: 'Profile Updated Successfully!',
+          buttons: ['Dismiss']
+        });
+       alert.present();
+       this.navCtrl.push(MainPage);
+        // Initializing session information
+        // this.storage.set('Session.user_name', res.data.userName);
+        // this.storage.set('Session.user_id', res.data.userId);
+        // this.storage.set('Session.access_token', res.data.token);
+        // this.storage.set('Session.token_expiry', res.data.expiry);
+        // this.storage.set('Session.profile_pic', res.data.profilePicture);
+        // this.storage.set('Session.company_logo', res.data.companyLogo);
+       // this.navCtrl.push(MainPage);
+      },
+      err => {
+        this.response = true;
+        console.log("Error occurred");
+        console.log(err);
+      }
+    );	
+    // this.user = this.httpClient.post(this.baseUrl+'users/'+this.userid,this.updateForm,{headers:headers});
+		// this.user
+		// .subscribe(data => {
+    // //  console.log(headers.get('user_id'));
+    //   console.log(this.token);
+    //   //console.log('my data: ', data);
+    //   console.log('user: ',data['data']);
+    //   this.userData = data['data'];
+    //   console.log('userId: ',this.userData['userId']);
+    //   setTimeout(() => {
+    //   //this.userName = this.userData['userName'];
+    // }, 0);
+    //  // this.dept = this.userData['userDepartment'];
+    //   //this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
+    //   //this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
+    //   this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
+		// })
+    // console.log("Update clicked");
+  }
 	
-	changeLoad(){this.navCtrl.push(ChangepasswordPage)}
+
   
-	goBack(){
-		this.navCtrl.push(MainPage);
-	}
 
   ionViewDidLoad() {
 

@@ -1,0 +1,46 @@
+<ion-grid>
+	<ion-row>
+		<ion-col>
+			<div class="main-title"><span>My Equipment</span> Checker</div>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<div class="error-box-main" *ngIf="this.response">
+				Login failed; Invalid email or password
+			</div>
+			<form [formGroup]="authForm" (ngSubmit)="submitForm(authForm.value)">
+				<ion-item>
+					<ion-icon name="ios-mail" item-left color="light"></ion-icon>
+					<ion-label floating>Email</ion-label>
+					<ion-input type="email" value="" [formControl]="authForm.controls['email']" [ngClass]="{'error-border':!authForm.controls['email'].valid}"></ion-input>
+				</ion-item>
+				<br/>
+				<div class="error-box" *ngIf="authForm.controls['email'].hasError('required') && authForm.controls['email'].touched">
+					* Email is required!
+				</div>
+				<div class="error-box" *ngIf="authForm.get('email').hasError('pattern') && authForm.get('email').touched">
+					* Email address invalid!
+				</div>
+				<ion-item>
+					<ion-icon name="md-lock" item-left color="light"></ion-icon>
+					<ion-label floating>Password</ion-label>
+					<ion-input type="password" value="" [formControl]="authForm.controls['password']"></ion-input>
+				</ion-item>
+				<br/>
+				<div class="error-box" *ngIf="authForm.controls['password'].hasError('required') && authForm.controls['password'].touched">
+					* Password is required!
+				</div>
+				<div class="error-box" *ngIf="authForm.controls['password'].hasError('minlength') && authForm.controls['password'].touched">
+					* Minimum password length is 8!
+				</div>
+				<br/>
+				<div class="lg-new text-center">
+					<button ion-button type="submit" id="login-submit" full [disabled]="!authForm.valid" color="light" class="lgbtn">Log in</button>
+				</div>
+			</form>
+			<p text-center><a (click)="forgotPasswordLoad()">Forgot Password</a></p>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+<p text-center class="Sign">Don’t Have An Account? <a (click)="signupLoad()" >Sign Up</a></p>

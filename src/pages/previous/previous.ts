@@ -10,7 +10,6 @@ import { AlertController } from 'ionic-angular';
 
 import { LiftingPage } from '../lifting/lifting';
 
-@IonicPage()
 @Component({
   selector: 'page-previous',
   templateUrl: 'previous.html',

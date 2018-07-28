@@ -14,7 +14,6 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController,ModalController } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-work',
   templateUrl: 'work.html',

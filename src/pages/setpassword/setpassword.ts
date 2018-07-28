@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { AlertController, ModalController } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-setpassword',
   templateUrl: 'setpassword.html',

@@ -18,14 +18,7 @@ import { FailDuePage} from '../fail-due/fail-due';
 import { RemarksPage} from '../remarks/remarks';
 
 
-/**
- * Generated class for the InspectionRemarksPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-inspection-remarks',
   templateUrl: 'inspection-remarks.html',

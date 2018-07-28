@@ -6,8 +6,8 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-
-@IonicPage()
+import { Keyboard } from "@ionic-native/keyboard";
+import firebase from "firebase";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -21,7 +21,7 @@ export class SignupPage {
 	imageUpload: any;
 	base64Image: string;
 
-	constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
+	constructor(private keyboard : Keyboard,private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
 		this.base64Image = '';
 		this.imageUpload = false;
 		this.response = false;
@@ -35,6 +35,7 @@ export class SignupPage {
 			'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
 			'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
+		keyboard.disableScroll(true);
 	}
 	
 	
@@ -113,7 +114,7 @@ export class SignupPage {
         });
 		
         const req = this.httpClient.post(ENV.BASE_URL + 'users', {
-			userEmail: value.email,
+		      	userEmail: value.email,
             userPassword: value.password,
             userName: value.username,
             userDepartment: value.department,
@@ -121,23 +122,35 @@ export class SignupPage {
             nameToReceiveReport: value.nameToReceiveReport,
             emailToReceiveReport: value.emailToReceiveReport,
 			companyLogo: this.base64Image
+				  
         },{headers:headers})
-		.subscribe(
-			res => {
-				console.log(res);
-				this.navCtrl.pop();
-				let alert = this.alertCtrl.create({
-						title: 'Please login',
-						subTitle: 'Your account has been registered!',
-						buttons: ['OK']
-					});
-				 alert.present();
+		.subscribe(res => {
+			firebase.auth().createUserWithEmailAndPassword(value.email,value.password).then(
+				auth => {
+					console.log(auth)
+				firebase.database().ref(`profile/${auth.uid}`).set({
+					userEmail: value.email,
+					userPassword: value.password,
+					userName: value.username,
+					userDepartment: value.department,
+					userCompany: value.company,
+					nameToReceiveReport: value.nameToReceiveReport,
+					emailToReceiveReport: value.emailToReceiveReport,
+					companyLogo: this.base64Image,
 				
+				}).then(() => {
+					let alert = this.alertCtrl.create({	
+						title: 'Success',
+						subTitle: 'Your account registered!',
+						buttons: ['Dismiss']
+					});
+					alert.present();
+					this.navCtrl.pop();
+				})
+			})
 			},
 			err => {
 				this.response = true;
-				(<HTMLInputElement> document.getElementById("signup-submit")).disabled = false;
-				(<HTMLInputElement> document.getElementById("signup-submit")).innerHTML = "Register now";
 				console.log("Error occurred");
 				console.log(err);
 			}

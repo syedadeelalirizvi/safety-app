@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { constant as ENV } from '../../configs/constant';
 
-@IonicPage()
 @Component({
   selector: 'page-own-sub-cat',
   templateUrl: 'own-sub-cat.html',

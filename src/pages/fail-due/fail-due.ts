@@ -5,14 +5,7 @@ import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the FailDuePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-fail-due',
   templateUrl: 'fail-due.html',
