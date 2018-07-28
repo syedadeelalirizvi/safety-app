@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-changepassword',
   templateUrl: 'changepassword.html',
 })
 export class ChangepasswordPage {
-  
-   
-    constructor( ){
-    
 
-      
-    
+   
+    constructor(public navCtrl: NavController ){
+     
     }
     
- 
+  
+    goBack(){
+		    this.navCtrl.pop();
+    }
+  
 
 }

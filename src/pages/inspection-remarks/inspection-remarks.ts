@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -16,7 +16,6 @@ import { PassSafePage} from '../pass-safe/pass-safe';
 import { PassObservationPage} from '../pass-observation/pass-observation';
 import { FailDuePage} from '../fail-due/fail-due';
 import { RemarksPage} from '../remarks/remarks';
-
 
 
 @Component({

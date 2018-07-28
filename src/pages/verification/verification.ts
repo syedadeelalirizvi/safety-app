@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { SetpasswordPage } from '../setpassword/setpassword';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-verification',
   templateUrl: 'verification.html',
@@ -16,7 +16,7 @@ export class VerificationPage {
     verifyCodeForm : FormGroup;
     response: any;
     email:any;
-    constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+    constructor(private Keyboard: Keyboard,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         this.email = navParams.get('userEmail');
         console.log(this.email);
         this.response = false;
@@ -24,7 +24,7 @@ export class VerificationPage {
       //	  'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
           'code': [null, Validators.compose([Validators.required, Validators.maxLength(6) ])]
         });
-  
+        Keyboard.disableScroll(true);
     }
     signupLoad(){this.navCtrl.push(SignupPage)}
     setpasswordLoad(){this.navCtrl.push(SetpasswordPage)}
@@ -38,9 +38,6 @@ export class VerificationPage {
       this.navCtrl.pop();
     }
     verifyCode(value: any):void{
-		(<HTMLInputElement> document.getElementById("account-verification-submit")).disabled = true;
-		(<HTMLInputElement> document.getElementById("account-verification-submit")).innerHTML = "Please wait..";
-
         console.log('Forgot Pass clicked');
         console.log(this.email);
         console.log('Form submitted!')
@@ -57,9 +54,6 @@ export class VerificationPage {
               });
                 },
                 err => {
-					(<HTMLInputElement> document.getElementById("account-verification-submit")).disabled = false;
-					(<HTMLInputElement> document.getElementById("account-verification-submit")).innerHTML = "Verify code";
-
                   this.response = true;
                   console.log("Error occurred");
                   console.log(err);

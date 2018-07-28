@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, ModalController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { MainPage } from '../main/main';
 import { InformationPage} from '../information/information';
@@ -9,9 +9,9 @@ import {SignaturePage} from '../signature/signature';
 import {InspectionRemarksPage} from '../inspection-remarks/inspection-remarks';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { constant as ENV } from '../../configs/constant';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'page-pass-observation',
@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 })
 export class PassObservationPage {
 
-	public signatureImage : any = '';
+	public signatureImage : any;
 	imageUpload: any;
 	base64Image: string;
 	inspection_result:any;
@@ -110,6 +110,10 @@ export class PassObservationPage {
 		
 	SubmitInspection(value:any):void
 	 {
+		
+		// document.getElementById("create-inspection-submit").disabled = true;
+		document.getElementById("create-inspection-submit").innerHTML = "Please wait..";
+		
 		 
 		if(this.inspection_result!='fail'){
 			this.description = value.description;
@@ -160,14 +164,16 @@ export class PassObservationPage {
 						this.navCtrl.push(MainPage);
 				},
 				err => {
-					
+					// document.getElementById("create-inspection-submit").disabled = false;
+					document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";	
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
 		err => {
-			
+			// document.getElementById("create-inspection-submit").disabled = false;
+			document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";		
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		
@@ -239,14 +245,10 @@ export class PassObservationPage {
       console.log('openCamera');
       // Camera options		
       const options: CameraOptions = {
-        quality: 50,
-        destinationType: this.camera.DestinationType.DATA_URL,
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
         encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
+        mediaType: this.camera.MediaType.PICTURE
       }
       
       this.camera.getPicture(options).then((imageData) => {
@@ -264,15 +266,11 @@ export class PassObservationPage {
       console.log('openGallery');
       // Camera options		
       const options: CameraOptions = {
-        quality: 50,
-        destinationType: this.camera.DestinationType.DATA_URL,
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-		targetWidth: 150,
-		targetHeight: 100,
-		saveToPhotoAlbum: false,
-		allowEdit : false
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
       
       this.camera.getPicture(options).then((imageData) => {

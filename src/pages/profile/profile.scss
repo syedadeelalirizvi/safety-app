@@ -1,6 +1,5 @@
 page-profile {
   .profile-img {
-    //margin-left: 1.2em;
     background-color: transparent;
     display: flex;
     align-content: center;
@@ -38,7 +37,15 @@ page-profile {
     margin: 20px 0 2px;
   }
   .penicon {
-    padding-top: 46px;
+    position: absolute;
+    margin-top: -25px;
+    font-size: 2rem;
+    right: 10px;
+    z-index: -1;
+    color: #f5f5f5;
+  }
+  ion-label {
+    font-size: 1.4rem;
   }
   .button-md-light {
     color: #5560d3;
@@ -47,9 +54,9 @@ page-profile {
     width: 85%;
     margin: 15px auto;
   }
-  form ion-col img.edit_icon {
-    vertical-align: bottom;
-    position: absolute;
-    bottom: 15px;
-  }
+  //form ion-col img.edit_icon {
+  //  vertical-align: bottom;
+  //  position: absolute;
+  //  bottom: 30%;
+  //}
 }

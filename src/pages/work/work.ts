@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController,ModalController } from 'ionic-angular';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-work',
   templateUrl: 'work.html',
@@ -28,7 +28,7 @@ export class WorkPage {
 	inspectionForm : FormGroup;
 	inspection_desc: string = "";
 
-	constructor(public actionSheetCtrl: ActionSheetController, 
+	constructor(private keyboard : Keyboard,public actionSheetCtrl: ActionSheetController, 
 				private alertCtrl: AlertController,   
 				private modalCtrl: ModalController,
 				public navCtrl: NavController, 
@@ -38,6 +38,7 @@ export class WorkPage {
 				private storage: Storage,
 				private camera: Camera) 
 	{
+		keyboard.disableScroll(true)
 		this.response = false;
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
@@ -112,58 +113,27 @@ export class WorkPage {
 		]});
 		actionSheet.present();
 	}
-  
-	openCamera()
-	{
-		console.log('openCamera');
-		// Camera options		
+	// Camera OpenCamera
+  async openCamera(): Promise<any>{
 		const options: CameraOptions = {
-			quality: 50,
+			quality: 100,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
-			mediaType: this.camera.MediaType.PICTURE,
-			targetWidth: 150,
-			targetHeight: 100,
-			saveToPhotoAlbum: false,
-			allowEdit : false
+			mediaType: this.camera.MediaType.PICTURE
 		}
-			
-		this.camera.getPicture(options).then((imageData) => {
-			// imageData is either a base64 encoded string or a file URI
-			// If it's base64 (DATA_URL):
-			this.base64Image = 'data:image/jpeg;base64,' + imageData;
-			this.imageUpload = true;
-		}, (err) => {
-			// Handle error
-			console.log(err);
-        });
+		try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
 	}
-	
-	openGallery()
-	{
-		console.log('openGallery');
-		// Camera options		
-		const options: CameraOptions = {
-			quality: 50,
-			destinationType: this.camera.DestinationType.DATA_URL,
-			encodingType: this.camera.EncodingType.JPEG,
-			mediaType: this.camera.MediaType.PICTURE,
-			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-			targetWidth: 150,
-			targetHeight: 100,
-			saveToPhotoAlbum: false,
-			allowEdit : false
-		}
-			this.camera.getPicture(options).then((imageData) => {
-			// imageData is either a base64 encoded string or a file URI
-			// If it's base64 (DATA_URL):
-			this.base64Image = 'data:image/jpeg;base64,' + imageData;
-			this.imageUpload = true;
-		}, (err) => {
-			// Handle error
-			console.log(err);
-        });
+// Camera openGallery
+async openGallery(): Promise<any>{
+	const options: CameraOptions = {
+		quality: 100,
+		destinationType: this.camera.DestinationType.DATA_URL,
+		encodingType: this.camera.EncodingType.JPEG,
+		mediaType: this.camera.MediaType.PICTURE,
+		sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
 	}
+	try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+}
 	
     // First form submit ( with values => description & image)  
 	create(value: any):void

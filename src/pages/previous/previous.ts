@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-import { AlertController } from 'ionic-angular';
 
 
 import { LiftingPage } from '../lifting/lifting';
@@ -32,7 +31,7 @@ export class PreviousPage {
     inspectionDate:any;
 
     inspections = [];
-    constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ) {
         storage.get('Session.access_token').then((val) => {
             this.token = val;
         });
@@ -93,43 +92,6 @@ export class PreviousPage {
         this.navCtrl.push(LiftingPage, {
           inspectionId: id
         }); 
-    }
-
-    deleteIns( value:any ):void{
-        let alert = this.alertCtrl.create({
-			title: 'Confirm delete inspection',
-			message: 'Are you sure you want to permanently delete this inspection alongwith its data?',
-			buttons: [
-				{
-					text: 'No',
-					handler: () => {
-						console.log('Cancel clicked');
-					}
-				},
-				{
-					text: 'Yes',
-					handler: () => {
-						console.log('Delete clicked '+value.inspection_id+" "+this.userid);
-						const headers = new HttpHeaders()
-						.set("user_id", this.userid.toString())
-						.set("access_token", this.token);
-
-		this.user = this.httpClient.delete(ENV.BASE_URL +'user-inspections/inspection/'+value.inspection_id,{headers:headers});
-		this.user.subscribe(data => 
-		{
-			console.log(data);
-			this.navCtrl.push(PreviousPage); 
-		}),
-		err => {				
-			console.log("Error occurred");
-			console.log(err);
-		}
-
-					}
-				}
-			]
-		});
-		alert.present();
     }
 
 

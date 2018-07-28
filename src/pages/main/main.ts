@@ -1,5 +1,6 @@
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -7,7 +8,7 @@ import { PassObservationPage} from '../pass-observation/pass-observation';
 import { WorkPage } from '../work/work';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
-
+import firebase from 'firebase'
 
 @Component({
   selector: 'page-main',
@@ -16,7 +17,19 @@ import { Storage } from '@ionic/storage';
 export class MainPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-
+		firebase.auth().onAuthStateChanged(user => {
+			if(user){
+				firebase.database().ref(`profile/${user.uid}`).once('value').then(snapshot => {
+					this.storage.set('Session.user_name', snapshot.val().userName);
+					this.storage.set('Session.user_id', snapshot.val().userId);
+					this.storage.set('Session.access_token', snapshot.val().token);
+					this.storage.set('Session.token_expiry', snapshot.val().expiry);
+					this.storage.set('Session.profile_pic', snapshot.val().profilePicture);
+					this.storage.set('Session.company_logo',snapshot.val().companyLogo);
+					console.log(snapshot.val());
+				})
+			}
+		})
   }
   
   logout(){
@@ -31,12 +44,12 @@ export class MainPage {
 		this.storage.remove('Session.company_logo');	
 		this.storage.clear();  
 	});	
-    this.navCtrl.push(HomePage);
+		firebase.auth().signOut().then(() => {
+			this.navCtrl.push(HomePage);
+		})
+    
   }
 
-  ionViewDidLoad() {
-   console.log('ionViewDidLoad MainPage');
-  }
 
 //profileLoad = function(){this.navCtrl.push(PassObservationPage); console.log('click');}  
 profileLoad = function(){this.navCtrl.push(ProfilePage)}

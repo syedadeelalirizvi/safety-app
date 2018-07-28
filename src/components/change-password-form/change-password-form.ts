@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import { ProfilePage } from './../../pages/profile/profile';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -44,72 +43,52 @@ export class ChangePasswordFormComponent {
           Keyboard.disableScroll(true);
   }
 
+
   changePassword(value: any):void{
-		
-		(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = true;
-		(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Please wait..";
-
-        console.log(value.oldPassword);
-        console.log(value.oldPassword);
-        console.log(value.oldPassword);
-        console.log('Forgot Pass clicked');
-        console.log(this.email);
-        console.log('Form submitted!');
-        this.storage.get("Session.user_id").then((value1) => {
-      
-          this.userid = value1;
-     
-          this.storage.get("Session.access_token").then((value2) => {
-      
-              this.token = value2;
-              console.log(this.token);
-
-              const headers =  new HttpHeaders()
-              .set("user_id", this.userid.toString()).set("access_token", this.token);
-              //this.navCtrl.push(ProfilePage)
-              const req = this.httpClient.post(ENV.BASE_URL +'users/app/change-password', {
-                  userPassword: value.oldPassword,
-                  newPassword: value.newPassword
-              },
-              {headers:headers})
-              .subscribe(
-                res => {
-                  const afAuthuser = firebase.auth().currentUser;
-                  afAuthuser.updatePassword(value.newPassword).then(() => {
-                    firebase.database().ref(`profile/${afAuthuser.uid}`).update({
-                      userPassword : value.newPassword
-                    }).then(() => {
-                      console.log(res);
-                      this.navCtrl.push(ProfilePage);
-                              let alert = this.alertCtrl.create({
-                                title: 'Success',
-                                subTitle: 'Password Updated Successfully!',
-                                buttons: ['OK']
-                              });
-                             alert.present();
-                    }).catch(e => console.log(e));
-                  })
-                },
-                err => {
-					(<HTMLInputElement> document.getElementById("changepassword-submit")).disabled = false;
-					(<HTMLInputElement> document.getElementById("changepassword-submit")).innerHTML = "Reset new password";
-	
-                  this.response = true;
-                  console.log("Error occurred");
-                  console.log(err);
-      
-                }
-             );
-         })
-      })
-    }
-
-     ionViewDidLoad() {
-        console.log('ionViewDidLoad ChangepasswordPage');
-    }
-    goBack(){
-		    this.navCtrl.pop();
-    }
+    console.log(value.oldPassword);
+    console.log(value.oldPassword);
+    console.log(value.oldPassword);
+    console.log('Forgot Pass clicked');
+    console.log(this.email);
+    console.log('Form submitted!');
+    this.storage.get("Session.user_id").then((value1) => {
   
+      this.userid = value1;
+ 
+      this.storage.get("Session.access_token").then((value2) => {
+  
+          this.token = value2;
+          console.log(this.token);
+
+          const headers =  new HttpHeaders()
+          .set("user_id", this.userid.toString()).set("access_token", this.token);
+          //this.navCtrl.push(ProfilePage)
+          const req = this.httpClient.post(ENV.BASE_URL +'users/app/change-password', {
+              userPassword: value.oldPassword,
+              newPassword: value.newPassword
+          },
+          {headers:headers})
+          .subscribe(
+            res => {
+              console.log(res);
+              let alert = this.alertCtrl.create({
+                title: 'Success',
+                subTitle: 'Password Updated Successfully!',
+                buttons: ['Dismiss']
+              });
+             alert.present();
+    
+              this.navCtrl.push(ProfilePage)
+            },
+            err => {
+              this.response = true;
+              console.log("Error occurred");
+              console.log(err);
+  
+            }
+         );
+     })
+  })
+}
 
 }

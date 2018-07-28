@@ -160,76 +160,54 @@ async openGallery(): Promise<any>{
   // Update Button : When user pressing update button
 	update(value: any):void
 	{
-    
-    console.log(value.username);
-    console.log(value.email);
-
-    console.log(value.username);
-    console.log(this.userid);
-    console.log(this.token);
-          
+		console.log(this.base64ImageProfile);
+		console.log(this.isBase64(this.base64ImageProfile));
+		console.log(this.base64Image);
+		console.log(this.isBase64(this.base64Image));
+		
 
 		
-const headers = new HttpHeaders()
+		const headers = new HttpHeaders()
             .set("user_id", this.userid.toString()).set("access_token", this.token);
-            console.log("profile>"+this.base64ImageProfile);
-		  
-     const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
-      userEmail: value.email,
-      userName: value.username,
-      userDepartment: value.department,
-      userCompany: value.company,
-      nameToReceiveReport   : value.nameOfReceiveReport,
-      emailToReceiveReport:value.emailOfReceiveReport,
-      companyLogo: this.base64Image,
-      profilePicture: this.base64ImageProfile
+            
+		console.log("profile>"+this.base64ImageProfile);
+		
+		const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
+			  userEmail: value.email,
+			  userName: value.username,
+			  userDepartment: value.department,
+			  userCompany: value.company,
+			  nameToReceiveReport   : value.nameOfReceiveReport,
+			  emailToReceiveReport:value.emailOfReceiveReport,
+			  companyLogo: this.base64Image,
+			  profilePicture: this.base64ImageProfile
 
-    },
-    {headers:headers})
-    .subscribe(
-      (res: any) => {
-        console.log(res);
-        let alert = this.alertCtrl.create({
-          title: 'Success',
-          subTitle: 'Profile Updated Successfully!',
-          buttons: ['Dismiss']
-        });
-       alert.present();
-       this.navCtrl.push(MainPage);
-        // Initializing session information
-        // this.storage.set('Session.user_name', res.data.userName);
-        // this.storage.set('Session.user_id', res.data.userId);
-        // this.storage.set('Session.access_token', res.data.token);
-        // this.storage.set('Session.token_expiry', res.data.expiry);
-        // this.storage.set('Session.profile_pic', res.data.profilePicture);
-        // this.storage.set('Session.company_logo', res.data.companyLogo);
-       // this.navCtrl.push(MainPage);
-      },
-      err => {
-        this.response = true;
-        console.log("Error occurred");
-        console.log(err);
-      }
-    );	
-    // this.user = this.httpClient.post(this.baseUrl+'users/'+this.userid,this.updateForm,{headers:headers});
-		// this.user
-		// .subscribe(data => {
-    // //  console.log(headers.get('user_id'));
-    //   console.log(this.token);
-    //   //console.log('my data: ', data);
-    //   console.log('user: ',data['data']);
-    //   this.userData = data['data'];
-    //   console.log('userId: ',this.userData['userId']);
-    //   setTimeout(() => {
-    //   //this.userName = this.userData['userName'];
-    // }, 0);
-    //  // this.dept = this.userData['userDepartment'];
-    //   //this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
-    //   //this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
-    //   this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
-		// })
-    // console.log("Update clicked");
-  }
+		},
+		{headers:headers})
+		.subscribe(
+			(res: any) => {
+				console.log(res);
+				this.navCtrl.push(MainPage);
+				let alert = this.alertCtrl.create({
+				  title: 'Success',
+				  subTitle: 'Profile Updated Successfully!',
+				  buttons: ['Dismiss']
+				});
+			   alert.present();
+			
+		},
+		err => {
+			this.response = true;
+			console.log("Error occurred");
+			let alert = this.alertCtrl.create({
+			  title: 'Some error occurred',
+			  subTitle: 'Please try again later',
+			  buttons: ['Dismiss']
+			});
+		   alert.present();
+			console.log(err);
+		});	
+	}
 	
 
   

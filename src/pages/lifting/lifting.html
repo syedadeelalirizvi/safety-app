@@ -1,6 +1,5 @@
 <!--
   Generated template for the LiftingPage page.
-
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
@@ -65,12 +64,12 @@
 
           <ion-row  *ngFor="let remarks of results.inspection_remarks">
           
-					<ion-col col-9>
-						<ion-label>{{remarks. remark_question}}</ion-label>  
+            <ion-col col-11>
+                     <ion-label>{{remarks. remark_question}}</ion-label>  
                      </ion-col>
-                    <ion-col col-3>
-						<ion-label>{{remarks.remark_answer}}</ion-label>  
-					</ion-col>
+                     <ion-col col-1>
+                     <ion-label>{{remarks.remark_answer}}</ion-label>  
+            </ion-col>
           </ion-row>
        
             </ion-col>
@@ -104,4 +103,3 @@
   </ion-list>
   </ion-grid>  
   </ion-content>
-  

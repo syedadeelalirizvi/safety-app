@@ -1,5 +1,6 @@
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -21,7 +22,7 @@ export class SignupPage {
 	imageUpload: any;
 	base64Image: string;
 
-	constructor(private keyboard : Keyboard,private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
+	constructor(private keyboard : Keyboard, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
 		this.base64Image = '';
 		this.imageUpload = false;
 		this.response = false;
@@ -35,6 +36,7 @@ export class SignupPage {
 			'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
 			'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
+
 		keyboard.disableScroll(true);
 	}
 	
@@ -44,14 +46,10 @@ export class SignupPage {
 		console.log('openCamera');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 50,
+			quality: 100,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
-			mediaType: this.camera.MediaType.PICTURE,
-			targetWidth: 150,
-			targetHeight: 100,
-			saveToPhotoAlbum: false,
-			allowEdit : false
+			mediaType: this.camera.MediaType.PICTURE
 		}
 		
 		this.camera.getPicture(options).then((imageData) => {
@@ -69,15 +67,11 @@ export class SignupPage {
 		console.log('openGallery');
 		// Camera options		
 		const options: CameraOptions = {
-			quality: 50,
+			quality: 100,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE,
-			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-			targetWidth: 150,
-			targetHeight: 100,
-			saveToPhotoAlbum: false,
-			allowEdit : false
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
 		}
 		
 		this.camera.getPicture(options).then((imageData) => {
@@ -102,11 +96,11 @@ export class SignupPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad SignupPage');
 	}
-  
+	profilepic :any
+	userid : any
+	accesstoken : any
+	tokenexpiry  :any
 	signUp(value: any):void {
-		(<HTMLInputElement> document.getElementById("signup-submit")).disabled = true;
-		(<HTMLInputElement> document.getElementById("signup-submit")).innerHTML = "Please wait..";
-
 		console.log('signup clicked');
         console.log(value.email);
         const headers = new HttpHeaders({

@@ -1,6 +1,8 @@
-import { Keyboard } from '@ionic-native/keyboard';
-import { ChangePasswordFormComponent } from './../components/change-password-form/change-password-form';
+
+
+import { SigninFormComponent } from './../components/signin-form/signin-form';
 import { ForgotPasswordFormComponent } from './../components/forgot-password-form/forgot-password-form';
+import { ChangePasswordFormComponent } from './../components/change-password-form/change-password-form';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -35,15 +37,18 @@ import { SignupPage } from '../pages/signup/signup';
 import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SigninFormComponent } from '../components/signin-form/signin-form';
-
+// fixing keyboard issue
+import { Keyboard } from '@ionic-native/keyboard';
+// mocking services for testing
+    // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
+import { CameraMock } from "./camera.mock";
+// mocking services end
+//  importing a firebase library
 
 @NgModule({
   declarations: [
     MyApp,
 	HomePage,
-	SignaturePage,
-	SignupPage,
     ChangepasswordPage,
     HomePage,
     MainPage,
@@ -63,18 +68,20 @@ import { SigninFormComponent } from '../components/signin-form/signin-form';
     SafetyPage,
     SafetyCatInfoPage,
     SetpasswordPage,
+    SignupPage,
 	SignaturePage,
     VerificationPage,
     WorkPage,
-    SigninFormComponent,
+    //Components
+    ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
-    ChangePasswordFormComponent
+    SigninFormComponent
 	
   ],
   imports: [
     BrowserModule,
 	HttpClientModule,
-	SignaturePadModule,
+  SignaturePadModule,
 	IonicStorageModule.forRoot({
       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -107,17 +114,17 @@ import { SigninFormComponent } from '../components/signin-form/signin-form';
     SignupPage,
     VerificationPage,
     WorkPage,
-    SigninFormComponent,
+    //Components
+    ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
-    ChangePasswordFormComponent
-    
+    SigninFormComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
-   Camera,
-   Keyboard,
-    // { provide: Camera, useClass: CameraMock },
+     Keyboard ,
+	Camera,
+	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

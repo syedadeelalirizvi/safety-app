@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormContr
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
     selector: 'page-remarks',
     templateUrl: 'remarks.html',
@@ -22,7 +22,7 @@ export class RemarksPage {
     categoryName : any;
     subdata: any = {};
     userid: any;
-	allQuestions:any;
+	allQuestions: any;
     categories:any;
     subcategories:any;
     questions:any;
@@ -42,13 +42,14 @@ export class RemarksPage {
 	subCategoriesIds:any;
 	collections:any;
 	constructor(
+		private keyboard : Keyboard,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
 		private storage: Storage) 
 	{
-		this.allQuestions = [];
+		keyboard.disableScroll(true);
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -71,7 +72,7 @@ export class RemarksPage {
 		console.log('categoryId>' + this.categoryId);
 		console.log('category_name>' + this.categoryName);
 		console.log('subCategoriesIds>' + this.subCategoriesIds);
-		console.log('allQuestions>' +  this.allQuestions);
+		console.log('allQuestions>' + this.allQuestions);
       
 		//this.myform = this.fb.group({ });
     }
@@ -129,8 +130,8 @@ export class RemarksPage {
     ionViewDidLoad() 
 	{
 		//  this.subdata = navParams.get('data');
-		// if(!this.navParams.get('allQuestions'))
-		// {	 
+		if(!this.navParams.get('allQuestions'))
+		{	 
 			this.storage.get("Session.user_id").then((user_id) => 
 			{
 				this.userid = user_id;
@@ -155,7 +156,7 @@ export class RemarksPage {
 					console.log(err);
 				}
 			})
-		//}
+		}
 		console.log('ionViewDidLoad RemarksPage');
     }
 	

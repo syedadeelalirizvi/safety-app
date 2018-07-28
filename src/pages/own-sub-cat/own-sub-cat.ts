@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -24,9 +24,6 @@ export class OwnSubCatPage {
 	inspection_result : any;
 	subCategoriesIds :any;
 	allQuestions :any;
-	action:string;
-	editCat = false;
-	subcategoryinfo:any;
 	public form 	: FormGroup;
  
     constructor(
@@ -53,19 +50,12 @@ export class OwnSubCatPage {
 		this.categoryName = navParams.get('category_name');
 		this.inspection_desc = navParams.get('inspection_desc');
 		this.equipment_image = navParams.get('equipment_image');
-		if(navParams.get('subcategoryinfo')) this.subcategoryinfo = navParams.get('subcategoryinfo');
-		this.action = navParams.get('action');
 		//Pass values check
 		console.log('page> own-sub-cat.ts (3rd step - associated)');
 		console.log('inspection_desc>' + this.inspection_desc);
 		console.log('equipment_image>' + this.equipment_image);
 		console.log('categoryId>' + this.categoryId);
 		console.log('category_name>' + this.categoryName);
-		if(this.subcategoryinfo) console.log('categoryinfo> ' + this.subcategoryinfo.subCategoryId);
-		console.log('action> ' + this.action);
-		if(this.action=="edit"){
-			this.editCat=true;
-		}
   
     }
    

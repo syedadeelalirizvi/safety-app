@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -37,11 +37,9 @@ export class SafetyCatInfoPage {
 	response :any;
 	subCategoriesCopy = [];
 	subcategoryForm: FormGroup;
-	collections:any;
 	
   
 	constructor(
-		private alertCtrl: AlertController, 
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
@@ -106,40 +104,8 @@ export class SafetyCatInfoPage {
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image,
 			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			action: "add"
+			category_name: this.categoryName
 		});
-	}
-	editSubCategory(subcategory:any){
-		console.log("edit clicked"+subcategory.sub_category_id);
-		const headers = new HttpHeaders()
-		.set("user_id", this.userid.toString())
-		.set("access_token", this.token);
-		
-	this.collections = this.httpClient.get(ENV.BASE_URL +'user-inspections/category/'+this.categoryId+'/remarks?sub_category_id='+subcategory.sub_category_id,{headers:headers});
-	this.collections
-	.subscribe((collection_data: any) => 
-	{
-		console.log("New Collection");
-		console.log(collection_data.data.userSubCategories[0]);
-		this.navCtrl.push(OwnSubCatPage, {
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			subcategoryinfo: collection_data.data.userSubCategories[0],
-			action : "edit"
-		});
-	}),
-	err => {				
-		console.log("Error occurred");
-		console.log(err);
-	}
-
-
-
-	
-
 	}
 
 	ionViewDidLoad() 
@@ -234,52 +200,6 @@ export class SafetyCatInfoPage {
 			return true;
 		}	
 		return false;	
-	}
-	deleteSubCat(value:string) 
-	{
-		let alert = this.alertCtrl.create({
-			title: 'Confirm delete sub category',
-			message: 'Are you sure you want to permanently delete this sub category alongwith its data?',
-			buttons: [
-				{
-					text: 'No',
-					handler: () => {
-						console.log('Cancel clicked');
-					}
-				},
-				{
-					text: 'Yes',
-					handler: () => {
-						console.log('Delete clicked '+value+" "+this.categoryId);
-						const headers = new HttpHeaders()
-						.set("user_id", this.userid.toString())
-						.set("access_token", this.token);
-
-		this.sub_category = this.httpClient.delete(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory/'+value,{headers:headers});
-		this.sub_category.subscribe(data => 
-		{
-			console.log(data);
-			this.navCtrl.push(SafetyCatInfoPage, {
-				categoryId: this.categoryId,
-				category_name: this.categoryName,
-				inspection_desc: this.inspection_desc,
-				equipment_image:this.equipment_image
-			}); 
-		}),
-		err => {				
-			console.log("Error occurred");
-			console.log(err);
-		}
-
-					}
-				}
-			]
-		});
-		alert.present();
-	
-	
-	
-	
 	}
 
 }
