@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
-
-
+ 
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,9 +13,11 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-  .error-box-main {
-    color: #D8000C;
-    background-color: rgba(255,255,255, 0.65);
-    margin: 10px 0;
-    padding: 12px;
-  }
+ 
+.toolbar-ios ion-title {
+  padding: 0 50px 1px;
+}
+// Keyboard Internal setting
+.keyboard-open .has-footer{
+  bottom: 0px !important;
+}

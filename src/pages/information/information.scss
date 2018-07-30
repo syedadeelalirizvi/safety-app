@@ -1,28 +1,41 @@
 page-information {
-.title-contianer{
+  //.title-contianer {
+  //  width: 100%;
+  //  color: #fff;
+  //  font-size: 3em;
+  //  text-transform: uppercase;
+  //  text-align: center;
+  //  vertical-align: middle;
+  //  .main-sub-title {
+  //    letter-spacing: 0.7em;
+  //    padding-left: 16px;
+  //    padding-top: 0px;
+  //    margin-top: -17px;
+  //    font-size: 0.8em;
+  //  }
+  //}
+  .main-title {
     width: 100%;
     color: #fff;
-    font-size: 3em;
-    text-transform: uppercase;
-    text-align: center;
-    vertical-align: middle;
-    
-
-.main-title {
-
- }
-    .main-sub-title {
-              letter-spacing: 0.7em;
-    padding-left: 16px;
-    padding-top: 0px;
-    margin-top: -17px;
-    font-size: 0.8em; }
-}
-.welcome{
-	    color: #7ff7f7;
     font-size: 2.2em;
-}
-.after-welcome{
-font-size:1.5em;
-}
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 6vh;
+    letter-spacing: 13px;
+    line-height: 0.9em;
+    font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+    span {
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+  }
+  .welcome {
+    color: #7ff7f7;
+    font-size: 1.6em;
+    margin-top: 20px;
+  }
+  .after-welcome {
+    font-size: 1.2em;
+  }
 }

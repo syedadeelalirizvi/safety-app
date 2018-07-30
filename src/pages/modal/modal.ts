@@ -11,14 +11,7 @@ import { WorkPage } from '../work/work';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the ModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-modal',
   templateUrl: 'modal.html',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -18,14 +18,6 @@ import { FailDuePage} from '../fail-due/fail-due';
 import { RemarksPage} from '../remarks/remarks';
 
 
-/**
- * Generated class for the InspectionRemarksPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-inspection-remarks',
   templateUrl: 'inspection-remarks.html',
@@ -74,15 +66,7 @@ export class InspectionRemarksPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(RemarksPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions),
-			inspection_result: this.inspection_result
-		});  
+		this.navCtrl.pop();
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import {SignaturePad} from 'angular2-signaturepad/signature-pad';
 import {HomePage} from '../home/home';
 import { PassObservationPage} from '../pass-observation/pass-observation';
@@ -79,7 +79,7 @@ export class SignaturePage {
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image,
 			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.parse(JSON.stringify(this.allQuestions)),
+			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result,
 			signatureImage : this.signatureImage,
 			equipment_image_last: this.equipment_image_last,

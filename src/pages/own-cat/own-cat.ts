@@ -12,7 +12,6 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-own-cat',
   templateUrl: 'own-cat.html',
@@ -82,10 +81,7 @@ export class OwnCatPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(SafetyPage, {
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image
-		});
+		this.navCtrl.pop();
 	}
 	
 	ionViewDidLoad() {

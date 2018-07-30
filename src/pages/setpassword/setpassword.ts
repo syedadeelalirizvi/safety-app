@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { Observable } from 'rxjs/Observable';
@@ -7,9 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-import { AlertController, ModalController } from 'ionic-angular';
-
-@IonicPage()
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-setpassword',
   templateUrl: 'setpassword.html',
@@ -18,7 +16,7 @@ export class SetpasswordPage {
 		setPasswordForm : FormGroup;
 		response: any;
 		email:any;
-		constructor(private alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+		constructor(private Keyboard: Keyboard,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
 				this.email = navParams.get('userEmail');
 				this.response = false;
 				this.setPasswordForm = fb.group({
@@ -27,12 +25,9 @@ export class SetpasswordPage {
 					'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 					
 				});
-	
+				Keyboard.disableScroll(true);
 		}
 		setPassword(value: any):void{
-				(<HTMLInputElement> document.getElementById("setpassword-submit")).disabled = true;
-				(<HTMLInputElement> document.getElementById("setpassword-submit")).innerHTML = "Please wait..";
-
 				console.log(value.password);
 				console.log('Forgot Pass clicked');
 				console.log(this.email);
@@ -46,25 +41,9 @@ export class SetpasswordPage {
 								res => {
 									console.log(res);
 									this.navCtrl.push(HomePage);
-									let alert = this.alertCtrl.create({
-										title: 'Please login',
-										subTitle: 'Password reset successfully!',
-										buttons: ['OK']
-									  });
-									 alert.present();
-									
 								},
 								err => {
-									(<HTMLInputElement> document.getElementById("setpassword-submit")).disabled = false;
-									(<HTMLInputElement> document.getElementById("setpassword-submit")).innerHTML = "Reset password";
-
 									this.response = true;
-									let alert = this.alertCtrl.create({
-										title: 'Some error occurred',
-										subTitle: 'Please try again later.',
-										buttons: ['OK']
-									  });
-									 alert.present();
 									console.log("Error occurred");
 									console.log(err);
 									//this.navCtrl.push(VerificationPage)

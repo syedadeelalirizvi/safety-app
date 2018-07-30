@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { constant as ENV } from '../../configs/constant';
 
-@IonicPage()
 @Component({
   selector: 'page-own-sub-cat',
   templateUrl: 'own-sub-cat.html',
@@ -94,12 +93,7 @@ export class OwnSubCatPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(SafetyCatInfoPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image
-		});
+		this.navCtrl.pop();
 	}
 	
 	ionViewDidLoad() 

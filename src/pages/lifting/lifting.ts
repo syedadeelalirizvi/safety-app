@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { SetpasswordPage } from '../setpassword/setpassword';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 
-@IonicPage()
 @Component({
   selector: 'page-lifting',
   templateUrl: 'lifting.html',

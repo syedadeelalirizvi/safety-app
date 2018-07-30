@@ -1,30 +1,21 @@
+import { Keyboard } from '@ionic-native/keyboard';
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
-import { PassObservationPage} from '../pass-observation/pass-observation';
 import { WorkPage } from '../work/work';
-import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 
-
-/**
- * Generated class for the MainPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-main',
   templateUrl: 'main.html',
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-
+  constructor(private keyboard:Keyboard,public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+		keyboard.disableScroll(true);
   }
   
   logout(){
@@ -39,12 +30,10 @@ export class MainPage {
 		this.storage.remove('Session.company_logo');	
 		this.storage.clear();  
 	});	
-    this.navCtrl.push(HomePage);
+	this.navCtrl.pop();
+    
   }
 
-  ionViewDidLoad() {
-   console.log('ionViewDidLoad MainPage');
-  }
 
 //profileLoad = function(){this.navCtrl.push(PassObservationPage); console.log('click');}  
 profileLoad = function(){this.navCtrl.push(ProfilePage)}

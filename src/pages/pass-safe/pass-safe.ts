@@ -1,25 +1,19 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { AlertController } from 'ionic-angular';
+import { Keyboard } from "@ionic-native/keyboard";
 
-/**
- * Generated class for the PassSafePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-pass-safe',
   templateUrl: 'pass-safe.html',
 })
 export class PassSafePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController ) {
+  constructor(private keyboard:Keyboard,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController ) {
+    keyboard.disableScroll(true);
   }
 
 presentAlert() {
@@ -29,6 +23,7 @@ presentAlert() {
     buttons: ['Dismiss']
   });
   alert.present();
+
 }
 
 

@@ -1,9 +1,6 @@
-page-main { 
-
-
-
-.header-ios .toolbar-ios:last-child .toolbar-background-ios {
-    border:none !important;
+page-main {
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border: none !important;
   }
   ion-row.header-home.row {
     text-align: center;
@@ -38,10 +35,9 @@ page-main {
     line-height: 0.9em;
     font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
     span {
-      font-weight:600;
+      font-weight: 600;
       letter-spacing: 0;
     }
-    
   }
   .ion-col-pad-set ion-col.col {
     padding: 0 2px;
@@ -56,9 +52,9 @@ page-main {
   .inspect-btn {
     color: #5560d3;
     background-color: #ffffff;
-    -webkit-box-shadow: 0 2px 5px  #2c4b7a;
-    -moz-box-shadow: 0 2px 5px  #2c4b7a;
-    box-shadow: 0 2px 5px  #2c4b7a;
+    -webkit-box-shadow: 0 2px 5px #2c4b7a;
+    -moz-box-shadow: 0 2px 5px #2c4b7a;
+    box-shadow: 0 2px 5px #2c4b7a;
     padding: 1.2em 0;
     width: 85%;
     font-weight: 500;
@@ -67,7 +63,7 @@ page-main {
   .log-out {
     color: #ffffff;
     background-color: transparent;
-    border:2px solid #ffffff;
+    border: 2px solid #ffffff;
     text-transform: none;
     //position: absolute;
     //right: 30vw;
@@ -95,6 +91,7 @@ page-main {
   //  }
   //}
 }
+
 .text-center {
   text-align: center;
 }

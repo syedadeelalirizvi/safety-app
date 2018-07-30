@@ -1,20 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
-import { PassObservationPage} from '../pass-observation/pass-observation';
 import { InspectionRemarksPage } from '../inspection-remarks/inspection-remarks';
 import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
-@IonicPage()
 @Component({
     selector: 'page-remarks',
     templateUrl: 'remarks.html',
@@ -97,17 +93,7 @@ export class RemarksPage {
     
     goBack()
 	{
-		console.log('Before leave', this.allQuestions, JSON.stringify(this.allQuestions));
-		
-		
-		this.navCtrl.push(SafetyCatInfoPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions)
-		});  
+		this.navCtrl.pop();
     }
 	
 	informationremarksLoad(value: any)
