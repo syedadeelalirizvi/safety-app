@@ -46,22 +46,24 @@
 					</ion-item-divider>
 				</ion-col>
 			</ion-row>
+			<br>
+			<br>
+			<br>
 			<ion-list  style='width: 100%'  *ngFor="let question of subcategory.questions">
 			
 				<ion-col>
 						<ion-col col-9 font-size="small">	
 								{{question.questionTitle}}
 						</ion-col>
-						
+						<br>
+			<br>
+			<br>
 						<ion-col col-1 font-size="small">	
 							 
 								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'pass'" name="radiogroup-{{question.questionId}}" value="pass|{{question.questionId}}" (click)="answerList(question,'pass')" />
 						</ion-col>
 						<ion-col col-1 font-size="small">	
-							
-								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerList(question,'fail')" />
-								
-							
+							<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerList(question,'fail')" />	
 						</ion-col>
 						<ion-col col-1 font-size="small">	
 								<input  radio-group type="radio" [checked]="!question.answer"  value="na|{{question.questionId}}" name="radiogroup-{{question.questionId}}" (click)="answerList(question,'na')" />

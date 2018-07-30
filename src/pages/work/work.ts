@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController,ModalController } from 'ionic-angular';
-// import { Keyboard } from "@ionic-native/keyboard";
+ import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-work',
   templateUrl: 'work.html',
@@ -26,6 +26,7 @@ export class WorkPage {
 	inspection_desc: string = "";
 
 	constructor(public actionSheetCtrl: ActionSheetController, 
+				private keyboard : Keyboard,
 				private alertCtrl: AlertController,   
 				private modalCtrl: ModalController,
 				public navCtrl: NavController, 
@@ -35,7 +36,7 @@ export class WorkPage {
 				private storage: Storage,
 				private camera: Camera) 
 	{
-
+		keyboard.disableScroll(true);
 		this.response = false;
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
