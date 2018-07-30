@@ -333,7 +333,7 @@
 			</ion-col>
 
 			<ion-col col-8>
-				<button ion-button type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage" block color="white">Save and finish inspection</button>
+				<button ion-button type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid && !signatureImage && !base64Image && imageUpload == false" block color="white">Save and finish inspection</button>
 
 			</ion-col>
 

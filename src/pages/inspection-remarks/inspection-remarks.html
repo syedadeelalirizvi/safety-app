@@ -10,7 +10,7 @@
 	<ion-navbar>
 		<ion-grid>
 			<ion-row nowrap align-items-center justify-content-center class="header-home ion-col-pad-set">
-				<ion-col col-4>
+				<ion-col col-4 >
 					<button ion-button color="light" class="navbutton" (click)="profileLoad()" small text-wrap>Profile Information</button>
 				</ion-col>
 				<ion-col col-4>
@@ -34,7 +34,7 @@
 			</ion-col>
 			<ion-col col-12>
 				<ion-row>
-					<ion-col col-8>
+					<ion-col col-8 *ngIf="!this.checkFail">
 						<button ion-button block color="green" (click)="nextPageLoad('safe')">Passed and is safe to use</button>
 					</ion-col>
 				</ion-row>
@@ -44,7 +44,7 @@
 					</ion-col>
 				</ion-row>
 				<ion-row>
-					<ion-col col-8>
+					<ion-col col-8 *ngIf="this.checkFail">
 						<button ion-button block color="red" (click)="nextPageLoad('critical')">Fail due to safety critical issue</button>
 					</ion-col>
 				</ion-row>

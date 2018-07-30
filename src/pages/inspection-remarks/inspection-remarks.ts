@@ -40,6 +40,8 @@ export class InspectionRemarksPage {
 	inspection_result: any;
 	subCategoriesIds:any;
 	allQuestions:any;
+	checkFail=false;
+	
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -108,5 +110,15 @@ export class InspectionRemarksPage {
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad InspectionRemarksPage');
+		console.log(this.allQuestions.userSubCategories[0].questions);
+		for (let i = 0; i < this.allQuestions.userSubCategories[0].questions.length; i++){
+			console.log(this.allQuestions.userSubCategories[0].questions[i].answer);
+			if(this.allQuestions.userSubCategories[0].questions[i].answer=='fail'){
+				this.checkFail = true;
+				break;
+			}
+
+		}
+	
 	}
 }

@@ -61,7 +61,7 @@ export class WorkPage {
 		console.log('equipment_image>' + this.base64Image);
 
 		this.inspectionForm = fb.group({
-			'description' : [null, Validators.compose([Validators.required])],
+			'description' : [],
 			//'equipment_image' : [null, Validators.compose([Validators.required])],
 		});
 		
