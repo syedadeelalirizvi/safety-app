@@ -89,7 +89,7 @@ export class PreviousPage {
     }
      
     gotoDetails(id:string){
-        console.log('Lifting Clicked'+id); 
+        console.log('Lifting Click'+id); 
         this.navCtrl.push(LiftingPage, {
           inspectionId: id
         }); 
