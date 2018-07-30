@@ -102,6 +102,9 @@
 				</button>
 				<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 			</ion-col>
+			<ion-col *ngIf="!signatureImage" col-12 class="error-box" >
+				<div text-wrap class="text-center text-wrap"> * Signature is required</div>
+			</ion-col>
 
 			<ion-col col-2>
 			</ion-col>
@@ -140,7 +143,7 @@
 
 			<ion-col col-8>
 					<!-- (click)="SubmitInspection()" -->
-				<button  ion-button block type="submit" name="create-inspection-submit"  color="white">Save and finish inspection</button>
+				<button  ion-button block type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage"  color="white">Save and finish inspection</button>
 
 			</ion-col>
 
@@ -200,6 +203,9 @@
 				</button>
 				<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 			</ion-col>
+			<ion-col *ngIf="!signatureImage" col-12 class="error-box" >
+				<div text-wrap class="text-center text-wrap"> * Signature is required</div>
+			</ion-col>
 
 			<ion-col col-2>
 			</ion-col>
@@ -211,7 +217,7 @@
 			</ion-col>
 
 			<ion-col col-8>
-				<button ion-button block name="create-inspection-submit"  (click)="SubmitInspection('values')" color="white">Save and finish inspection</button>
+				<button ion-button block name="create-inspection-submit"  (click)="SubmitInspection('values')" full [disabled]="!signatureImage" color="white">Save and finish inspection</button>
 
 			</ion-col>
 
@@ -287,6 +293,9 @@
 				</button>
 				<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 			</ion-col>
+			<ion-col *ngIf="!signatureImage" col-12 class="error-box" >
+				<div text-wrap class="text-center text-wrap"> * Signature is required</div>
+			</ion-col>
 
 			<ion-col col-2>
 			</ion-col>
@@ -324,7 +333,7 @@
 			</ion-col>
 
 			<ion-col col-8>
-				<button ion-button type="submit" name="create-inspection-submit"  block color="white">Save and finish inspection</button>
+				<button ion-button type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage" block color="white">Save and finish inspection</button>
 
 			</ion-col>
 
