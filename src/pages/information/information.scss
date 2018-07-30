@@ -8,21 +8,38 @@ page-information {
     vertical-align: middle;
     
 
-.main-title {
+// .main-title {
 
- }
-    .main-sub-title {
-              letter-spacing: 0.7em;
-    padding-left: 16px;
-    padding-top: 0px;
-    margin-top: -17px;
-    font-size: 0.8em; }
+//  }
+    // .main-sub-title {
+    //           letter-spacing: 0.7em;
+    // padding-left: 16px;
+    // padding-top: 0px;
+    // margin-top: -17px;
+    // font-size: 0.8em; }
+}
+.main-title {
+    width: 100%;
+    color: #fff;
+    font-size: 2.2em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 6vh;
+    letter-spacing: 13px;
+    line-height: 0.9em;
+    font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+    span {
+      font-weight: 600;
+      letter-spacing: 0;
+    }
 }
 .welcome{
-	    color: #7ff7f7;
-    font-size: 2.2em;
+	color: #7ff7f7;
+    font-size: 1.6em;
+    margin-top: 1.5vh;    
 }
 .after-welcome{
-font-size:1.5em;
+font-size:1.2em;
 }
 }

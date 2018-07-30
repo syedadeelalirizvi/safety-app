@@ -32,6 +32,8 @@
 			<ion-col col-9>
 				<ion-label font-size="subheading"  color="lightgreen">CATEGORIES</ion-label>
 			</ion-col>
+		</ion-row>
+		<ion-row class="safety-div safetysubmit">
 			<ion-col col-11>
 				<ion-input [(ngModel)]="filter" (change)="filterCategories()"  type="text" placeholder="Search"></ion-input>
 			</ion-col>
@@ -50,10 +52,12 @@
 					<ion-icon name="md-create" class="penicon"></ion-icon>
 				</button>
 			</ion-col>
-			<ion-col col-1>
-				<button  (click)="delete(category.category_id)">
-					<ion-icon name="md-close-circle" class="penicon"></ion-icon>
-				</button>
+			<ion-col col-1 >
+				<div >
+					<button  (click)="delete(category.category_id)">
+							<ion-icon name="md-close-circle" class="penicon"></ion-icon>
+					</button>
+				</div>		
 			</ion-col>
 		</ion-row>
 	</ion-grid>
