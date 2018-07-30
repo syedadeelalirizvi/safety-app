@@ -56,6 +56,12 @@ page-remarks {
         color: #ffffff;
         font-size: 1em;
     }
+    ion-list.list ion-col ion-col:nth-child(1) {
+        max-width: 75%;
+        display: block;
+        float: left;
+        width: 75%;
+    }
     ion-label.label.label-md.label-md-lightgreen {
         margin-left: 10%;
     }

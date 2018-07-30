@@ -93,7 +93,12 @@ export class OwnSubCatPage {
 	}
 	
 	goBack(){
-		this.navCtrl.pop();
+		this.navCtrl.push(SafetyCatInfoPage, {
+			categoryId: this.categoryId,
+			category_name: this.categoryName,
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image
+		});
 	}
 	
 	ionViewDidLoad() 
@@ -172,15 +177,36 @@ export class OwnSubCatPage {
 	edit(val : any) : void
 	{
 		//USE THIS TO SEND DATA (this.subcategoryinfo see below - nousheen) - this is required array
+		console.log("edit clicked");
 		console.log(this.subcategoryinfo.questions);
 		console.log(val);
+		const headers =  new HttpHeaders()
+		.set("user_id", this.userid.toString())
+		.set("access_token", this.token);
 		
-		this.navCtrl.push(SafetyCatInfoPage, {
+	const req = this.httpClient.post(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory/'+this.subcategoryinfo.subCategoryId, {
+		questions: this.subcategoryinfo,
+		equipmentSubCategoryName: val.name
+	},
+	{headers:headers})
+	.subscribe(
+		res => {
+			console.log(res);
+			this.navCtrl.push(SafetyCatInfoPage, {
 					categoryId: this.categoryId,
 					category_name: this.categoryName,
 					inspection_desc: this.inspection_desc,
 					equipment_image:this.equipment_image
 				});  
+		},
+		err => {
+			//this.response = true;
+			console.log("Error occurred");
+			console.log(err);
+		});
+	
+
+	
 	}
 	
 	update_array(index, label = '')

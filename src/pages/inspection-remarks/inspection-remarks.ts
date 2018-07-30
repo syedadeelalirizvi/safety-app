@@ -4,7 +4,8 @@ import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 
-
+import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
+import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -30,6 +31,8 @@ export class InspectionRemarksPage {
 	inspection_result: any;
 	subCategoriesIds:any;
 	allQuestions:any;
+	checkFail=false;
+	
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -89,5 +92,15 @@ export class InspectionRemarksPage {
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad InspectionRemarksPage');
+		console.log(this.allQuestions.userSubCategories[0].questions);
+		for (let i = 0; i < this.allQuestions.userSubCategories[0].questions.length; i++){
+			console.log(this.allQuestions.userSubCategories[0].questions[i].answer);
+			if(this.allQuestions.userSubCategories[0].questions[i].answer=='fail'){
+				this.checkFail = true;
+				break;
+			}
+
+		}
+	
 	}
 }
