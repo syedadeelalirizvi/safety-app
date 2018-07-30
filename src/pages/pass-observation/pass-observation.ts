@@ -112,7 +112,7 @@ export class PassObservationPage {
 	 {
 		
 		// document.getElementById("create-inspection-submit").disabled = true;
-		document.getElementById("create-inspection-submit").innerHTML = "Please wait..";
+		// document.getElementById("create-inspection-submit").innerHTML = "Please wait..";
 		
 		 
 		if(this.inspection_result!='fail'){
@@ -161,11 +161,11 @@ export class PassObservationPage {
 							buttons: ['OK']
 						  });
 						  alert.present();
-						this.navCtrl.push(MainPage);
+						this.navCtrl.setRoot(MainPage);
 				},
 				err => {
 					// document.getElementById("create-inspection-submit").disabled = false;
-					document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";	
+					// document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";	
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
@@ -173,7 +173,7 @@ export class PassObservationPage {
 		},
 		err => {
 			// document.getElementById("create-inspection-submit").disabled = false;
-			document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";		
+			// document.getElementById("create-inspection-submit").innerHTML = "Save and finish inspection";		
 			console.log("Error occurred - 1st step");
 			console.log(err);
 		})		
@@ -183,17 +183,7 @@ export class PassObservationPage {
 
    goBack()
    {
-		this.navCtrl.push(InspectionRemarksPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions),
-			inspection_result: this.inspection_result,
-			signatureImage : this.signatureImage,
-			equipment_image_last: this.base64Image
-		});
+		this.navCtrl.pop();
     
 	}
 

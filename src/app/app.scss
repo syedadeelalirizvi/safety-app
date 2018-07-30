@@ -17,3 +17,7 @@
 .toolbar-ios ion-title {
   padding: 0 50px 1px;
 }
+// Keyboard Internal setting
+.keyboard-open .has-footer{
+  bottom: 0px !important;
+}

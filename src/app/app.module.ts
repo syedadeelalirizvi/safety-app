@@ -1,5 +1,4 @@
 
-
 import { SigninFormComponent } from './../components/signin-form/signin-form';
 import { ForgotPasswordFormComponent } from './../components/forgot-password-form/forgot-password-form';
 import { ChangePasswordFormComponent } from './../components/change-password-form/change-password-form';
@@ -76,7 +75,6 @@ import { CameraMock } from "./camera.mock";
     ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
     SigninFormComponent
-	
   ],
   imports: [
     BrowserModule,
@@ -123,7 +121,7 @@ import { CameraMock } from "./camera.mock";
     StatusBar,
     SplashScreen,
      Keyboard ,
-	Camera,
+  	 Camera,
 	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

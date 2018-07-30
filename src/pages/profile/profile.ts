@@ -1,3 +1,4 @@
+import firebase  from 'firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
@@ -103,7 +104,7 @@ export class ProfilePage {
 		actionSheet.present();
   }
 // Button goBack
-goBack(){ this.navCtrl.push(MainPage);}
+goBack(){ this.navCtrl.pop();}
 // Button ChangePassword
 changeLoad(){this.navCtrl.push(ChangepasswordPage)}
 // Camera openCamera for image upload
@@ -186,15 +187,26 @@ async openGallery(): Promise<any>{
 		{headers:headers})
 		.subscribe(
 			(res: any) => {
-				console.log(res);
-				this.navCtrl.push(MainPage);
-				let alert = this.alertCtrl.create({
-				  title: 'Success',
-				  subTitle: 'Profile Updated Successfully!',
-				  buttons: ['Dismiss']
-				});
-			   alert.present();
-			
+        // this.storage.get('Session.userEmail')
+        // firebase.database().ref(`profile/${this.email}`).update({
+        //   userEmail: value.email,
+        //   userName: value.username,
+        //   userDepartment: value.department,
+        //   userCompany: value.company,
+        //   nameToReceiveReport   : value.nameOfReceiveReport,
+        //   emailToReceiveReport:value.emailOfReceiveReport,
+        //   companyLogo: this.base64Image,
+        //   profilePicture: this.base64ImageProfile
+        // }).then(() => {
+          console.log(res);
+          this.navCtrl.push(MainPage);
+          let alert = this.alertCtrl.create({
+            title: 'Success',
+            subTitle: 'Profile Updated Successfully!',
+            buttons: ['Dismiss']
+          });
+           alert.present();
+        // })
 		},
 		err => {
 			this.response = true;

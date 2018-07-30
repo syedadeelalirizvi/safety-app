@@ -24,7 +24,7 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding class="bg-none">
+<ion-content padding class="bg-none" *ngIf="!this.editCat">
 	<ion-grid>
 		<form [formGroup]="form" (ngSubmit)="manage(form.value)">
 			<ion-row>
@@ -87,3 +87,70 @@
 			</form>	
 		</ion-grid>
 </ion-content>
+
+<ion-content padding class="bg-none" *ngIf="this.editCat">
+		<ion-grid>
+			<form [formGroup]="form" (ngSubmit)="edit(form.value)">
+				<ion-row>
+					<ion-col col-12>
+						<ion-label  style="margin-left: 0px" color="lightgreen">EDIT SUB CATEGORY:</ion-label>
+						<ion-input type="text" [value] ="this.subcategoryinfo.subCategoryName" maxlength="40" formControlName="name"></ion-input>
+					</ion-col>
+				</ion-row>
+				<ion-row>	
+					<ion-col col-11>
+						<ion-label  style="margin-left: 0px" color="lightgreen">QUESTION LIST:</ion-label>
+					</ion-col>
+					<ion-col col-1>
+						<ion-icon font-size="subheading" item-right name="md-add" (click)="addNewInputField()"></ion-icon>  
+					</ion-col>
+				</ion-row>
+				<ion-row>	
+					<ion-col col-12 >
+						<div formArrayName="questions" margin-bottom>
+							<!-- Assign a FormGroupName property binding to track
+								 and manage each separate generated input field.
+								 Also iterate through the technologies FormArray to
+								 correctly track/render new input fields against
+								 existing fields -->
+							<section
+							   [formGroupName]="i"
+							   *ngFor="let question of form.controls.questions.controls; let i = index">
+									<ion-item-group>
+										<ion-item>
+											<ion-label floating>Questions:</ion-label>
+											 <ion-input
+												value = "{{(this.subcategoryinfo.questions[i] != null) ? this.subcategoryinfo.questions[i].questionTitle : ''}}"
+												type="text"
+												maxlength="50"
+												formControlName="name"
+												(change)="update_array(i, $event.target.value)"
+												></ion-input>
+										</ion-item>
+	
+										<!-- Allow generated input field to be removed -->
+										<span
+											 float-right
+											 ion-button
+											 icon-left
+											 clear
+											 *ngIf="form.controls.questions.length > 1"
+											 (click)="removeInputField(i)">
+											<ion-icon name="close"></ion-icon>
+											Remove
+										</span>
+									</ion-item-group>
+							</section>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>    
+					<ion-col col-12>
+						<div class="lg-new text-center">
+							<button ion-button block margin-top color="primary" text-center [disabled]="!form.valid">Save</button>
+						</div>
+					</ion-col>
+				</ion-row>    
+				</form>	
+			</ion-grid>
+	</ion-content>

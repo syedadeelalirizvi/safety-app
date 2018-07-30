@@ -5,15 +5,12 @@ import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { SafetyPage } from '../safety/safety';
 import { MainPage} from '../main/main';
-import { ModalPage } from '../modal/modal';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { HttpClient  } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
-import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController,ModalController } from 'ionic-angular';
-import { Keyboard } from "@ionic-native/keyboard";
+// import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-work',
   templateUrl: 'work.html',
@@ -28,7 +25,7 @@ export class WorkPage {
 	inspectionForm : FormGroup;
 	inspection_desc: string = "";
 
-	constructor(private keyboard : Keyboard,public actionSheetCtrl: ActionSheetController, 
+	constructor(public actionSheetCtrl: ActionSheetController, 
 				private alertCtrl: AlertController,   
 				private modalCtrl: ModalController,
 				public navCtrl: NavController, 
@@ -38,7 +35,7 @@ export class WorkPage {
 				private storage: Storage,
 				private camera: Camera) 
 	{
-		keyboard.disableScroll(true)
+
 		this.response = false;
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
@@ -68,6 +65,7 @@ export class WorkPage {
 		
 	}
 
+
 	//Main Navigation links
 	profileLoad = function()
 	{
@@ -85,7 +83,7 @@ export class WorkPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(MainPage);
+		this.navCtrl.pop();
 	}
 
 	// Image upload possible options mapping	
@@ -142,10 +140,5 @@ async openGallery(): Promise<any>{
 			inspection_desc: value.description,
 			equipment_image: this.base64Image
 		});
-	}
-
-	ionViewDidLoad() 
-	{	 
-	
 	}
 }

@@ -41,31 +41,16 @@ export class SignupPage {
 	}
 	
 	
-	
-	openCamera(){
-		console.log('openCamera');
-		// Camera options		
+	async openCamera(): Promise<any>{
 		const options: CameraOptions = {
 			quality: 100,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE
 		}
-		
-		this.camera.getPicture(options).then((imageData) => {
-				// imageData is either a base64 encoded string or a file URI
-				// If it's base64 (DATA_URL):
-				this.base64Image = 'data:image/jpeg;base64,' + imageData;
-				this.imageUpload = true;
-			}, (err) => {
-				// Handle error
-				console.log(err);
-			});
-	}
-	
-	openGallery(){
-		console.log('openGallery');
-		// Camera options		
+		try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+	} 	
+	async openGallery(): Promise<any>{
 		const options: CameraOptions = {
 			quality: 100,
 			destinationType: this.camera.DestinationType.DATA_URL,
@@ -73,17 +58,10 @@ export class SignupPage {
 			mediaType: this.camera.MediaType.PICTURE,
 			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
 		}
-		
-		this.camera.getPicture(options).then((imageData) => {
-				// imageData is either a base64 encoded string or a file URI
-				// If it's base64 (DATA_URL):
-				this.base64Image = 'data:image/jpeg;base64,' + imageData;
-				this.imageUpload = true;
-			}, (err) => {
-				// Handle error
-				console.log(err);
-			});
-	}
+		try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+	} 
+
+	
 	
 	uploadImage(){
 		
@@ -93,9 +71,7 @@ export class SignupPage {
 		this.navCtrl.pop();
 	}
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad SignupPage');
-	}
+
 	profilepic :any
 	userid : any
 	accesstoken : any
@@ -119,20 +95,7 @@ export class SignupPage {
 				  
         },{headers:headers})
 		.subscribe(res => {
-			firebase.auth().createUserWithEmailAndPassword(value.email,value.password).then(
-				auth => {
-					console.log(auth)
-				firebase.database().ref(`profile/${auth.uid}`).set({
-					userEmail: value.email,
-					userPassword: value.password,
-					userName: value.username,
-					userDepartment: value.department,
-					userCompany: value.company,
-					nameToReceiveReport: value.nameToReceiveReport,
-					emailToReceiveReport: value.emailToReceiveReport,
-					companyLogo: this.base64Image,
-				
-				}).then(() => {
+
 					let alert = this.alertCtrl.create({	
 						title: 'Success',
 						subTitle: 'Your account registered!',
@@ -140,8 +103,6 @@ export class SignupPage {
 					});
 					alert.present();
 					this.navCtrl.pop();
-				})
-			})
 			},
 			err => {
 				this.response = true;

@@ -62,25 +62,18 @@ export class SigninFormComponent {
 						userPassword: value.password
 					})
 					.subscribe((res: any) => {
-							firebase.auth().signInWithEmailAndPassword(value.email,value.password).then(afAuth => {
-								console.log
-								firebase.database().ref(`profile/${afAuth.uid}/signAuthdataForSession/`).set({
-									accessToken : res.data.token.toString(),
-									expiryToken:  res.data.expiry.toString(),
-								}).then(afdb => {
+							
 									console.log(res);
-									// Initializing session information
+									this.storage.set('Session.userEmail', value.email);
 									this.storage.set('Session.user_name', res.data.userName);
 									this.storage.set('Session.user_id', res.data.userId);
 									this.storage.set('Session.access_token', res.data.token);
 									this.storage.set('Session.token_expiry', res.data.expiry);
 									this.storage.set('Session.profile_pic', res.data.profilePicture);
 									this.storage.set('Session.company_logo', res.data.companyLogo);
-									// for firebase app
+						
 										this.navCtrl.push(MainPage);
-								})
-									
-								})
+														
 						
 				},err => {
 							this.response = true;

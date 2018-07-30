@@ -49,7 +49,14 @@ $colors: (
   red:        #df0803,
   category: #85f8f5
 );
- 
+// for Android
+$background-md-color: #1E1F2B;
+// for iOs
+$background-ios-color: #1E1F2B;
+// for windows 
+$background-wp-color: #1E1F2B;
+
+
 $font-size: (
   date: 1em,
   subheading: 1.5em,

@@ -92,12 +92,7 @@ export class SafetyCatInfoPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(SafetyPage, {
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			categoryId: this.categoryId,
-			category_name: this.categoryName
-		});
+		this.navCtrl.pop();
 	}
 	
 	OwnCatLoad = function()

@@ -93,17 +93,7 @@ export class RemarksPage {
     
     goBack()
 	{
-		console.log('Before leave', this.allQuestions, JSON.stringify(this.allQuestions));
-		
-		
-		this.navCtrl.push(SafetyCatInfoPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions)
-		});  
+		this.navCtrl.pop();
     }
 	
 	informationremarksLoad(value: any)

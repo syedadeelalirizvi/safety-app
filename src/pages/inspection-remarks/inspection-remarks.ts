@@ -66,15 +66,7 @@ export class InspectionRemarksPage {
 	}
 	
 	goBack(){
-		this.navCtrl.push(RemarksPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions),
-			inspection_result: this.inspection_result
-		});  
+		this.navCtrl.pop();
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}
