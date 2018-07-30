@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { AlertController } from 'ionic-angular';
@@ -118,7 +118,7 @@ export class PreviousPage {
 		this.user.subscribe(data => 
 		{
 			console.log(data);
-            
+			this.navCtrl.push(PreviousPage); 
 		}),
 		err => {				
 			console.log("Error occurred");

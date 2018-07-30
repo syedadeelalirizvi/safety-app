@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { Component } from '@angular/core';
@@ -30,7 +31,7 @@ export class MainPage {
 		this.storage.remove('Session.company_logo');	
 		this.storage.clear();  
 	});	
-	this.navCtrl.pop();
+	this.navCtrl.setRoot(HomePage);
     
   }
 

@@ -33,6 +33,7 @@
 	 <!-- </div> -->
  </ion-navbar>
 </ion-header>
+
 <ion-content padding class="bg-none" *ngIf="this.observation" >
  <ion-grid>
 	 <ion-row class="safety-div">
@@ -138,7 +139,7 @@
 
 		 <ion-col col-8>
 				 <!-- (click)="SubmitInspection()" -->
-			 <button  ion-button block type="submit" id="create-inspection-submit" color="white">Save and finish inspection</button>
+			 <button  ion-button block type="submit" name="create-inspection-submit"  color="white">Save and finish inspection</button>
 
 		 </ion-col>
 
@@ -207,7 +208,7 @@
 		 </ion-col>
 
 		 <ion-col col-8>
-			 <button ion-button block (click)="SubmitInspection('values')" color="white">Save and finish inspection</button>
+			 <button ion-button block name="create-inspection-submit"  (click)="SubmitInspection('values')" color="white">Save and finish inspection</button>
 
 		 </ion-col>
 
@@ -320,7 +321,7 @@
 		 </ion-col>
 
 		 <ion-col col-8>
-			 <button ion-button type="submit" block color="white">Save and finish inspection</button>
+			 <button ion-button type="submit" name="create-inspection-submit"  block color="white">Save and finish inspection</button>
 
 		 </ion-col>
 
@@ -330,6 +331,5 @@
 	 </form>
  </ion-col>
 	 </ion-row>
-	 
  </ion-grid>
 </ion-content>

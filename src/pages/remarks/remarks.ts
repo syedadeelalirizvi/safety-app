@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { InspectionRemarksPage } from '../inspection-remarks/inspection-remarks';
 import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-
 
 @Component({
     selector: 'page-remarks',
@@ -93,6 +92,9 @@ export class RemarksPage {
     
     goBack()
 	{
+		console.log('Before leave', this.allQuestions, JSON.stringify(this.allQuestions));
+		
+		
 		this.navCtrl.pop();
     }
 	

@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { RemarksPage} from '../remarks/remarks';
 import { OwnSubCatPage} from '../own-sub-cat/own-sub-cat';
 import { SafetyPage } from '../safety/safety';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-import { Keyboard } from "@ionic-native/keyboard";
+
 
 @Component({
   selector: 'page-safety-cat-info',
@@ -39,7 +41,6 @@ export class SafetyCatInfoPage {
 	
   
 	constructor(
-		private keyboard : Keyboard,
 		private alertCtrl: AlertController, 
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -47,7 +48,6 @@ export class SafetyCatInfoPage {
 		private fb: FormBuilder, 
 		private storage: Storage) 
 	{
-		keyboard.disableScroll(true);
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
