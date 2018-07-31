@@ -110,21 +110,29 @@ changeLoad(){this.navCtrl.push(ChangepasswordPage)}
 // Camera openCamera for image upload
 async openCamera(): Promise<any>{
   const options: CameraOptions = {
-    quality: 100,
+    quality: 50,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+		targetWidth: 150,
+		targetHeight: 100,
+		saveToPhotoAlbum: false,
+		allowEdit : false
   }
   try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
 } 
 // Gallery openGallery for image upload
 async openGallery(): Promise<any>{
   const options: CameraOptions = {
-    quality: 100,
+    quality: 50,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
-    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+		targetWidth: 150,
+		targetHeight: 100,
+		saveToPhotoAlbum: false,
+		allowEdit : false
   }
   try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
 }   

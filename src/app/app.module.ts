@@ -1,4 +1,6 @@
 
+import { PreviousDataComponent } from './../components/previous-data/previous-data';
+
 import { SigninFormComponent } from './../components/signin-form/signin-form';
 import { ForgotPasswordFormComponent } from './../components/forgot-password-form/forgot-password-form';
 import { ChangePasswordFormComponent } from './../components/change-password-form/change-password-form';
@@ -41,6 +43,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 // mocking services for testing
     // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
 import { CameraMock } from "./camera.mock";
+import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
 // mocking services end
 //  importing a firebase library
 
@@ -57,6 +60,7 @@ import { CameraMock } from "./camera.mock";
     InformationPage,
     InspectionRemarksPage,
     LiftingPage,
+    
     OwnCatPage,
     OwnSubCatPage,
     PassObservationPage,
@@ -74,7 +78,9 @@ import { CameraMock } from "./camera.mock";
     //Components
     ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
-    SigninFormComponent
+    SigninFormComponent,
+    PreviousDataComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -115,7 +121,9 @@ import { CameraMock } from "./camera.mock";
     //Components
     ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
-    SigninFormComponent
+    SigninFormComponent,
+    PreviousDataComponent
+    
   ],
   providers: [
     StatusBar,
@@ -123,7 +131,8 @@ import { CameraMock } from "./camera.mock";
      Keyboard ,
   	 Camera,
 	// { provide: Camera, useClass: CameraMock },
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DelPreDataProvider
   ]
 })
 export class AppModule {}
