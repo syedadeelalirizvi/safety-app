@@ -37,7 +37,7 @@
 			<ion-row>
 			<ion-col style="padding-top: 10%;">
 						<ion-row>
-								<ion-col  class="inspection-new text-center">
+								<ion-col  class="inspection-new text-center" *ngIf="!this.checkFail">
 									<button class="inspect-btn" text-wrap small ion-button  color="green" (click)="nextPageLoad('safe')">Passed and is safe to use</button>
 								</ion-col>
 					 </ion-row>
@@ -47,7 +47,7 @@
 								</ion-col>
 						</ion-row>
 						<ion-row>
-								<ion-col  class="inspection-new text-center">
+								<ion-col  class="inspection-new text-center" *ngIf="this.checkFail">
 									<button  class="inspect-btn" ion-button text-wrap small color="red" (click)="nextPageLoad('critical')">Fail due to safety critical issue</button>
 								</ion-col>
 						</ion-row>

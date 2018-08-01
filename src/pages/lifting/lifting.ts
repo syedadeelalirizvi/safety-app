@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { SetpasswordPage } from '../setpassword/setpassword';
 import { Observable } from 'rxjs/Observable';
@@ -31,6 +31,7 @@ export class LiftingPage {
     reportType : any;
     signatureUrl:any;
     signed: any;
+    fault_image_url: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
   
@@ -74,12 +75,15 @@ export class LiftingPage {
 						if (data.inspection.report !== null)
 						{  
 							this.reportType = data.inspection.report.reportType;
-							this.signatureUrl = data.inspection.report.signatureUrl;
+                            this.signatureUrl = data.inspection.report.signatureUrl;
+                            this.fault_image_url = data.inspection.report.mediaUrl;
+                            
 						}
 						else
 						{
 							this.reportType = null;
-							this.signatureUrl = null;
+                            this.signatureUrl = null;
+                            this.fault_image_url =null;
 						}	
                       if(data.inspection.data.inspectionStatus=="Completed" || data.inspection.data.inspectionStatus=="Incomplete"){
                           this.signed = false;

@@ -3,12 +3,16 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
+import { PassObservationPage} from '../pass-observation/pass-observation';
 import { InspectionRemarksPage } from '../inspection-remarks/inspection-remarks';
 import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
+import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 @Component({
     selector: 'page-remarks',
@@ -93,7 +97,8 @@ export class RemarksPage {
     goBack()
 	{
 		console.log('Before leave', this.allQuestions, JSON.stringify(this.allQuestions));
-			
+		
+		
 		this.navCtrl.push(SafetyCatInfoPage, {
 			categoryId: this.categoryId,
 			category_name: this.categoryName,
@@ -155,7 +160,7 @@ export class RemarksPage {
 		console.log('ionViewDidLoad RemarksPage');
     }
 	
-    answerList(questions, value)
+    answerList(questions:any, value:any)
 	{
 		console.log("answerList");
         console.log(value);
@@ -163,18 +168,11 @@ export class RemarksPage {
 		
 		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++)
 		{
-			console.log(this.allQuestions.userSubCategories[i].questions[0])
-			console.log(this.allQuestions.userSubCategories[i].questions[1]);
 			for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++)
 			{
-				console.log(this.allQuestions.userSubCategories[i].questions[j]);
-
 				if(this.allQuestions.userSubCategories[i].questions[j].questionId == questions.questionId)
 				{
-					console.log(this.allQuestions.userSubCategories[i].questions[j]['answer']);
 					this.allQuestions.userSubCategories[i].questions[j]['answer'] = value;
-					console.log(this.allQuestions.userSubCategories[i].questions[j]);
-					
 				}	//break;
 			}	
 		}
