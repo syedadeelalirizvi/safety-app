@@ -110,15 +110,16 @@ export class InspectionRemarksPage {
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad InspectionRemarksPage');
-		console.log(this.allQuestions.userSubCategories[0].questions);
-		for (let i = 0; i < this.allQuestions.userSubCategories[0].questions.length; i++){
-			console.log(this.allQuestions.userSubCategories[0].questions[i].answer);
-			if(this.allQuestions.userSubCategories[0].questions[i].answer=='fail'){
+		console.log(this.allQuestions.userSubCategories);
+		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++){
+		  for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++){
+		 	console.log(this.allQuestions.userSubCategories[i].questions[j].answer);
+			if(this.allQuestions.userSubCategories[i].questions[j].answer=='fail'){
 				this.checkFail = true;
 				break;
 			}
 
+		 }
 		}
-	
 	}
 }
