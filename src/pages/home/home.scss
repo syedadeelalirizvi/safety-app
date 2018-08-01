@@ -67,6 +67,9 @@ page-home {
   //  background: rgba(255,255,255, 0.65);
   //  padding: 8px;
   //}
+  ion-item.item.item-block.item-md.item-input, ion-item.item.item-block.item-md.item-input .item-inner {
+    padding: 0;
+}
   ion-icon.icon.ion-md-lock,
   ion-icon.icon.ion-ios-mail {
     float: right;

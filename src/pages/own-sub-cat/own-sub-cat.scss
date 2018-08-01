@@ -1,4 +1,4 @@
-page-own-sub-cat {
+    page-own-sub-cat {
     .header-ios .toolbar-ios:last-child .toolbar-background-ios {
         border:none !important;
       }
@@ -57,11 +57,22 @@ page-own-sub-cat {
     ion-label.label.label-md.label-md-lightgreen {
         margin-left: 10%;
     }
+    .input-wrapper ion-label {
+        color: #ffffff!important;
+        font-size: 1.5rem;
+      }
+      ion-item.item.item-block.item-md.item-input, ion-item.item.item-block.item-md.item-input .item-inner {
+        padding: 0;
+    }
     input.text-input.text-input-ios,
     input.text-input.text-input-md {
         background-color: rgba(121, 137, 191, 0.8);
         width: 100%;
         padding: 10px;
         border-radius: 10px 10px 10px 10px;
+        margin: 0; 
+    }
+    .bg-none ion-label[floating] {
+        margin-left: 8px;
     }
     }

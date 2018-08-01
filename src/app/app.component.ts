@@ -1,3 +1,4 @@
+import { OwnSubCatPage } from './../pages/own-sub-cat/own-sub-cat';
 import { VerificationPage } from './../pages/verification/verification';
 import { PassObservationPage } from './../pages/pass-observation/pass-observation';
 import { PassSafePage } from './../pages/pass-safe/pass-safe';

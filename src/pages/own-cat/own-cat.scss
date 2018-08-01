@@ -55,7 +55,7 @@ page-own-cat {
         font-size: 1em;
     }
     ion-label.label.label-md.label-md-lightgreen {
-        margin-left: 10%;
+        margin-left: 6px;
     }
     input.text-input.text-input-ios,
     input.text-input.text-input-md {
@@ -63,6 +63,7 @@ page-own-cat {
         width: 100%;
         padding: 10px;
         border-radius: 10px 10px 10px 10px;
+        margin: 0;
     }
     }
     

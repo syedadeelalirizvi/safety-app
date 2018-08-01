@@ -1,4 +1,4 @@
-page-pass-observation {
+    page-pass-observation {
     .header-ios .toolbar-ios:last-child .toolbar-background-ios {
         border:none !important;
       }
@@ -19,7 +19,7 @@ page-pass-observation {
         box-shadow: 0 2px 4px 2px #272c66;
         font-size: .88em;
       }
-      ion-icon.icon.icon-md.ion-md-add {
+    ion-icon.icon.icon-md.ion-md-add {
         padding-top: 16px;
             font-size: 1.5em;
     }
@@ -27,7 +27,7 @@ page-pass-observation {
     font-size: 1.5em;
     }
     ion-label.text-center.label.label-md.label-md-lightgreen {
-        font-size: 1.5em;
+        font-size: 1em;
     }
     input.text-input.text-input-ios,
     input.text-input.text-input-md {
@@ -57,8 +57,17 @@ page-pass-observation {
         margin-bottom: 38px;
     }
 
-
-
+    //Oberserve
+    ion-textarea textarea.text-input {
+        height: 200px;
+        background-color: #7c88bb;
+        color: #ffffff;
+        width: 100%;
+        padding: 10px;
+    }
+    button {
+        text-transform: none;
+    }
     // code mine
 
     .inspection-new{
@@ -71,6 +80,7 @@ page-pass-observation {
         border-radius: 5px;
         font-weight: 500;
         text-transform: none;
+        margin: 0 auto;
       }
       
     }
