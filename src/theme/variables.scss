@@ -33,13 +33,17 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
  
+
 $colors: (
+  radioButtonPass : #02A040,
+  radioButtonFail : #f53d3d,
+  radioButtonNA : #f4f4f4,
   primary:    #488aff,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  lightgreen: #4ec8c8,
+  lightgreen: #78FAFA,
   white:      #ffffff,
   grey:       #ebebeb,
   greyblue:   #d9dcff,
@@ -47,7 +51,8 @@ $colors: (
   green:      #92d050,
   yellow:     #ffbf00,
   red:        #df0803,
-  category: #85f8f5
+  category: #85f8f5,
+
 );
 // for Android
 $background-md-color: #1E1F2B;

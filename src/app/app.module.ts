@@ -46,7 +46,7 @@ import { CameraMock } from "./camera.mock";
 import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
 // mocking services end
 //  importing a firebase library
-
+import { HttpModule } from "@angular/http";
 @NgModule({
   declarations: [
     MyApp,
@@ -90,6 +90,7 @@ import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

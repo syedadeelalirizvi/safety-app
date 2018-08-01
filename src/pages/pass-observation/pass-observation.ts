@@ -185,7 +185,17 @@ loading : any
 
    goBack()
    {
-		this.navCtrl.pop()
+		this.navCtrl.push(InspectionRemarksPage, {
+			categoryId: this.categoryId,
+			category_name: this.categoryName,
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			subCategories: JSON.stringify(this.subCategoriesIds), 
+			allQuestions: JSON.stringify(JSON.parse(this.allQuestions)),
+			inspection_result: this.inspection_result,
+			signatureImage : this.signatureImage,
+			equipment_image_last: this.base64Image
+		});
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}

@@ -14,8 +14,6 @@ export class InformationPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InformationPage');
-  }
+
 
 }

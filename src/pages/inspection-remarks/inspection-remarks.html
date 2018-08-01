@@ -26,28 +26,31 @@
 <ion-content padding class="bg-none">
 	<ion-grid>
 		<ion-row class="safety-div">
-			<ion-col col-10>
-				<p>
-					Select what category the work equipment falls within: 
-					Pass - Item is safe to use. Pass with Observation - No safety compromises but there is something to note i.e. tyre tread close to legal limit. Fail - There are issues which compromises safety. Isolate and do not use. 
-				</p>
+			<ion-col>
+				<div  class="main-subheading" text-wrap>
+						Select what category the work equipment falls within: 
+						Pass - Item is safe to use. Pass with Observation - No safety compromises but there is something to note i.e. tyre tread close to legal limit. Fail - There are issues which compromises safety. Isolate and do not use. 		
+				</div>
+			
 			</ion-col>
-			<ion-col col-12>
-				<ion-row>
-					<ion-col col-8 *ngIf="!this.checkFail">
-						<button ion-button block color="green" (click)="nextPageLoad('safe')">Passed and is safe to use</button>
-					</ion-col>
-				</ion-row>
-				<ion-row>
-					<ion-col col-8>
-						<button ion-button block color="yellow" (click)="nextPageLoad('observation')">Pass but with an observation</button>
-					</ion-col>
-				</ion-row>
-				<ion-row>
-					<ion-col col-8 *ngIf="this.checkFail">
-						<button ion-button block color="red" (click)="nextPageLoad('critical')">Fail due to safety critical issue</button>
-					</ion-col>
-				</ion-row>
+			</ion-row>
+			<ion-row>
+			<ion-col style="padding-top: 10%;">
+						<ion-row>
+								<ion-col  class="inspection-new text-center">
+									<button class="inspect-btn" text-wrap small ion-button  color="green" (click)="nextPageLoad('safe')">Passed and is safe to use</button>
+								</ion-col>
+					 </ion-row>
+						<ion-row>
+								<ion-col class="inspection-new text-center">
+									<button  class="inspect-btn" ion-button text-wrap small color="yellow" (click)="nextPageLoad('observation')">Pass but with an observation</button>
+								</ion-col>
+						</ion-row>
+						<ion-row>
+								<ion-col  class="inspection-new text-center">
+									<button  class="inspect-btn" ion-button text-wrap small color="red" (click)="nextPageLoad('critical')">Fail due to safety critical issue</button>
+								</ion-col>
+						</ion-row>
 			</ion-col>
 		</ion-row>    
 	</ion-grid>

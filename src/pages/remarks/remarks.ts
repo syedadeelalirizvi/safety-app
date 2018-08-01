@@ -93,9 +93,15 @@ export class RemarksPage {
     goBack()
 	{
 		console.log('Before leave', this.allQuestions, JSON.stringify(this.allQuestions));
-		
-		
-		this.navCtrl.pop();
+			
+		this.navCtrl.push(SafetyCatInfoPage, {
+			categoryId: this.categoryId,
+			category_name: this.categoryName,
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			subCategories: JSON.stringify(this.subCategoriesIds), 
+			allQuestions: JSON.stringify(this.allQuestions)
+		});  
     }
 	
 	informationremarksLoad(value: any)
@@ -149,7 +155,7 @@ export class RemarksPage {
 		console.log('ionViewDidLoad RemarksPage');
     }
 	
-    answerList(questions:any, value:any)
+    answerList(questions, value)
 	{
 		console.log("answerList");
         console.log(value);
@@ -157,11 +163,18 @@ export class RemarksPage {
 		
 		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++)
 		{
+			console.log(this.allQuestions.userSubCategories[i].questions[0])
+			console.log(this.allQuestions.userSubCategories[i].questions[1]);
 			for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++)
 			{
+				console.log(this.allQuestions.userSubCategories[i].questions[j]);
+
 				if(this.allQuestions.userSubCategories[i].questions[j].questionId == questions.questionId)
 				{
+					console.log(this.allQuestions.userSubCategories[i].questions[j]['answer']);
 					this.allQuestions.userSubCategories[i].questions[j]['answer'] = value;
+					console.log(this.allQuestions.userSubCategories[i].questions[j]);
+					
 				}	//break;
 			}	
 		}

@@ -69,7 +69,10 @@ export class SafetyPage {
 	}
 	
 	goBack(){
-		this.navCtrl.pop();
+		this.navCtrl.push(WorkPage, {
+			inspection_desc: this.inspection_desc,
+			equipment_image: this.equipment_image
+		});
 	}
 	
 	OwnCatLoad(){

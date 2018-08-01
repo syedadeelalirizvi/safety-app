@@ -97,7 +97,7 @@
 					<ion-col col-6>
 						<ion-label class="text-center">Company Logo</ion-label>
 						<div text-center><img *ngIf="imageUpload == true" [src]="base64Image" /> </div>
-						<ion-img *ngIf="imageUpload == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png" (click)="openGallery()" ></ion-img>
+						<img *ngIf="imageUpload == false" class="profile-img" width="50%" height="80" src="./assets/imgs/company-logo.png" (click)="openGallery()" />
 						<!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button> -->
 						<!-- <button  type="button" style="width: 49%;float: right;" ion-button >Open Gallery</button>	 -->
 
@@ -108,7 +108,7 @@
 					<ion-col col-1></ion-col>
 					<ion-col col-10>
 						<div class="lg-new text-center">
-							<button ion-button type="submit" full [disabled]="!signupForm.valid"  autocapitalize="none" block color="light" class="lgbtn">Register Now</button>
+							<button  style="text-transform: none;"ion-button type="submit" full [disabled]="!signupForm.valid"  autocapitalize="none" block color="light" class="lgbtn">Register Now</button>
 						</div>
 					</ion-col>
 					<ion-col col-1></ion-col>

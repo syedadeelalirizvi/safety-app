@@ -69,4 +69,17 @@ page-safety-cat-info {
         float: left;
     }
     
+
+
+    .safetysubmit {
+        ion-icon.icon.icon-md.ion-md-search {
+            padding: 10px;
+            font-size: 2em;
+            background-color: rgba(82, 128, 184, 0.7);
+            margin-top: 13px;
+            border-radius: 0px 10px 10px 0px;
+            margin-left: -22px;
+        }
+    }
+    
     }

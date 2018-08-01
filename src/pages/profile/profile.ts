@@ -104,7 +104,7 @@ export class ProfilePage {
 		actionSheet.present();
   }
 // Button goBack
-goBack(){ this.navCtrl.pop();}
+goBack(){ this.navCtrl.push(MainPage);}
 // Button ChangePassword
 changeLoad(){this.navCtrl.push(ChangepasswordPage)}
 // Camera openCamera for image upload

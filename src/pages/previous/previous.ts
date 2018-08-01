@@ -1,3 +1,5 @@
+import { MainPage } from './../main/main';
+import { HomePage } from './../home/home';
 import { PreviousDataComponent } from './../../components/previous-data/previous-data';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -21,7 +23,7 @@ export class PreviousPage {
       
     }
     goBack(){
-     this.navCtrl.pop();
+     this.navCtrl.push(MainPage);
     }
 
     

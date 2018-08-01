@@ -26,6 +26,8 @@ page-inspection-remarks {
     .safety-div ion-col ion-icon{
     font-size: 1.5em;
     }
+
+ 
     ion-label.text-center.label.label-md.label-md-lightgreen {
         font-size: 1.5em;
     }
@@ -56,5 +58,33 @@ page-inspection-remarks {
         margin-top: 38px;
         margin-bottom: 38px;
     }
-    }
+    
+.main-subheading{
+    color: #ffffff;
+    width: 100%;
+    font-size: 12px;
+    // padding-top: 12vh;
+    text-align: center;
+}
+
+    .text-center {
+        text-align: center;
+      }
+
+      .inspection-new {
+        text-align: center;
+        // padding-top: 6vh;
+      }
+      .inspect-btn {
+        color: aliceblue;
+        padding: 2em 0;
+        width: 85%;
+        border-radius: 5px;
+        font-weight: 500;
+   
+        text-transform: none;
+      }
+
+
+}
     

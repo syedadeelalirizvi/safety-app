@@ -11,13 +11,13 @@
 		<ion-grid>
 			<ion-row nowrap align-items-center justify-content-center class="header-home ion-col-pad-set">
 				<ion-col col-4>
-					<button ion-button color="light" class="navbutton" (click)="profileLoad()" small text-wrap>Profile Information</button>
+					<button ion-button color="light" style="text-transform: none;" class="navbutton" (click)="profileLoad()" small text-wrap>Profile Information</button>
 				</ion-col>
 				<ion-col col-4>
-					<button ion-button color="light" class="navbutton" (click)="informationLoad()" small text-wrap>Information</button>
+					<button ion-button color="light" style="text-transform: none;" class="navbutton" (click)="informationLoad()" small text-wrap>Information</button>
 				</ion-col>
 				<ion-col col-4>
-					<button ion-button color="light" class="navbutton" (click)="previousLoad()" small text-wrap> Previous Inspections</button>
+					<button ion-button color="light" style="text-transform: none;" class="navbutton" (click)="previousLoad()" small text-wrap> Previous Inspections</button>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
@@ -42,7 +42,7 @@
 				</div>
 				<ion-col col-10>
 					<div class="lg-new text-center">
-						<button ion-button type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
+						<button ion-button  style="text-transform: none;" style="text-transform: none;" type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
 					</div>
 				</ion-col>     
 			</ion-row>
@@ -67,8 +67,8 @@
 						* Category Name invalid!
 					</div>
 					<ion-col col-10>
-						<div class="lg-new text-center">
-							<button ion-button type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
+						<div class="lg-new text-center"> 
+							<button ion-button style="text-transform: none;" style="text-transform: none;"type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
 						</div>
 					</ion-col>     
 				</ion-row>

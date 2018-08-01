@@ -1,4 +1,8 @@
 page-work {
+  .borders_Style{
+    border: dotted;
+    padding: 18px;
+  }
   .header-ios .toolbar-ios:last-child .toolbar-background-ios {
       border:none !important;
     }
@@ -26,13 +30,13 @@ page-work {
     .bg-none {
       background: none;
     }
-    textarea {
-      height: 100%;
-      padding: 10px!important;
-    }
-    textarea.text-input.text-input-md {
-      padding: 10px
-    }
+    // textarea {
+    //   height: 100%;
+    //   padding: 10px!important;
+    // }
+    // textarea.text-input.text-input-md {
+    //   padding: 10px
+    // }
     .main-title {
       width: 100%;
       color: #fff;
@@ -82,7 +86,7 @@ page-work {
     border-radius: 5px;
     background: transparent;
     border-color: transparent;
-    height: 80px;
+    height: 150px;
   }
   
     .log-out {
@@ -118,10 +122,28 @@ page-work {
   .text-center {
     text-align: center;
   }
-  ion-textarea.input.input-ios,
-  textarea.text-input.text-input-md {
+
+  textarea{
       height: 200px;
       background-color: #7c88bb;
       color: #ffffff;
+      width: 80%;
+      padding: 10px;
   }
+
+  textarea::-webkit-input-placeholder {
+    color: #ffffff;
+    }
+    
+    textarea:-moz-placeholder { /* Firefox 18- */
+    color: #ffffff; 
+    }
+    
+    textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: #ffffff;
+    }
+    
+    textarea:-ms-input-placeholder {
+    color: #ffffff;
+    }
   

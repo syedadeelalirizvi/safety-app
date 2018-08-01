@@ -1,3 +1,8 @@
+import { VerificationPage } from './../pages/verification/verification';
+import { PassObservationPage } from './../pages/pass-observation/pass-observation';
+import { PassSafePage } from './../pages/pass-safe/pass-safe';
+import { SafetyPage } from './../pages/safety/safety';
+import { WorkPage } from './../pages/work/work';
 import { HomePage } from './../pages/home/home';
 
 import { Component } from '@angular/core';
@@ -6,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from "@ionic-native/keyboard";
 import { Storage } from "@ionic/storage";
+import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 @Component({
 templateUrl: 'app.html'
 })

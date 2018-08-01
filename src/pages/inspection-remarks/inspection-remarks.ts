@@ -55,7 +55,7 @@ export class InspectionRemarksPage {
 		if(navParams.get('allQuestions')) this.allQuestions = JSON.parse(navParams.get('allQuestions'));
 		this.inspection_result = navParams.get('inspection_result');
 		
-		//Pass values check
+		// Pass values check
 		console.log('page> inspection-remarks.ts (5th step)');
 		console.log('inspection_desc>' + this.inspection_desc);
 		console.log('equipment_image>' + this.equipment_image);
@@ -67,15 +67,23 @@ export class InspectionRemarksPage {
 	}
 	
 	goBack(){
-		this.navCtrl.pop();
+		this.navCtrl.push(RemarksPage, {
+			categoryId: this.categoryId,
+			category_name: this.categoryName,
+			inspection_desc: this.inspection_desc,
+			equipment_image:this.equipment_image,
+			subCategories: JSON.stringify(this.subCategoriesIds), 
+			allQuestions: JSON.stringify(this.allQuestions),
+			inspection_result: this.inspection_result
+		});  
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}
 	previousLoad = function(){this.navCtrl.push(PreviousPage)}
 	informationLoad = function(){this.navCtrl.push(InformationPage)}
-	//passSafeLoad = function(){this.navCtrl.push(PassSafePage)}
-	//passObservationLoad = function(){this.navCtrl.push(PassObservationPage)}
-	//failDueLoad = function(){this.navCtrl.push(FailDuePage)}
+	// passSafeLoad = function(){this.navCtrl.push(PassSafePage)}
+	// passObservationLoad = function(){this.navCtrl.push(PassObservationPage)}
+	// failDueLoad = function(){this.navCtrl.push(FailDuePage)}
 	nextPageLoad(type: any)
 	{
 		this.inspection_result = type;
@@ -92,10 +100,11 @@ export class InspectionRemarksPage {
 	
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad InspectionRemarksPage');
-		console.log(this.allQuestions.userSubCategories[0].questions);
+		console.log(this.allQuestions);
+		console.log(this.allQuestions.userSubCategories[1].questions);
 		for (let i = 0; i < this.allQuestions.userSubCategories[0].questions.length; i++){
 			console.log(this.allQuestions.userSubCategories[0].questions[i].answer);
-			if(this.allQuestions.userSubCategories[0].questions[i].answer=='fail'){
+			if(this.allQuestions.userSubCategories[0].questions[i].answer === 'fail'){
 				this.checkFail = true;
 				break;
 			}

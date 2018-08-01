@@ -1,10 +1,11 @@
+import { MainPage } from './../main/main';
+import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
 import { SafetyPage } from '../safety/safety';
-import { MainPage} from '../main/main';
 import { HttpClient  } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -89,7 +90,7 @@ export class WorkPage {
 	}
 	
 	goBack(){
-		this.navCtrl.pop();
+		this.navCtrl.push(MainPage);
 	}
 
 	// Image upload possible options mapping	
