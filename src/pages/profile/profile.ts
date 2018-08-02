@@ -1,6 +1,6 @@
 import firebase  from 'firebase';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
 
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
@@ -42,6 +42,7 @@ export class ProfilePage {
       pageName="profile";
 	  
       constructor(
+        public loadCtrl : LoadingController,
 		public actionSheetCtrl: ActionSheetController,
 				private alertCtrl: AlertController, 
               public navCtrl: NavController, 
@@ -169,6 +170,10 @@ async openGallery(): Promise<any>{
   // Update Button : When user pressing update button
 	update(value: any):void
 	{
+    const loadCtrlStart = this.loadCtrl.create({
+      content: 'Please wait...'
+    });
+    loadCtrlStart.present();
 		console.log(this.base64ImageProfile);
 		console.log(this.isBase64(this.base64ImageProfile));
 		console.log(this.base64Image);
@@ -195,17 +200,7 @@ async openGallery(): Promise<any>{
 		{headers:headers})
 		.subscribe(
 			(res: any) => {
-        // this.storage.get('Session.userEmail')
-        // firebase.database().ref(`profile/${this.email}`).update({
-        //   userEmail: value.email,
-        //   userName: value.username,
-        //   userDepartment: value.department,
-        //   userCompany: value.company,
-        //   nameToReceiveReport   : value.nameOfReceiveReport,
-        //   emailToReceiveReport:value.emailOfReceiveReport,
-        //   companyLogo: this.base64Image,
-        //   profilePicture: this.base64ImageProfile
-        // }).then(() => {
+        loadCtrlStart.dismiss();
           console.log(res);
           this.navCtrl.push(MainPage);
           let alert = this.alertCtrl.create({

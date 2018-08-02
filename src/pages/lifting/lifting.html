@@ -42,10 +42,16 @@
        <p>
         {{inspection_description}} </p>
         <ion-label color="greyblue" font-size="subheading" >Photo of the work equipment</ion-label>   
+       <div *ngIf="equipment_image_url !== 'undefined'">
+        <img class="profile-img" width="100%" height="200" [src]="equipment_image_url"/>  
+        <ion-label color="greyblue" font-size="subheading" >Photo of the fault in equipment</ion-label>   
+       </div>
        
-       <img class="profile-img" width="100%" height="200" [src]="equipment_image_url"/>  
-       <ion-label color="greyblue" font-size="subheading" >Photo of the fault in equipment</ion-label>   
        
+        <div *ngIf="equipment_image_url == 'undefined'">
+          <p>Image is not uploaded by the user</p>
+        </div>
+
        <img class="profile-img" width="100%" height="200" [src]="fault_image_url"/> 
         </ion-col>
        </ion-row>

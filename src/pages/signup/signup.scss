@@ -1,5 +1,7 @@
 page-signup {
-
+  .error-box {
+    padding-top: 4px;
+}
   .toolbar-background-ios, .toolbar-background-md {
     background: none;
   }
@@ -24,7 +26,7 @@ page-signup {
       font-weight: 600;
       letter-spacing: 0;
     }
-
+    
   }
   .lgbtn {
     color: #5560d3;

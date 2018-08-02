@@ -1,7 +1,7 @@
 import { HomePage } from './../../pages/home/home';
 
 import { Component, ReflectiveInjector } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MainPage} from './../../pages/main/main';
 import { SignupPage } from './../../pages/signup/signup';
 import { ForgotPasswordPage } from './../../pages/forgot-password/forgot-password';
@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-import  firebase  from "firebase";
 @Component({
   selector: 'signin-form',
   templateUrl: 'signin-form.html'
@@ -20,7 +19,7 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+  constructor(public loadCtrl : LoadingController, public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
   // Test API call (https://ionicacademy.com/http-calls-ionic/)
       // for form validations (https://kamleshcode.com/form-validation-ionic3/)
       /*
@@ -55,6 +54,10 @@ export class SigninFormComponent {
   
 
   submitForm(value: any):void{
+		const loadCtrlStart = this.loadCtrl.create({
+			content: 'Please wait...'
+		});
+		loadCtrlStart.present();
 		console.log('Form submitted!')
 		console.log(value.email);
 		const req = this.httpClient.post(ENV.BASE_URL + 'users/app/login', {
@@ -62,7 +65,7 @@ export class SigninFormComponent {
 						userPassword: value.password
 					})
 					.subscribe((res: any) => {
-							
+								loadCtrlStart.dismiss();
 									console.log(res);
 									this.storage.set('Session.userEmail', value.email);
 									this.storage.set('Session.user_name', res.data.userName);
@@ -76,6 +79,7 @@ export class SigninFormComponent {
 														
 						
 				},err => {
+					loadCtrlStart.dismiss();
 							this.response = true;
 							console.log("Error occurred");
 							console.log(err);

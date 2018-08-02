@@ -1,18 +1,12 @@
-import { OwnSubCatPage } from './../pages/own-sub-cat/own-sub-cat';
-import { VerificationPage } from './../pages/verification/verification';
-import { PassObservationPage } from './../pages/pass-observation/pass-observation';
-import { PassSafePage } from './../pages/pass-safe/pass-safe';
-import { SafetyPage } from './../pages/safety/safety';
-import { WorkPage } from './../pages/work/work';
+
 import { HomePage } from './../pages/home/home';
 
 import { Component } from '@angular/core';
-import { Platform} from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from "@ionic-native/keyboard";
 import { Storage } from "@ionic/storage";
-import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 @Component({
 templateUrl: 'app.html'
 })
@@ -22,6 +16,7 @@ export class MyApp {
   constructor(public keyboard : Keyboard,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: Storage) {
     platform.ready().then(() => {
       
+    
       statusBar.styleDefault();
       splashScreen.hide();
       

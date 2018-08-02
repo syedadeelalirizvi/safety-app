@@ -82,14 +82,14 @@
 							(click)="presentActionSheet()"/>     
 					    
 					</ion-col>
-					<ion-col *ngIf="this.base64Image == ''" col-12 class="error-box" >
+					<!-- <ion-col *ngIf="this.base64Image == ''" col-12 class="error-box" >
 						<div text-wrap class="text-center text-wrap"> * Equipment image is required</div>
-					</ion-col>
+					</ion-col> -->
 				</div>
 			</ion-row>
 			<ion-row text-center>
 				<ion-col class="inspection-new text-center">
-					<button style="text-transform: none;" style="text-transform: none;" ion-button type="submit" full [disabled]="!inspectionForm.valid || this.base64Image == ''" color="light" class="inspect-btn"  full text-wrap>
+					<button style="text-transform: none;" style="text-transform: none;" ion-button type="submit" full [disabled]="!inspectionForm.valid" color="light" class="inspect-btn"  full text-wrap>
 						Next
 					</button>
 				</ion-col>

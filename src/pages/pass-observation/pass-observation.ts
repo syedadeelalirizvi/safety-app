@@ -66,7 +66,10 @@ export class PassObservationPage {
 		this.categoryId = navParams.get('categoryId');
 		this.categoryName = navParams.get('category_name');
 		this.inspection_desc = navParams.get('inspection_desc');
-		this.equipment_image = navParams.get('equipment_image');
+		// this.equipment_image = navParams.get('equipment_image');
+		if(navParams.get('equipment_image') == ''){
+		 this.equipment_image = '';
+		}
 		this.subCategoriesIds = JSON.parse(navParams.get('subCategories'));
 		if(navParams.get('allQuestions')) this.allQuestions = navParams.get('allQuestions');
 		this.inspection_result = navParams.get('inspection_result');

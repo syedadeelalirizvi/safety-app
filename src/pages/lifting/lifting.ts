@@ -71,13 +71,13 @@ export class LiftingPage {
                       this.inspection_description= data.inspection.data.inspectionDescription;
                       this.inspection_date= new Date(data.inspection.data.createdOn);
                       this.equipment_image_url = data.inspection.data.equipmentInspectedImageUrl;
-                      
+                        console.log(this.equipment_image_url);
 						if (data.inspection.report !== null)
 						{  
 							this.reportType = data.inspection.report.reportType;
                             this.signatureUrl = data.inspection.report.signatureUrl;
                             this.fault_image_url = data.inspection.report.mediaUrl;
-                            
+                            console.log(this.fault_image_url);
 						}
 						else
 						{
@@ -116,7 +116,7 @@ export class LiftingPage {
                               });
                     
                           }
-                  
+                          console.log(this.equipment_image_url +  '' + this.fault_image_url);
                           this.inspectionsResults.push(
                           {
                               category_name:data.category.data.equipmentCategoryName, 
@@ -129,5 +129,8 @@ export class LiftingPage {
                        console.log(this.inspectionsResults);
                 })
         })
+
+        console.log(this.equipment_image_url + 'is not enterend in equipment image');
+        console.log(this.fault_image_url + ' fault image url file');
     }
 }

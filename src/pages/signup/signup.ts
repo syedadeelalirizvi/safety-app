@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -8,7 +8,7 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { Keyboard } from "@ionic-native/keyboard";
-import firebase from "firebase";
+
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -22,7 +22,7 @@ export class SignupPage {
 	imageUpload: any;
 	base64Image: string;
 
-	constructor(private keyboard : Keyboard, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
+	constructor(public loadCtrl : LoadingController,private keyboard : Keyboard, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
 		this.base64Image = '';
 		this.imageUpload = false;
 		this.response = false;
@@ -85,6 +85,10 @@ export class SignupPage {
 	accesstoken : any
 	tokenexpiry  :any
 	signUp(value: any):void {
+		const loadCtrlStart = this.loadCtrl.create({
+			content: 'Creating user account...'
+		})
+		loadCtrlStart.present();
 		console.log('signup clicked');
         console.log(value.email);
         const headers = new HttpHeaders({
@@ -103,7 +107,7 @@ export class SignupPage {
 				  
         },{headers:headers})
 		.subscribe(res => {
-
+						loadCtrlStart.dismiss();
 					let alert = this.alertCtrl.create({	
 						title: 'Success',
 						subTitle: 'Your account registered!',

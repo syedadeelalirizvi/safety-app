@@ -16,19 +16,7 @@
                   (click)="presentActionSheet()"/></div>
         <img *ngIf="imageUploadProfile == false" class="profile-img" (click)="presentActionSheet()" width="85"
                  height="80" src="./assets/imgs/profile-img.png" />
-
-        <!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCameraProfile()">Open Camera</button>
-                <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGalleryProfile()">Open Gallery</button>	 -->
       </ion-col>
-      <!-- <ion-col col-1></ion-col>
-      <ion-col col-10>
-          <ion-label class="text-center">Profile Picture</ion-label>
-              <div text-center><img *ngIf="imageUploadProfile == true" [src]="base64ImageProfile" /> </div>
-              <ion-img *ngIf="imageUploadProfile == false" class="profile-img" width="100%" height="80" src="../assets/imgs/company-logo.png"></ion-img>
-              <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCameraProfile()">Open Camera</button>
-              <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGalleryProfile()">Open Gallery</button>
-      </ion-col>
-      <ion-col col-1></ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col col-12>
@@ -144,8 +132,6 @@
               <div text-center><img *ngIf="imageUpload == true" [src]="base64Image" (click)="openGallery()"/></div>
               <img *ngIf="imageUpload == false" style="height: 80%;" class="profile-img" width="100%" height="80"
                        src="./assets/imgs/company-folder.png" (click)="openGallery()"/>
-              <!-- <button  type="button" style="width: 49%;float: left;" ion-button  (click)="openCamera()">Open Camera</button> -->
-              <!-- <button  type="button" style="width: 49%;float: right;" ion-button (click)="openGallery()">Open Gallery</button>	 -->
             </ion-col>
             <ion-col col-1></ion-col>
           </ion-row>
