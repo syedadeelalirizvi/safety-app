@@ -11,11 +11,9 @@ import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormContr
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { PassSafePage} from '../pass-safe/pass-safe';
 import { PassObservationPage} from '../pass-observation/pass-observation';
-import { FailDuePage} from '../fail-due/fail-due';
 import { RemarksPage} from '../remarks/remarks';
-
+import { Keyboard } from "@ionic-native/keyboard";
 
 @Component({
   selector: 'page-inspection-remarks',
@@ -34,12 +32,13 @@ export class InspectionRemarksPage {
 	checkFail=false;
 	
 	constructor(
+		public keyboard : Keyboard,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
 		private storage: Storage) {
-			
+			keyboard.disableScroll(true);
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -75,7 +74,7 @@ export class InspectionRemarksPage {
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result
-		});  
+		})
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}
@@ -95,6 +94,9 @@ export class InspectionRemarksPage {
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 	}
 	

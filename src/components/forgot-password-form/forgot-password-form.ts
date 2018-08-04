@@ -42,6 +42,9 @@ export class ForgotPasswordFormComponent {
           
               this.navCtrl.push(VerificationPage, {
                 userEmail: value.email
+              }).then(() => {
+                const index = this.navCtrl.getActive().index;
+                this.navCtrl.remove(0,index);
               });
             },
             err => {

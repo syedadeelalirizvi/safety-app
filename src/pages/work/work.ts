@@ -1,7 +1,7 @@
 import { MainPage } from './../main/main';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController , LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController,ModalController } from 'ionic-angular';
  import { Keyboard } from "@ionic-native/keyboard";
+
 @Component({
   selector: 'page-work',
   templateUrl: 'work.html',
@@ -24,9 +25,11 @@ export class WorkPage {
 	token: string;
 	userid :any;
 	inspectionForm : FormGroup;
+	inspectionimg : FormGroup;
 	inspection_desc: string = "";
 
 	constructor(public actionSheetCtrl: ActionSheetController, 
+				public loadCtrl :LoadingController,
 				private keyboard : Keyboard,
 				private alertCtrl: AlertController,   
 				private modalCtrl: ModalController,
@@ -61,8 +64,12 @@ export class WorkPage {
 
 		this.inspectionForm = fb.group({
 			'description' : [null, Validators.compose([Validators.required])],
-			//'equipment_image' : [null, Validators.compose([Validators.required])],
+			//'equipment_image' : [null, Validators.compose([Validators.required])]
 		});
+
+		// this.inspectionimg = fb.group({
+		// 	equipmentimage' : [null, Validators.compose([Validators.required])]
+		// });
 		
 		
 	}
@@ -151,9 +158,22 @@ async openGallery(): Promise<any>{
     // First form submit ( with values => description & image)  
 	create(value: any):void
 	{
-		this.navCtrl.push(SafetyPage, {
-			inspection_desc: value.description,
-			equipment_image: this.base64Image
-		});
+console.log(this.base64Image + '' + this.inspection_desc);
+		if((this.base64Image == ''|| this.base64Image ==  undefined || this.base64Image ==  null) && (this.inspection_desc == '' || this.inspection_desc ==  undefined )){
+			this.alertCtrl.create({
+				   title : 'Error!',
+				   subTitle: 'Please enter either add text, or a picture or both',
+				   buttons: ['Dismiss']
+			}).present();
+		}else{
+			this.navCtrl.push(SafetyPage, {
+				inspection_desc: value.description,
+				equipment_image: this.base64Image
+			}).then(() => {
+				const index = this.navCtrl.getActive().index;
+				this.navCtrl.remove(0,index);
+			});
+		}
+		
 	}
 }

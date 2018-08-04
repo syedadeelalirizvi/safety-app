@@ -2,13 +2,15 @@
       <ion-list>
         <ion-row>
         </ion-row>
-        <ion-row *ngFor="let inspection of inspections" >
+        <ion-row *ngFor="let inspection of inspections" align-items-center>
  
           <ion-col col-11>
  
             <button  (click)="gotoDetails(inspection.inspection_id)">
  
-              {{inspection.category_name}} - {{inspection.inspection_description}}
+              {{inspection.category_name}} 
+              <!-- <br/>
+              <span>{{inspection.inspection_description}}</span> -->
 
             </button>
   

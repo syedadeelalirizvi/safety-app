@@ -40,7 +40,10 @@ export class SetpasswordPage {
 							.subscribe(
 								res => {
 									console.log(res);
-									this.navCtrl.push(HomePage);
+									this.navCtrl.push(HomePage).then(() => {
+										const index = this.navCtrl.getActive().index;
+										this.navCtrl.remove(0,index);
+									});
 								},
 								err => {
 									this.response = true;
@@ -50,8 +53,14 @@ export class SetpasswordPage {
 								}
 							);
 		}
-		signupLoad(){this.navCtrl.push(SignupPage)}
-		homeLoad(){this.navCtrl.push(HomePage)}
+		signupLoad(){this.navCtrl.push(SignupPage).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
+		})}
+		homeLoad(){this.navCtrl.push(HomePage).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
+		})}
 
 		ionViewDidLoad() {
 			console.log('ionViewDidLoad SetpasswordPage');

@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams,LoadingController  } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -8,7 +8,7 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { Keyboard } from "@ionic-native/keyboard";
-
+import firebase from "firebase";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -32,7 +32,7 @@ export class SignupPage {
 			'nameToReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z._-\\s]{2,}')])],
 			'emailToReceiveReport' : [null, Validators.compose([Validators.required,Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
 			'company' : [],
-			'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
+			'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-\\s]{2,}') ])],
 			'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
 			'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
@@ -107,7 +107,7 @@ export class SignupPage {
 				  
         },{headers:headers})
 		.subscribe(res => {
-						loadCtrlStart.dismiss();
+			loadCtrlStart.dismiss();
 					let alert = this.alertCtrl.create({	
 						title: 'Success',
 						subTitle: 'Your account registered!',
@@ -117,6 +117,7 @@ export class SignupPage {
 					this.navCtrl.pop();
 			},
 			err => {
+				loadCtrlStart.dismiss();
 				this.response = true;
 				console.log("Error occurred");
 				console.log(err);

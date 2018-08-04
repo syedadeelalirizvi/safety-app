@@ -31,7 +31,10 @@ export class MainPage {
 		this.storage.remove('Session.company_logo');	
 		this.storage.clear();  
 	});	
-	this.navCtrl.setRoot(HomePage);
+	this.navCtrl.push(HomePage).then(() => {
+		const index = this.navCtrl.getActive().index;
+		this.navCtrl.remove(0,index);
+	});
     
   }
 
@@ -40,6 +43,5 @@ export class MainPage {
 profileLoad = function(){this.navCtrl.push(ProfilePage)}
 previousLoad = function(){this.navCtrl.push(PreviousPage)}
 informationLoad = function(){this.navCtrl.push(InformationPage)}
-workLoad = function(){this.navCtrl.push(WorkPage)}
-
+workLoad = function(){this.navCtrl.push(WorkPage);}
 }

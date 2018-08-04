@@ -78,7 +78,10 @@ export class ChangePasswordFormComponent {
               });
              alert.present();
     
-              this.navCtrl.push(ProfilePage)
+              this.navCtrl.push(ProfilePage).then(() => {
+                const index = this.navCtrl.getActive().index;
+                this.navCtrl.remove(0,index);
+              })
             },
             err => {
               this.response = true;

@@ -1,6 +1,6 @@
 import firebase  from 'firebase';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
+import { Component ,} from '@angular/core';
+import { LoadingController , NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
@@ -42,7 +42,7 @@ export class ProfilePage {
       pageName="profile";
 	  
       constructor(
-        public loadCtrl : LoadingController,
+        public loadCtrl :LoadingController,
 		public actionSheetCtrl: ActionSheetController,
 				private alertCtrl: AlertController, 
               public navCtrl: NavController, 
@@ -70,10 +70,10 @@ export class ProfilePage {
        this.profileForm = fb.group({
               'email' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'department' : [],
-              'nameOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z._-\\s]{2,}') ])],
+              'nameOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z.,_-\\s]{2,}') ])],
               'emailOfReceiveReport' : [null, Validators.compose([Validators.required, Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}')])],
               'company' : [],
-              'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]{2,}') ])],
+              'username' : [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-\\s]{2,}') ])],
               //'confirmPass': [null, Validators.compose([Validators.required, Validators.minLength(8) ])], 
        });
 
@@ -105,9 +105,15 @@ export class ProfilePage {
 		actionSheet.present();
   }
 // Button goBack
-goBack(){ this.navCtrl.push(MainPage);}
+goBack(){ this.navCtrl.push(MainPage).then(() => {
+  const index = this.navCtrl.getActive().index;
+  this.navCtrl.remove(0,index);
+});}
 // Button ChangePassword
-changeLoad(){this.navCtrl.push(ChangepasswordPage)}
+changeLoad(){this.navCtrl.push(ChangepasswordPage).then(() => {
+  const index = this.navCtrl.getActive().index;
+  this.navCtrl.remove(0,index);
+})}
 // Camera openCamera for image upload
 async openCamera(): Promise<any>{
   const options: CameraOptions = {
@@ -140,7 +146,7 @@ async openGallery(): Promise<any>{
 // Camera openCamera for profile
     async openCameraProfile(): Promise<any>{
       const options: CameraOptions = {
-        quality: 100,
+        quality: 50,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE
@@ -150,7 +156,7 @@ async openGallery(): Promise<any>{
 // Gallery openGallery for profile
     async openGalleryProfile(): Promise<any>{
       const options: CameraOptions = {
-        quality: 100,
+        quality: 50,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
@@ -201,8 +207,12 @@ async openGallery(): Promise<any>{
 		.subscribe(
 			(res: any) => {
         loadCtrlStart.dismiss();
+     
           console.log(res);
-          this.navCtrl.push(MainPage);
+          this.navCtrl.push(MainPage).then(() => {
+            const index = this.navCtrl.getActive().index;
+            this.navCtrl.remove(0,index);
+          });
           let alert = this.alertCtrl.create({
             title: 'Success',
             subTitle: 'Profile Updated Successfully!',
@@ -212,6 +222,7 @@ async openGallery(): Promise<any>{
         // })
 		},
 		err => {
+      loadCtrlStart.dismiss();
 			this.response = true;
 			console.log("Error occurred");
 			let alert = this.alertCtrl.create({

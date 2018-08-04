@@ -87,12 +87,19 @@ page-home {
     border-bottom: 0;
   }
   p.Sign {
-    //margin-top: 15vh;
-    //margin-bottom: 1vh;
-    position: absolute;
-    bottom: 12px;
-    width: 90%;
+    position: relative;
     display: block;
   }
+  @media (min-height: 430px) {
+    p.Sign {
+      //margin-top: 15vh;
+      //margin-bottom: 1vh;
+      position: absolute;
+      bottom: 12px;
+      width: 90%;
+      display: block;
+    }
+  }
+
 }
 

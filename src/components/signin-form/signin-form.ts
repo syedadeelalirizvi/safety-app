@@ -1,7 +1,7 @@
 import { HomePage } from './../../pages/home/home';
 
 import { Component, ReflectiveInjector } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams ,LoadingController } from 'ionic-angular';
 import { MainPage} from './../../pages/main/main';
 import { SignupPage } from './../../pages/signup/signup';
 import { ForgotPasswordPage } from './../../pages/forgot-password/forgot-password';
@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
+import  firebase  from "firebase";
 @Component({
   selector: 'signin-form',
   templateUrl: 'signin-form.html'
@@ -19,19 +20,8 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(public loadCtrl : LoadingController, public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
-  // Test API call (https://ionicacademy.com/http-calls-ionic/)
-      // for form validations (https://kamleshcode.com/form-validation-ionic3/)
-      /*
-      this.films = this.httpClient.get('https://swapi.co/api/films');
-      this.films
-      .subscribe(data => {
-        console.log('my data: ', data);
-      })
-      */
-		//  this.auth.getUser().then(user =>{
-		// 		this.navCtrl.push(MainPage)
-		// })
+  constructor(public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+
 		console.log(ENV.BASE_URL);
 		this.response = false;
 		this.authForm = fb.group({
@@ -65,7 +55,7 @@ export class SigninFormComponent {
 						userPassword: value.password
 					})
 					.subscribe((res: any) => {
-								loadCtrlStart.dismiss();
+						loadCtrlStart.dismiss();
 									console.log(res);
 									this.storage.set('Session.userEmail', value.email);
 									this.storage.set('Session.user_name', res.data.userName);
@@ -75,7 +65,10 @@ export class SigninFormComponent {
 									this.storage.set('Session.profile_pic', res.data.profilePicture);
 									this.storage.set('Session.company_logo', res.data.companyLogo);
 						
-										this.navCtrl.push(MainPage);
+										this.navCtrl.push(MainPage).then(() => {
+											const index = this.navCtrl.getActive().index;
+											this.navCtrl.remove(0,index);
+										});
 														
 						
 				},err => {

@@ -13,7 +13,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { constant as ENV } from '../../configs/constant';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-
+import { Keyboard } from "@ionic-native/keyboard";
 
 @Component({
   selector: 'page-pass-observation',
@@ -41,6 +41,7 @@ export class PassObservationPage {
 	resultForm : FormGroup;
 	
 	constructor(
+		public keyboard :Keyboard,
 		public loadCtrl : LoadingController,
 		public navCtrl: NavController, 
 		public actionSheetCtrl: ActionSheetController,
@@ -52,7 +53,7 @@ export class PassObservationPage {
 		private httpClient: HttpClient,
 		private camera: Camera)	 
 	{
-		
+		keyboard.disableScroll(true);
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -66,10 +67,7 @@ export class PassObservationPage {
 		this.categoryId = navParams.get('categoryId');
 		this.categoryName = navParams.get('category_name');
 		this.inspection_desc = navParams.get('inspection_desc');
-		// this.equipment_image = navParams.get('equipment_image');
-		if(navParams.get('equipment_image') == ''){
-		 this.equipment_image = '';
-		}
+		this.equipment_image = navParams.get('equipment_image');
 		this.subCategoriesIds = JSON.parse(navParams.get('subCategories'));
 		if(navParams.get('allQuestions')) this.allQuestions = navParams.get('allQuestions');
 		this.inspection_result = navParams.get('inspection_result');
@@ -161,14 +159,21 @@ loading : any
 				.subscribe((dataNested:any) => {
 					this.loading.dismiss();
 						console.log(dataNested);
-						this.navCtrl.setRoot(MainPage);	
+						this.navCtrl.setRoot(MainPage).then(() => {
+							const index = this.navCtrl.getActive().index;
+							this.navCtrl.remove(0,index);
+						});
 						let alert = this.alertCtrl.create({
 							title: 'Inspection created',
 							subTitle: 'Your Report Has Been Sent Successfully',
 							buttons: ['OK']
 						  });
 						  alert.present();
-						this.navCtrl.setRoot(MainPage);
+
+						this.navCtrl.setRoot(MainPage).then(() => {
+							const index = this.navCtrl.getActive().index;
+							this.navCtrl.remove(0,index);
+						});
 				},
 				err => {
 					
@@ -198,7 +203,7 @@ loading : any
 			inspection_result: this.inspection_result,
 			signatureImage : this.signatureImage,
 			equipment_image_last: this.base64Image
-		});
+		})
 	}
 
 	profileLoad = function(){this.navCtrl.push(ProfilePage)}
@@ -206,6 +211,7 @@ loading : any
 	informationLoad = function(){this.navCtrl.push(InformationPage)}
 
   ionViewDidLoad() {
+	this.keyboard.disableScroll(true);
 	console.log('ionViewDidLoad PassObservationPage');
 	if(this.inspection_result=='observation'){
 		this.observation=true;

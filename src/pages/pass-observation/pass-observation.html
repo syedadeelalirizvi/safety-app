@@ -57,29 +57,31 @@
 		   </ion-col>
 
 		   <ion-col col-12>
-			   <ion-textarea 
-						   [(ngModel)]="observation_desc" 
-						   name="observation_desc" 
-						   autocomplete="on" 
-						   autocorrect="on" 
-						   #msgInput 
-						   rows="10" 
-						   [formControl]="resultForm.controls['description']" 
-						   maxLength="500" 
-						   placeholder="Observation Description">
+			   
 						   
+					 <textarea 
+						   style="width: 100%"
+							 [(ngModel)]="observation_desc" 
+							 name="observation_desc" 
+							 autocomplete="on" 
+							 autocorrect="on" 
+							 #msgInput 
+							 rows="10" 
+							 [formControl]="resultForm.controls['description']" 
+							 maxLength="500" 
+							 placeholder="Observation Description"></textarea>
 			   
 			   <!-- #msgInput rows="1" maxLength="500" name="description" [(ngModel)]="description" placeholder="Observation Description"> -->
-		   </ion-textarea>
+	
 		   </ion-col>
-		   <ion-col col-8 
+		   <ion-col col-12 
 		   class="error-box" 
 		   *ngIf="resultForm.controls['description'].hasError('required') && resultForm.controls['description'].touched">
-		   <div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
+		   <div text-wrap class="text-center text-wrap"> * Equipment Description is <br/>required</div>
 	   </ion-col>
 	   <ion-col col-2></ion-col>
-	   <ion-col col-8>
-			   <div text-wrap class="text-center text-wrap"> * Maximun characters allowed: 500!</div>
+	   <ion-col col-12>
+			   <div text-wrap class="text-center text-wrap"> * Maximun characters allowed: <br/>500!</div>
 		   </ion-col>
 
 		   <ion-col col-2></ion-col>
@@ -90,7 +92,10 @@
 			   <button ion-button type="button" full color="greyblue" (click)="openSignatureModel()">
 				   Signature (Unique Identity)
 			   </button>
-			   <div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
+			   
+		   </ion-col>
+		   <ion-col>
+			<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 		   </ion-col>
 		   <ion-col *ngIf="!signatureImage" col-12 class="error-box" >
 			   <div text-wrap class="text-center text-wrap"> * Signature is required</div>
@@ -114,7 +119,7 @@
 
 		   <ion-col col-8>
 			   <div>
-				   <img *ngIf="imageUpload == true" [src]="base64Image"  (click)="presentActionSheet()" /> 
+				   <img *ngIf="imageUpload == true" [src]="base64Image" width="100%" height="100"  (click)="presentActionSheet()" /> 
 			   </div> 
 			   <img *ngIf="imageUpload == false || base64Image == ''" width="100%" height="100" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" />
 			   
@@ -130,7 +135,7 @@
 
 		   <ion-col col-8>
 				   <!-- (click)="SubmitInspection()" -->
-			   <button style="text-transform: none;"  ion-button block type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage"  color="white">Save and finish inspection</button>
+			   <button style="text-transform: none;"  ion-button block type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage || !base64Image"  color="white">Save and finish inspection</button>
 
 		   </ion-col>
 
@@ -179,7 +184,7 @@
 		 </ion-row>
 		<ion-row>
 			<ion-col class="inspection-new text-center">		
-			   <button  class="inspect-btn" ion-button full style="text-transform: none;" color="secondary" (click)="openSignatureModel()">
+			   <button  class="inspect-btn" ion-button full style="text-transform: none;" color="grey" (click)="openSignatureModel()">
 				   Signature (Unique Identity)
 			   </button> 
 			</ion-col>
@@ -294,13 +299,17 @@
 		   <ion-col col-2>
 		   </ion-col>
 
+		
+
 		   <ion-col col-8>
-			   <div>
-				   <img *ngIf="imageUpload == true" [src]="base64Image"  (click)="presentActionSheet()" /> 
-			   </div> 
-			   <img  *ngIf="imageUpload == false || base64Image == ''" width="100%" height="80" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png"/>
-			   
-		   </ion-col>
+			<div>
+				<img *ngIf="imageUpload == true" [src]="base64Image" width="100%" height="100"  (click)="presentActionSheet()" /> 
+			</div> 
+			<img *ngIf="imageUpload == false || base64Image == ''" width="100%" height="100" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" />
+			
+		</ion-col>
+
+
 
 		   <ion-col col-2>
 		   </ion-col>
@@ -311,7 +320,7 @@
 		   </ion-col>
 
 		   <ion-col col-8>
-			   <button style="text-transform: none;" ion-button type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage" block color="white">Save and finish inspection</button>
+			   <button style="text-transform: none;" ion-button type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage || !imageUpload" block color="white">Save and finish inspection</button>
 
 		   </ion-col>
 

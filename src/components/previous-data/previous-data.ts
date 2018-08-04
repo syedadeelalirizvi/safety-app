@@ -93,9 +93,6 @@ export class PreviousDataComponent implements OnInit {
        
         
     }
-    goBack(){
-        this.navCtrl.pop();
-    }
 
   //   deleteIns( value:any ):void{
   //     console.log('Lifting Clicked'+id); 
@@ -127,7 +124,10 @@ export class PreviousDataComponent implements OnInit {
   this.user.subscribe(data => 
   {
     console.log(data);
-    this.navCtrl.push(PreviousPage); 
+    this.navCtrl.push(PreviousPage).then(() => {
+      const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
+    }); 
   }),
   err => {				
     console.log("Error occurred");
@@ -148,6 +148,9 @@ export class PreviousDataComponent implements OnInit {
         console.log('Lifting Clicked'+id); 
         this.navCtrl.push(LiftingPage, {
           inspectionId: id
+        }).then(() => {
+          const index = this.navCtrl.getActive().index;
+          this.navCtrl.remove(0,index);
         }); 
     }
 

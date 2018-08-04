@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController , LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -43,6 +43,7 @@ export class RemarksPage {
 	subCategoriesIds:any;
 	collections:any;
 	constructor(
+		public loadCtrl : LoadingController,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
@@ -106,7 +107,7 @@ export class RemarksPage {
 			equipment_image:this.equipment_image,
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions)
-		});  
+		})
     }
 	
 	informationremarksLoad(value: any)
@@ -122,6 +123,9 @@ export class RemarksPage {
 			equipment_image:this.equipment_image,
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions)
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 		
 		//this.navCtrl.push(InspectionRemarksPage);
@@ -129,9 +133,10 @@ export class RemarksPage {
 
     ionViewDidLoad() 
 	{
-		//  this.subdata = navParams.get('data');
-		// if(!this.navParams.get('allQuestions'))
-		// {	 
+		const loadCtrlStart  = this.loadCtrl.create({
+			content: 'Please Wait...'
+		});
+		loadCtrlStart.present();
 			this.storage.get("Session.user_id").then((user_id) => 
 			{
 				this.userid = user_id;
@@ -143,6 +148,7 @@ export class RemarksPage {
 				this.collections
 				.subscribe((collection_data: any) => 
 				{
+					loadCtrlStart.dismiss();
 					console.log("New Collection");
 					console.log(collection_data);
 					if(collection_data.data && typeof collection_data.data === 'object')

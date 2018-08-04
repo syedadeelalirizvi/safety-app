@@ -1,18 +1,25 @@
 page-previous {
     .penicon {
-        padding-top: 18px;
-        font-size: 1.7em;
+        font-size: 1.4em;
         color: #a1a4ce;
     }
     ion-row.row {
         border-top: 1px solid #498ab3;
         border-bottom: 3px solid #498ab3;
     }
+    ion-row ion-col[col-11], ion-row ion-col[col-1] {
+        margin: 6px 0;
+    }
     button {
         background: transparent;
         color: #ffffff;
-        font-size: 1.5em;
-        margin-top:8px;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        text-align: left;
+        // span {
+        //     font-size: 0.9em;
+        //     color: #e4e4e4;
+        // }
     }
     ion-label.label.label-md.label-md-greyblue {
         margin-top: 1px;

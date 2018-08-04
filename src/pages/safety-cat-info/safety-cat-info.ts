@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { InformationPage} from '../information/information';
 import { PreviousPage} from '../previous/previous';
@@ -41,6 +41,7 @@ export class SafetyCatInfoPage {
 	
   
 	constructor(
+		public loadCtrl : LoadingController,
 		private alertCtrl: AlertController, 
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -97,7 +98,7 @@ export class SafetyCatInfoPage {
 			equipment_image:this.equipment_image,
 			categoryId: this.categoryId,
 			category_name: this.categoryName
-		});
+		})
 	}
 	
 	OwnCatLoad = function()
@@ -108,6 +109,9 @@ export class SafetyCatInfoPage {
 			categoryId: this.categoryId,
 			category_name: this.categoryName,
 			action: "add"
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 	}
 	editSubCategory(subcategory:any){
@@ -129,6 +133,9 @@ export class SafetyCatInfoPage {
 			category_name: this.categoryName,
 			subcategoryinfo: collection_data.data.userSubCategories[0],
 			action : "edit"
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 	}),
 	err => {				
@@ -144,6 +151,10 @@ export class SafetyCatInfoPage {
 
 	ionViewDidLoad() 
 	{
+		const loadCtrlStart = this.loadCtrl.create({
+			content : 'Please wait ...'
+		})
+		loadCtrlStart.present();
 		console.log('ionViewDidLoad');
 		this.storage.get("Session.access_token").then((access_token) => {
 			this.token = access_token;
@@ -155,6 +166,7 @@ export class SafetyCatInfoPage {
 			this.sub_category = this.httpClient.get(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory',{headers:headers});
 			this.sub_category
 			.subscribe(data => {
+				loadCtrlStart.dismiss();
 				console.log("Length" + data.data.length);
 				console.log(data);
 				if(data.data && typeof data.data === 'object' && data.data.constructor === Array)
@@ -200,6 +212,9 @@ export class SafetyCatInfoPage {
 				equipment_image:this.equipment_image,
 				subCategories: JSON.stringify(this.checkedList),
 				allQuestions: JSON.stringify(this.allQuestions)
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 	}
 	
@@ -264,6 +279,9 @@ export class SafetyCatInfoPage {
 				category_name: this.categoryName,
 				inspection_desc: this.inspection_desc,
 				equipment_image:this.equipment_image
+			}).then(() => {
+				const index = this.navCtrl.getActive().index;
+				this.navCtrl.remove(0,index);
 			}); 
 		}),
 		err => {				

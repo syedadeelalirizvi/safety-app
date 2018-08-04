@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
 import { WorkPage} from '../work/work';
 import { InformationPage} from '../information/information';
@@ -7,8 +7,8 @@ import { PreviousPage} from '../previous/previous';
 import { SafetyCatInfoPage} from '../safety-cat-info/safety-cat-info';
 import { OwnCatPage} from '../own-cat/own-cat';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -30,6 +30,7 @@ export class SafetyPage {
 	categoriesCopy = [];
     
 	constructor(
+		public loadCtrl : LoadingController,
 		private alertCtrl: AlertController, 
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -72,7 +73,7 @@ export class SafetyPage {
 		this.navCtrl.push(WorkPage, {
 			inspection_desc: this.inspection_desc,
 			equipment_image: this.equipment_image
-		});
+		})
 	}
 	
 	OwnCatLoad(){
@@ -80,6 +81,9 @@ export class SafetyPage {
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image,
 			action: "add"
+		}).then(() =>{
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 	}
 	editCategory(category:any){
@@ -89,16 +93,26 @@ export class SafetyPage {
 			equipment_image:this.equipment_image,
 			categoryinfo: category,
 			action : "edit"
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		});
 
 	}
 	
 	buttonClick = 	function(){
-						this.navCtrl.push(SafetyCatInfoPage);
+						this.navCtrl.push(SafetyCatInfoPage).then(() => {
+							const index = this.navCtrl.getActive().index;
+							this.navCtrl.remove(0,index);
+						});
 					}
 					
 	ionViewDidLoad() 
 	{  
+		const loadCtrlStart = this.loadCtrl.create({
+			content : "Please Wait..."
+		});
+		loadCtrlStart.present();
 		this.storage.get('Session.user_id').then((user_id) => {
 			this.userid = user_id;
 			const headers = new HttpHeaders()
@@ -108,6 +122,7 @@ export class SafetyPage {
 			this.category = this.httpClient.get(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category',{headers:headers});
 			this.category.subscribe(data => 
 			{
+				loadCtrlStart.dismiss();
 				for(var i = 0; i < data.data.length; i++) {
 				  this.categories.push(
 				  {
@@ -129,6 +144,9 @@ export class SafetyPage {
 			category_name: name,
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		}); 
 	}
 	
@@ -180,6 +198,9 @@ export class SafetyPage {
 			
 				inspection_desc: this.inspection_desc,
 				equipment_image:this.equipment_image
+			}).then(() =>{
+				const index = this.navCtrl.getActive().index;
+				this.navCtrl.remove(0,index);
 			}); 
 		}),
 		err => {				

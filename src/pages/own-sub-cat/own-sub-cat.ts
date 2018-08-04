@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { constant as ENV } from '../../configs/constant';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-own-sub-cat',
   templateUrl: 'own-sub-cat.html',
@@ -30,12 +30,14 @@ export class OwnSubCatPage {
 	public form 	: FormGroup;
  
     constructor(
+		public keyboard : Keyboard,
 		public navCtrl: NavController, 
 		public navParams: NavParams,
 		private storage: Storage,
 		private fb: FormBuilder,
 		private httpClient: HttpClient)
 	{
+		keyboard.disableScroll(true);
 		this.form = this.fb.group({
 				name : ['', Validators.required],
 				questions     : this.fb.array([
@@ -72,10 +74,10 @@ export class OwnSubCatPage {
    initQuestionsFields() : FormGroup
 	{
 		return this.fb.group({
-			name : ['', Validators.required]
+			name : ['', Validators.compose([Validators.required  ])]
 		});
 	}
-   
+   	//Validators.pattern("[a-zA-Z0-9'’,._-\\s]{2,}")
 	//Main Navigation links
 	profileLoad = function()
 	{
@@ -98,7 +100,7 @@ export class OwnSubCatPage {
 			category_name: this.categoryName,
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image
-		});
+		})
 	}
 	
 	ionViewDidLoad() 
@@ -124,6 +126,9 @@ export class OwnSubCatPage {
 			category_name: this.categoryName,
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image
+		}).then(() => {
+			const index = this.navCtrl.getActive().index;
+			this.navCtrl.remove(0,index);
 		}); 
 	}
 	
@@ -159,6 +164,9 @@ export class OwnSubCatPage {
 					category_name: this.categoryName,
 					inspection_desc: this.inspection_desc,
 					equipment_image:this.equipment_image
+				}).then(() => {
+					const index = this.navCtrl.getActive().index;
+					this.navCtrl.remove(0,index);
 				});  
 			},
 			err => {
@@ -197,6 +205,9 @@ export class OwnSubCatPage {
 					category_name: this.categoryName,
 					inspection_desc: this.inspection_desc,
 					equipment_image:this.equipment_image
+				}).then(() => {
+					const index = this.navCtrl.getActive().index;
+					this.navCtrl.remove(0,index);
 				});  
 		},
 		err => {

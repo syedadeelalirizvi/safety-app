@@ -16,18 +16,15 @@ import { MyApp } from './app.component';
 import { SignaturePage } from '../pages/signature/signature';
 import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { HomePage } from '../pages/home/home';
-import { FailDuePage } from '../pages/fail-due/fail-due';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { InformationPage } from '../pages/information/information';
 import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 import { LiftingPage } from '../pages/lifting/lifting';
 import { MainPage } from '../pages/main/main';
-import { ModalPage } from '../pages/modal/modal';
 
 import { OwnCatPage } from '../pages/own-cat/own-cat';
 import { OwnSubCatPage } from '../pages/own-sub-cat/own-sub-cat';
 import { PassObservationPage } from '../pages/pass-observation/pass-observation';
-import { PassSafePage } from '../pages/pass-safe/pass-safe';
 import { PreviousPage } from '../pages/previous/previous';
 import { ProfilePage } from '../pages/profile/profile';
 import { RemarksPage } from '../pages/remarks/remarks';
@@ -54,8 +51,6 @@ import { HttpModule } from "@angular/http";
     ChangepasswordPage,
     HomePage,
     MainPage,
-    ModalPage,
-    FailDuePage,
     ForgotPasswordPage,
     InformationPage,
     InspectionRemarksPage,
@@ -64,7 +59,6 @@ import { HttpModule } from "@angular/http";
     OwnCatPage,
     OwnSubCatPage,
     PassObservationPage,
-    PassSafePage,
     PreviousPage,
     ProfilePage,
     RemarksPage,
@@ -100,8 +94,6 @@ import { HttpModule } from "@angular/http";
 	SignaturePage,
     HomePage,
     MainPage,
-    ModalPage,
-    FailDuePage,
     ForgotPasswordPage,
     InformationPage,
     InspectionRemarksPage,
@@ -109,7 +101,6 @@ import { HttpModule } from "@angular/http";
     OwnCatPage,
     OwnSubCatPage,
     PassObservationPage,
-    PassSafePage,
     PreviousPage,
     ProfilePage,
     RemarksPage,

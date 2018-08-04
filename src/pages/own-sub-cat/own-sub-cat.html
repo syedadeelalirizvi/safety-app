@@ -57,7 +57,7 @@
 										<ion-label  floating>Questions:</ion-label>
 										 <ion-input
 											type="text"
-											maxlength="50"
+											maxlength="200"
 											formControlName="name"></ion-input>
 									</ion-item>
 
@@ -122,7 +122,7 @@
 											 <ion-input
 												value = "{{(this.subcategoryinfo.questions[i] != null) ? this.subcategoryinfo.questions[i].questionTitle : ''}}"
 												type="text"
-												maxlength="50"
+												maxlength="200"
 												formControlName="name"
 												(change)="update_array(i, $event.target.value)"
 												></ion-input>

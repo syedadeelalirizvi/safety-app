@@ -54,7 +54,7 @@
 			<form [formGroup]="categoryForm" (ngSubmit)="edit(categoryForm.value)">
 				<ion-row class="safety-div">	
 					<ion-col col-12>
-						<ion-label  color="lightgreen">EDIT CATEGORY</ion-label>
+						<ion-label  color="lightgreen" class="text-center">EDIT CATEGORY</ion-label>
 					</ion-col>
 					<ion-col col-12>
 						<ion-input type="text" [value] ="this.category.category_name" [formControl]="categoryForm.controls['name']" ></ion-input>
@@ -66,7 +66,7 @@
 					<div class="error-box" *ngIf="categoryForm.get('name').hasError('pattern') && categoryForm.get('name').touched">
 						* Category Name invalid!
 					</div>
-					<ion-col col-10>
+					<ion-col col-12>
 						<div class="lg-new text-center"> 
 							<button ion-button style="text-transform: none;" style="text-transform: none;"type="submit" full [disabled]="!categoryForm.valid" block color="light" class="lgbtn">Save</button>
 						</div>

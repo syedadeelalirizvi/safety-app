@@ -30,25 +30,33 @@
 			<ion-row style='width: 100%' *ngFor="let subcategory of allQuestions.userSubCategories">
 			<ion-row style='width: 100%'>
 				<ion-col>
-					<ion-item-divider color="lightgreen">
-						<ion-col col-9 font-size="small">	
-							{{allQuestions.categoryName}}/{{subcategory.subCategoryName}} 
-						</ion-col>
-						<ion-col col-1 font-size="small">	
-							Pass
-						</ion-col>
-						<ion-col col-1 font-size="small">	
-							Fail
-						</ion-col>
-						<ion-col col-1 font-size="small">	
-							N/A
-						</ion-col>
-					</ion-item-divider>
+					<div class="boxHeader" color="lightgreen">
+						<div class="boxHeading">
+								<ion-col col-12 style="font-size:10px;">	
+										{{allQuestions.categoryName}}/{{subcategory.subCategoryName}} 
+							</ion-col>
+						</div>
+						<div class="boxContent">
+								<ion-col col-3 style="font-size:11px;">	
+										Pass
+							</ion-col>
+							<ion-col col-3 style="font-size:11px;">	
+										Fail
+							</ion-col>
+							<ion-col col-3 style="font-size:11px;">	
+										N/A
+							</ion-col>
+						</div>
+				
+					</div>
+					<!-- <ion-item-divider color="lightgreen">
+					
+					</ion-item-divider> -->
 				</ion-col>
 			</ion-row>
 			<ion-list  style='width: 100%'  *ngFor="let question of subcategory.questions">
 			
-				<ion-col>
+				<ion-col class="aliginMarks">
 						<ion-col col-9 font-size="small">	
 								{{question.questionTitle}}
 						</ion-col>
@@ -64,6 +72,8 @@
 						<ion-col col-1 class="radio_na" font-size="small">	
 								<input  radio-group type="radio" [checked]="!question.answer"  value="na|{{question.questionId}}" name="radiogroup-{{question.questionId}}" (click)="answerList(question,'na')" />
 						</ion-col>
+					
+				
 						
 				</ion-col>
 			</ion-list>

@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-
+import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-own-cat',
   templateUrl: 'own-cat.html',
@@ -35,8 +35,10 @@ export class OwnCatPage {
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
 		private storage: Storage,
+		public keyboard : Keyboard,
 		private camera: Camera) 
 	{
+		keyboard.disableScroll(true);
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -84,7 +86,7 @@ export class OwnCatPage {
 		this.navCtrl.push(SafetyPage, {
 			inspection_desc: this.inspection_desc,
 			equipment_image:this.equipment_image
-		});
+		})
 	}
 	
 	ionViewDidLoad() {
@@ -110,6 +112,9 @@ export class OwnCatPage {
 					this.navCtrl.push(SafetyPage, {
 						inspection_desc: this.inspection_desc,
 						equipment_image:this.equipment_image
+					}).then(() => {
+						const index = this.navCtrl.getActive().index;
+						this.navCtrl.remove(0,index);
 					});
 				},
 				err => {
@@ -136,6 +141,9 @@ export class OwnCatPage {
 			this.navCtrl.push(SafetyPage, {
 				inspection_desc: this.inspection_desc,
 				equipment_image:this.equipment_image
+			}).then(() => {
+				const index = this.navCtrl.getActive().index;
+						this.navCtrl.remove(0,index);
 			});
 		},
 		err => {

@@ -80,8 +80,8 @@ page-remarks {
         font-size: 1em;
     }
     ion-list.list ion-col ion-col:nth-child(2) input[type='radio']:checked:after {
-        background: #00ff00;
-        color: #00ff00;
+        background: #3ae03a;
+        color: #3ae03a;
         content: "";
         position: absolute;
         border-radius: 50%;
@@ -91,8 +91,8 @@ page-remarks {
         z-index: 99999;
     }
     ion-list.list ion-col ion-col:nth-child(3) input[type='radio']:checked:after {
-        background: #ff0000;
-        color: #ff0000;
+        background: #fd3939;
+        color: #fd3939;
         content: "";
         position: absolute;
         border-radius: 50%;
@@ -102,8 +102,8 @@ page-remarks {
         z-index: 99999;
     }
     ion-list.list ion-col ion-col:nth-child(4) input[type='radio']:checked:after {
-        background: #777777;
-        color: #777777;
+        background: #008ef7;
+        color: #008ef7;
         content: "";
         position: absolute;
         border-radius: 50%;
@@ -111,5 +111,32 @@ page-remarks {
         height: 10px;
         margin: 3px 0 0 3px;
         z-index: 99999;
+    }
+    .aliginMarks{
+        padding-top: 5px;
+    }
+    .boxHeader{
+        background-color: #78FAFA;
+        width: 102%;
+        color: black;
+        display: flex;
+        flex-wrap: nowrap;
+        border: 1px solid black;
+        padding: 11px 6px 11px 6px;
+    }
+    .boxHeading [col-12] {
+        padding: 0;
+    }
+    .boxContent{
+        padding-left: 5px;
+    }
+    .boxHeading{
+        width: 70%;
+        float: left;
+    }
+    ion-col.radio_pass.col, ion-col.radio_fail.col, ion-col.radio_na.col {
+        margin-left: -8px;
+        margin-right: 15px;
+        vertical-align: -10px;
     }
     }
