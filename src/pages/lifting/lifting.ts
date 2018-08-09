@@ -143,7 +143,7 @@ export class LiftingPage {
         this.socialShare.shareWithOptions({
             message: "Please click on this link to see inspection file",
             subject: "Chief safety inspection report",
-            url: `${this.shareLinkOfReports}.pdf`,
+            url: `${this.shareLinkOfReports}.pdf`,  
         }).then(data => {
             this.alertCtrl.create({
                 message : 'Your message has been send ...'

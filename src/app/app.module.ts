@@ -45,6 +45,7 @@ import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
 // mocking services end
 //  importing a firebase library
 import { HttpModule } from "@angular/http";
+import { DeviceAccounts } from "@ionic-native/device-accounts";
 @NgModule({
   declarations: [
     MyApp,
@@ -122,6 +123,7 @@ import { HttpModule } from "@angular/http";
     StatusBar,
     SplashScreen,
      Keyboard ,
+     DeviceAccounts,
      Camera,
      SocialSharing,
 	// { provide: Camera, useClass: CameraMock },
