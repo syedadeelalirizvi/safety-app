@@ -1,6 +1,7 @@
+
 import { PreviousPage } from './../previous/previous';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { SetpasswordPage } from '../setpassword/setpassword';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-
+import { SocialSharing } from "@ionic-native/social-sharing";
 @Component({
   selector: 'page-lifting',
   templateUrl: 'lifting.html',
@@ -33,8 +34,8 @@ export class LiftingPage {
     signatureUrl:any;
     signed: any;
     fault_image_url: any;
-
-    constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+    shareLinkOfReports : any;
+    constructor(public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
   
         this.inspectionId = navParams.get('inspectionId');
 
@@ -69,7 +70,8 @@ export class LiftingPage {
                 this.user
                 .subscribe((data:any) => {
 					    console.log("Response Data");
-						console.log(data);	
+                        console.log(data.inspection.report.reportUrl);
+                        this.shareLinkOfReports = data.inspection.report.reportUrl;
                       this.inspection_id=data.inspection.data.inspectionId;
                       this.category_name=data.category.data.equipmentCategoryName; 
                       this.inspection_description= data.inspection.data.inspectionDescription;
@@ -132,6 +134,24 @@ export class LiftingPage {
                       }
                        console.log(this.inspectionsResults);
                 })
+        })
+    }
+    // sharing on others
+    shareThisRepo(){
+       
+        
+        this.socialShare.shareWithOptions({
+            message: "Please click on this link to see inspection file",
+            subject: "Chief safety inspection report",
+            url: `${this.shareLinkOfReports}.pdf`,
+        }).then(data => {
+            this.alertCtrl.create({
+                message : 'Your message has been send ...'
+            }).present();
+        }).catch(err => {
+            this.alertCtrl.create({
+                message : 'Your message is not send due to some reasons'
+            }).present();
         })
     }
 }

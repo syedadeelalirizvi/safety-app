@@ -34,6 +34,7 @@ import { SetpasswordPage } from '../pages/setpassword/setpassword';
 import { SignupPage } from '../pages/signup/signup';
 import { VerificationPage } from '../pages/verification/verification';
 import { WorkPage } from '../pages/work/work';
+import { SocialSharing } from "@ionic-native/social-sharing";
 import { SignaturePadModule } from 'angular2-signaturepad';
 // fixing keyboard issue
 import { Keyboard } from '@ionic-native/keyboard';
@@ -121,7 +122,8 @@ import { HttpModule } from "@angular/http";
     StatusBar,
     SplashScreen,
      Keyboard ,
-  	 Camera,
+     Camera,
+     SocialSharing,
 	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DelPreDataProvider
