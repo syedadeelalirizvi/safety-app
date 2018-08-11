@@ -98,5 +98,8 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="com.danielsogl.cordova.deviceaccounts" spec="~1.0.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
+        <variable name="REVERSED_CLIENT_ID" value="myreversedclientid" />
+    </plugin>
     <engine name="ios" spec="4.5.5" />
 </widget>

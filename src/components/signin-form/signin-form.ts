@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import  firebase  from "firebase";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
+import { GooglePlus } from "@ionic-native/google-plus";
 @Component({
   selector: 'signin-form',
   templateUrl: 'signin-form.html'
@@ -21,7 +22,7 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(public  deviceAccount : DeviceAccounts,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+  constructor(public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 
 		console.log(ENV.BASE_URL);
 		this.response = false;
@@ -83,14 +84,10 @@ export class SigninFormComponent {
   }	
 	
 	// getEmail(){
-	// 	console.log('working');
-	// 	this.deviceAccount.get().then(data => {
-	// 		console.log(data)
-	// 	}).catch(err => {
-	// 		console.log(err);
-	// 	})
+	// 	this.googlePlus.login({}).then(res => {
+	// 		console.log(res);
+	// 	}).catch(err => console.log(err));
 	// }
-
 
 
 }

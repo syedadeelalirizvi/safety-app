@@ -38,6 +38,7 @@ import { SocialSharing } from "@ionic-native/social-sharing";
 import { SignaturePadModule } from 'angular2-signaturepad';
 // fixing keyboard issue
 import { Keyboard } from '@ionic-native/keyboard';
+import { GooglePlus } from "@ionic-native/google-plus";
 // mocking services for testing
     // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
 import { CameraMock } from "./camera.mock";
@@ -123,6 +124,7 @@ import { DeviceAccounts } from "@ionic-native/device-accounts";
     StatusBar,
     SplashScreen,
      Keyboard ,
+     GooglePlus,
      DeviceAccounts,
      Camera,
      SocialSharing,
