@@ -102,4 +102,5 @@
         <variable name="REVERSED_CLIENT_ID" value="myreversedclientid" />
     </plugin>
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="~6.3.0" />
 </widget>
