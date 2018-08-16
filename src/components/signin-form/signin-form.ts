@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
-import  firebase  from "firebase";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { GooglePlus } from "@ionic-native/google-plus";
 @Component({

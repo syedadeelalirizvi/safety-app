@@ -1,7 +1,6 @@
 import { MainPage } from './../main/main';
 import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import firebase from 'firebase';
 import { Storage } from "@ionic/storage";
 import { Keyboard } from "@ionic-native/keyboard";
 

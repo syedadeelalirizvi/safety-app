@@ -226,15 +226,15 @@
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <ion-content padding class="bg-none" *ngIf="this.critical" >
- <ion-grid>
-   <ion-row class="safety-div ">
-  <ion-col style="text-align: center;" col-12>
-	  <p class="text-center">You have failed this work equipment and have deemed it un-safe to use. DO NOT USE. It is advised that the work equipment is isolated and removed from service until it can be made safe.  </p>
-   </ion-col>
+ <ion-grid class="customSafetyCritical">
+   <ion-row class="safety-div">
+		<ion-col style="text-align: center;" col-12>
+		<p class="text-center">You have failed this work equipment and have deemed it un-safe to use. DO NOT USE. It is advised that the work equipment is isolated and removed from service until it can be made safe.  </p>
+		</ion-col>
    </ion-row>
    <ion-row>
 	<ion-col col-12>
-			<ion-label color="lightgreen" class="text-center">FAIL DUE TO SAFETY CRITICAL ISSUE</ion-label>
+		<ion-label color="lightgreen" class="text-center">FAIL DUE TO SAFETY CRITICAL ISSUE</ion-label>
 	</ion-col>
    </ion-row>
    <ion-row>
