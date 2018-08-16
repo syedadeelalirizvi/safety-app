@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { NavController, NavParams,LoadingController  } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -8,7 +7,6 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { Keyboard } from "@ionic-native/keyboard";
-import firebase from "firebase";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',

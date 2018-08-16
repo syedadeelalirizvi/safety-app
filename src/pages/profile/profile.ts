@@ -1,4 +1,3 @@
-import firebase  from 'firebase';
 import { Component ,} from '@angular/core';
 import { LoadingController , NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
