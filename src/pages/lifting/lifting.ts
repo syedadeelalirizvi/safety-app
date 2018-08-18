@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { SocialSharing } from "@ionic-native/social-sharing";
+import { EmailComposer } from "@ionic-native/email-composer";
 @Component({
   selector: 'page-lifting',
   templateUrl: 'lifting.html',
@@ -35,7 +36,7 @@ export class LiftingPage {
     signed: any;
     fault_image_url: any;
     shareLinkOfReports : any;
-    constructor(public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+    constructor(private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
   
         this.inspectionId = navParams.get('inspectionId');
 
@@ -138,20 +139,29 @@ export class LiftingPage {
     }
     // sharing on others
     shareThisRepo(){
-       
-        
-        this.socialShare.shareWithOptions({
-            message: "Please click on this link to see inspection file",
-            subject: "Chief safety inspection report",
-            url: `${this.shareLinkOfReports}.pdf`,  
-        }).then(data => {
-            this.alertCtrl.create({
-                message : 'Your message has been send ...'
-            }).present();
-        }).catch(err => {
-            this.alertCtrl.create({
-                message : 'Your message is not send due to some reasons'
-            }).present();
-        })
+        // const email = {
+        //     to: '',
+        //     cc: '',
+        //     bcc: ['', ''],
+        //     attachments: [
+        //       `${this.shareLinkOfReports}.pdf`
+        //     ],
+        //     subject: '"Chief safety inspection report',
+        //     body: 'Please click on this link to see inspection file',
+        //     isHtml: true
+        // }
+        // this.emailComp.open(email);
+        this.socialShare.shareViaEmail('Please click on this link to see inspection file','Chief safety inspection report',[],[],[],[`http://${this.shareLinkOfReports}.pdf`]).catch(err => console.log())
+        // this.socialShare.shareWithOptions({
+        //     message: "Please click on this link to see inspection file",
+        //     subject: "Chief safety inspection report",
+        //     files: `${this.shareLinkOfReports}.pdf`,
+        //     url : `${this.shareLinkOfReports}.pdf`,
+        //     chooserTitle : ''
+        // }).catch(err => {
+        //     this.alertCtrl.create({
+        //         message : 'Your message is not send due to some reasons'
+        //     }).present();
+        // })
     }
 }

@@ -39,6 +39,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 // fixing keyboard issue
 import { Keyboard } from '@ionic-native/keyboard';
 import { GooglePlus } from "@ionic-native/google-plus";
+import { Stripe } from "@ionic-native/stripe";
 // mocking services for testing
     // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
 import { CameraMock } from "./camera.mock";
@@ -47,6 +48,8 @@ import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
 //  importing a firebase library
 import { HttpModule } from "@angular/http";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
+import { StripeProcessProvider } from '../providers/stripe-process/stripe-process';
+import { EmailComposer } from "@ionic-native/email-composer";
 @NgModule({
   declarations: [
     MyApp,
@@ -128,9 +131,12 @@ import { DeviceAccounts } from "@ionic-native/device-accounts";
      DeviceAccounts,
      Camera,
      SocialSharing,
+     Stripe,
+     EmailComposer,
 	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DelPreDataProvider
+    DelPreDataProvider,
+    StripeProcessProvider
   ]
 })
 export class AppModule {}

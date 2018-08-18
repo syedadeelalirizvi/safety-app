@@ -259,8 +259,8 @@ loading : any
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
-		targetWidth: 150,
-		targetHeight: 100,
+		// targetWidth: 150,
+		// targetHeight: 100,
 		saveToPhotoAlbum: false,
 		allowEdit : false
       }
@@ -285,8 +285,8 @@ loading : any
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-		targetWidth: 150,
-		targetHeight: 100,
+		// targetWidth: 150,
+		// targetHeight: 100,
 		saveToPhotoAlbum: false,
 		allowEdit : false
       }
