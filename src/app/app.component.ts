@@ -1,3 +1,4 @@
+import { SignupPage } from './../pages/signup/signup';
 
 import { HomePage } from './../pages/home/home';
 
@@ -12,7 +13,7 @@ import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-re
 templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any = SignupPage;
 
   constructor(public keyboard : Keyboard,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: Storage) {
     platform.ready().then(() => {

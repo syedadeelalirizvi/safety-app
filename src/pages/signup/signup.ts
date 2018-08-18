@@ -83,43 +83,76 @@ export class SignupPage {
 	accesstoken : any
 	tokenexpiry  :any
 	signUp(value: any):void {
-		const loadCtrlStart = this.loadCtrl.create({
-			content: 'Creating user account...'
-		})
-		loadCtrlStart.present();
-		console.log('signup clicked');
-        console.log(value.email);
-        const headers = new HttpHeaders({
-			'Content-Type': 'application/json'
-        });
-		
-        const req = this.httpClient.post(ENV.BASE_URL + 'users', {
-		      	userEmail: value.email,
-            userPassword: value.password,
-            userName: value.username,
-            userDepartment: value.department,
-            userCompany: value.company,
-            nameToReceiveReport: value.nameToReceiveReport,
-            emailToReceiveReport: value.emailToReceiveReport,
-			companyLogo: this.base64Image
-				  
-        },{headers:headers})
-		.subscribe(res => {
-			loadCtrlStart.dismiss();
-					let alert = this.alertCtrl.create({	
-						title: 'Success',
-						subTitle: 'Your account registered!',
-						buttons: ['Dismiss']
-					});
-					alert.present();
-					this.navCtrl.pop();
+		const paymentAlert = this.alertCtrl.create({
+			inputs : [ 
+			{
+				name : 'CreditCardNumber',
+				placeholder : 'cc',
+				type : 'number'
 			},
-			err => {
-				loadCtrlStart.dismiss();
-				this.response = true;
-				console.log("Error occurred");
-				console.log(err);
+			{
+				name : 'expMonth',
+				placeholder : 'Expiry month',
+				type : 'number'
+			},
+			{	
+				name : 'expYear',
+				placeholder : 'Expiry year',
+				type : 'number'
 			}
-		);		
+			,{
+				name : 'cvc',
+				placeholder : 'CVC',
+				type : 'number'
+			}
+		],buttons : [
+			{
+				text : 'Submit',
+				handler : data => {
+					console.log(data.CreditCardNumber);
+				}
+			}
+		]
+		})
+		paymentAlert.present();
+
+		// const loadCtrlStart = this.loadCtrl.create({
+		// 	content: 'Creating user account...'
+		// })
+		// loadCtrlStart.present();
+		// console.log('signup clicked');
+        // console.log(value.email);
+        // const headers = new HttpHeaders({
+		// 	'Content-Type': 'application/json'
+        // });
+		
+        // const req = this.httpClient.post(ENV.BASE_URL + 'users', {
+		//       	userEmail: value.email,
+        //     userPassword: value.password,
+        //     userName: value.username,
+        //     userDepartment: value.department,
+        //     userCompany: value.company,
+        //     nameToReceiveReport: value.nameToReceiveReport,
+        //     emailToReceiveReport: value.emailToReceiveReport,
+		// 	companyLogo: this.base64Image
+				  
+        // },{headers:headers})
+		// .subscribe(res => {
+		// 	loadCtrlStart.dismiss();
+		// 			let alert = this.alertCtrl.create({	
+		// 				title: 'Success',
+		// 				subTitle: 'Your account registered!',
+		// 				buttons: ['Dismiss']
+		// 			});
+		// 			alert.present();
+		// 			this.navCtrl.pop();
+		// 	},
+		// 	err => {
+		// 		loadCtrlStart.dismiss();
+		// 		this.response = true;
+		// 		console.log("Error occurred");
+		// 		console.log(err);
+		// 	}
+		// );		
 	}
 }

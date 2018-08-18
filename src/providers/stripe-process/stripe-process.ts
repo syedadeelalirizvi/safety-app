@@ -17,9 +17,5 @@ export class StripeProcessProvider {
       console.log(err);
     })
   }
-
-
-  
-
 }
 
