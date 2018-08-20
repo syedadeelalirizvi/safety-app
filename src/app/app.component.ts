@@ -13,7 +13,7 @@ import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-re
 templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = SignupPage;
+  rootPage:any = HomePage;
 
   constructor(public keyboard : Keyboard,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: Storage) {
     platform.ready().then(() => {

@@ -1,3 +1,5 @@
+import { CreditCardDirectivesModule } from 'angular-cc-library';
+import { PaymentOpionsPage } from './../pages/payment-opions/payment-opions';
 
 import { PreviousDataComponent } from './../components/previous-data/previous-data';
 
@@ -79,12 +81,14 @@ import { EmailComposer } from "@ionic-native/email-composer";
     ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
     SigninFormComponent,
-    PreviousDataComponent
+    PreviousDataComponent,
+    PaymentOpionsPage
     
   ],
   imports: [
     BrowserModule,
-	HttpClientModule,
+  HttpClientModule,
+  CreditCardDirectivesModule,
   SignaturePadModule,
 	IonicStorageModule.forRoot({
       name: '__mydb',
@@ -120,7 +124,8 @@ import { EmailComposer } from "@ionic-native/email-composer";
     ChangePasswordFormComponent,
     ForgotPasswordFormComponent,
     SigninFormComponent,
-    PreviousDataComponent
+    PreviousDataComponent,
+    PaymentOpionsPage
     
   ],
   providers: [

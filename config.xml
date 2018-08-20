@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ios.safetyapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>My Equipment Checker</name>
+    <name>Equipment Checker</name>
     <description>An mobile application for equipment inspection and quality assurance.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -102,9 +102,9 @@
         <variable name="REVERSED_CLIENT_ID" value="myreversedclientid" />
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
-    <engine name="ios" spec="4.5.5" />
-    <engine name="android" spec="6.3.0" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreenDelay" value="3000" />
+    <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="6.3.0" />
 </widget>
