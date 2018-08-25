@@ -292,21 +292,14 @@
 				<ion-col col-2>
 				</ion-col>
 			</ion-row>
-			<ion-row>
-				<ion-col col-2>
-				</ion-col>
-	 
-			 
-	 
-				<ion-col col-8>
+			<ion-row justify-content-center>
+			<ion-col col-8>
 				 <div>
 					 <img *ngIf="imageUpload == true" [src]="base64Image" width="100%" height="100"  (click)="presentActionSheet()" /> 
 				 </div> 
 				 <img *ngIf="imageUpload == false || base64Image == ''" width="100%" height="100" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" />
 				 
 			 </ion-col>
-				<ion-col col-2>
-				</ion-col>
 			</ion-row>
 	   
 			<ion-row>

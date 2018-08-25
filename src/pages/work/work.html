@@ -46,7 +46,6 @@
 						#msgInput 
 						rows="10" 
 						[formControl]="inspectionForm.controls['description']" 
-						maxLength="500" 
 						placeholder="Add Description"></textarea>
 				</ion-col>
 	
@@ -55,9 +54,7 @@
 					*ngIf="inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched">
 					<div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
 				</ion-col>
-				<ion-col col-12>
-					<div text-wrap class="text-center text-wrap"> * Maximun characters allowed: 500!</div>
-				</ion-col>
+			
 			</ion-row>
 			<ion-row text-center>	
 				<ion-col col-12>
