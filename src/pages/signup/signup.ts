@@ -7,6 +7,7 @@ import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { Keyboard } from "@ionic-native/keyboard";
+
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -110,8 +111,8 @@ export class SignupPage {
 			loadCtrlStart.dismiss();
 					let alert = this.alertCtrl.create({	
 						title: 'Success',
-						subTitle: 'Your account registered!',
-						buttons: ['Dismiss']
+						subTitle: 'You are successfully registered to a free trial version of 30 days. Your due date to purchase the application is the last day of the trial period. In order to avail the premium version, please check an invoice sent to your email account. Thank you ',
+						buttons: ['Disimss']
 					});
 					alert.present();
 					this.navCtrl.pop();

@@ -2,7 +2,7 @@
 	<ion-row>
 		<ion-col>
 			<div class="main-title"><span>My Equipment</span> Checker</div>
-			<div>  </div>
+	
 		</ion-col>
 	</ion-row>
 	<ion-row>
@@ -19,7 +19,7 @@
 				<br/>
 				<div class="error-box" *ngIf="authForm.controls['email'].hasError('required') && authForm.controls['email'].touched">
 					* Email is required!
-				</div>
+			</div>
 				<div class="error-box" *ngIf="authForm.get('email').hasError('pattern') && authForm.get('email').touched">
 					* Email address invalid!
 				</div>

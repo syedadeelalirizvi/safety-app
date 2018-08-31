@@ -52,6 +52,7 @@ import { HttpModule } from "@angular/http";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { StripeProcessProvider } from '../providers/stripe-process/stripe-process';
 import { EmailComposer } from "@ionic-native/email-composer";
+import { AngularSvgIconModule } from 'angular-svg-icon';
 @NgModule({
   declarations: [
     MyApp,
@@ -88,6 +89,7 @@ import { EmailComposer } from "@ionic-native/email-composer";
   imports: [
     BrowserModule,
   HttpClientModule,
+  AngularSvgIconModule,
   CreditCardDirectivesModule,
   SignaturePadModule,
 	IonicStorageModule.forRoot({
@@ -138,6 +140,7 @@ import { EmailComposer } from "@ionic-native/email-composer";
      SocialSharing,
      Stripe,
      EmailComposer,
+     
 	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DelPreDataProvider,
