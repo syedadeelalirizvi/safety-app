@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { MainPage } from '../main/main';
 import { constant as ENV } from '../../configs/constant';
-
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 @Component({
   selector: 'page-information',
   templateUrl: 'information.html',
@@ -14,8 +14,8 @@ import { constant as ENV } from '../../configs/constant';
 export class InformationPage {
   token:any;
   userid:any;
-
-  constructor(public alertCtrl : AlertController,public httpClient : HttpClient,public navCtrl: NavController, public navParams: NavParams,private storage: Storage ) {
+  data : any;
+  constructor(public inAppBrowser:InAppBrowser,public alertCtrl : AlertController,public httpClient : HttpClient,public navCtrl: NavController, public navParams: NavParams,private storage: Storage ) {
   }
    goBack(){
     this.navCtrl.push(MainPage).then(() => {
@@ -37,7 +37,8 @@ export class InformationPage {
     const headers =  new HttpHeaders()
                 .set("user_id", this.userid.toString()).set("access_token", this.token);
 		 this.httpClient.get(ENV.BASE_URL + 'users/viewinvoice ',{headers:headers}).subscribe(resp => {
-          console.log(resp);
+      this.data = resp
+        this.inAppBrowser.create(this.data.data).show();
         },err => {
           if(err => 400){
             this.alertCtrl.create({

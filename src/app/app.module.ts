@@ -23,7 +23,7 @@ import { InformationPage } from '../pages/information/information';
 import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 import { LiftingPage } from '../pages/lifting/lifting';
 import { MainPage } from '../pages/main/main';
-
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { OwnCatPage } from '../pages/own-cat/own-cat';
 import { OwnSubCatPage } from '../pages/own-sub-cat/own-sub-cat';
 import { PassObservationPage } from '../pages/pass-observation/pass-observation';
@@ -140,7 +140,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
      SocialSharing,
      Stripe,
      EmailComposer,
-     
+     InAppBrowser,
 	// { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DelPreDataProvider,
