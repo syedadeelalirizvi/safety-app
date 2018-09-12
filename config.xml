@@ -107,4 +107,5 @@
     <preference name="SplashScreenDelay" value="3000" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
 </widget>

@@ -44,6 +44,7 @@
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-googleplus": "^5.3.0",
+    "cordova-plugin-inappbrowser": "^3.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -81,7 +82,8 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "myreversedclientid"
       },
-      "cordova-plugin-email-composer": {}
+      "cordova-plugin-email-composer": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "ios",
