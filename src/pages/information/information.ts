@@ -18,10 +18,7 @@ export class InformationPage {
   constructor(public inAppBrowser:InAppBrowser,public alertCtrl : AlertController,public httpClient : HttpClient,public navCtrl: NavController, public navParams: NavParams,private storage: Storage ) {
   }
    goBack(){
-    this.navCtrl.push(MainPage).then(() => {
-      const index = this.navCtrl.getActive().index;
-      this.navCtrl.remove(0,index);
-    });
+    this.navCtrl.push(MainPage);
   }
 
   paymentOption(){

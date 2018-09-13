@@ -23,10 +23,7 @@ export class PreviousPage {
       
     }
     goBack(){
-     this.navCtrl.push(MainPage).then(() => {
-      const index = this.navCtrl.getActive().index;
-      this.navCtrl.remove(0,index);
-     });
+     this.navCtrl.push(MainPage);
     }
 
     

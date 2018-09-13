@@ -104,10 +104,7 @@ export class ProfilePage {
 		actionSheet.present();
   }
 // Button goBack
-goBack(){ this.navCtrl.push(MainPage).then(() => {
-  const index = this.navCtrl.getActive().index;
-  this.navCtrl.remove(0,index);
-});}
+goBack(){ this.navCtrl.push(MainPage);}
 // Button ChangePassword
 changeLoad(){this.navCtrl.push(ChangepasswordPage).then(() => {
   const index = this.navCtrl.getActive().index;
@@ -243,9 +240,6 @@ async openGallery(): Promise<any>{
       
       this.userid = value1;
       
-      //alert('User Id: '+ this.userid);  
-       //resolve(value);
-       //return this.userid;
       })
 
      this.storage.get("Session.access_token").then((value2) => {
