@@ -54,14 +54,14 @@
 			<ion-row>
 				<ion-row style="width: 100%" *ngFor="let subcategory of subCategories">
 					<div  class="row" style="width: 100%" *ngIf="subcategory.sub_category_id">
-						<ion-col col-10  font-size="small">
-							<ion-col col-2>
+						<!-- <ion-col col-10  font-size="small"> -->
+							<ion-col col-1>
 								<ion-checkbox [checked]="check(subcategory.sub_category_id)"  id="cb-{{subcategory.sub_category_id}}" name="subcat[]" (click)="clickSelectBox(subcategory)"></ion-checkbox>	
 							</ion-col>
-							<ion-col col-8>
-								<ion-label style="display: inline" >	{{subcategory.sub_category_name}}	</ion-label>							
+							<ion-col col-9>
+								<ion-label style="display: inline" text-wrap>{{subcategory.sub_category_name}}	</ion-label>							
 							</ion-col>
-						</ion-col>
+						<!-- </ion-col> -->
 			
 						<ion-col col-1>
 							<button  type ="button" (click)="editSubCategory(subcategory)">
