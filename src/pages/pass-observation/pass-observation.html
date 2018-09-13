@@ -40,7 +40,7 @@
   <ion-col col-1> 	
   </ion-col>
   <ion-col col-10>
-	  <p class="text-center">You have passed this work equipment and have deemed it safe to use, but there are observations to note.   </p>
+	  <p class="text-center" style="font-size: 15px;">You have passed this work equipment and have deemed it safe to use, but there are observations to note.   </p>
 
    </ion-col>
    <ion-col col-1>
@@ -77,11 +77,11 @@
 		   <ion-col col-12 
 		   class="error-box" 
 		   *ngIf="resultForm.controls['description'].hasError('required') && resultForm.controls['description'].touched">
-		   <div text-wrap class="text-center text-wrap"> * Equipment Description is <br/>required</div>
+		   <div text-wrap class="text-center text-wrap" style="font-size: 15px;"> * Equipment Description is <br/>required</div>
 	   </ion-col>
 	   <ion-col col-2></ion-col>
 	   <ion-col col-12>
-			   <div text-wrap class="text-center text-wrap"> * Maximun characters allowed: <br/>500!</div>
+			   <div text-wrap class="text-center text-wrap" style="font-size: 15px;"> * Maximun characters allowed: <br/>500!</div>
 		   </ion-col>
 
 		   <ion-col col-2></ion-col>
@@ -89,7 +89,7 @@
 	   
 	   <ion-row>
 		   <ion-col col-12>
-			   <button ion-button type="button" style="text-transform: none;" full color="greyblue" (click)="openSignatureModel()">
+			   <button  style="font-size: 15px;" ion-button type="button" style="text-transform: none;" full color="greyblue" (click)="openSignatureModel()">
 				   Signature (Unique Identity)
 			   </button>
 			   
@@ -107,7 +107,7 @@
 		   </ion-col>
 
 		   <ion-col col-8>
-				   <p class="text-center">Add photo of the work equipment. </p>
+				   <p style="font-size: 15px;" class="text-center">Add photo of the work equipment. </p>
 		   </ion-col>
 
 		   <ion-col col-2>
@@ -135,7 +135,7 @@
 
 		   <ion-col col-8>
 				   <!-- (click)="SubmitInspection()" -->
-			   <button style="text-transform: none;"  ion-button block type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage || !base64Image"  color="white">Save and finish inspection</button>
+			   <button  style="text-transform: none;"  ion-button block type="submit" name="create-inspection-submit" full [disabled]="!resultForm.valid || !signatureImage || !base64Image"  color="white">Save and finish inspection</button>
 
 		   </ion-col>
 
@@ -172,7 +172,7 @@
  <ion-grid class="customPassed">
 		<ion-row class="safety-div">
 	 <ion-col>
-		 <p class="text-center">You have passed this work equipment and have deemed it safe to use.  </p>
+		 <p style="font-size: 15px;" class="text-center">You have passed this work equipment and have deemed it safe to use.  </p>
 	</ion-col>
 	 </ion-row> 
 	 <ion-row>

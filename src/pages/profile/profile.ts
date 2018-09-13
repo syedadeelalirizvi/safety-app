@@ -240,6 +240,9 @@ async openGallery(): Promise<any>{
       
       this.userid = value1;
       
+      //alert('User Id: '+ this.userid);  
+       //resolve(value);
+       //return this.userid;
       })
 
      this.storage.get("Session.access_token").then((value2) => {

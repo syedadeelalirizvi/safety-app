@@ -28,7 +28,7 @@
 		<form [formGroup]="inspectionForm" (ngSubmit)="create(inspectionForm.value)">
 			<ion-row text-center>
 				<ion-col col-12>
-					<div text-wrap class="text-center text-wrap top-set-desc">
+					<div text-wrap style="font-size: 1.2em;" class="text-center text-wrap top-set-desc ">
 						Add description or I.D number of the work equipment you are about to inspect.
 					</div>
 				</ion-col>
@@ -52,17 +52,17 @@
 				<ion-col col-12 
 					class="error-box" 
 					*ngIf="inspectionForm.controls['description'].hasError('required') && inspectionForm.controls['description'].touched">
-					<div text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
+					<div  text-wrap class="text-center text-wrap"> * Equipment Description is required</div>
 				</ion-col>
 			
 			</ion-row>
 			<ion-row text-center>	
 				<ion-col col-12>
-					<div text-wrap class="text-center text-wrap">Add photo of the work equipment you are about to inspect.</div>
+					<div text-wrap style="font-size: 1.2em;" class="text-center text-wrap">Add photo of the work equipment you are about to inspect.</div>
 				</ion-col>
 				<div class="align-center">
 					<ion-col col-6>
-						<ion-label class="text-center">Equipment Image</ion-label>
+						<ion-label style="font-size: 1.2em;" class="text-center">Equipment Image</ion-label>
 		
 							
 					
