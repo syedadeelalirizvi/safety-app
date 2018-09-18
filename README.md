@@ -1,4 +1,8 @@
-# Chief Safety
+
+<p align="center"> <img src="https://user-images.githubusercontent.com/33973828/45661881-ecb9aa00-bb18-11e8-9c30-b1341609e9a4.png" width="300"/></p>
+
+
+
 Its an app that allow us to create inspections, edit categories , sub categories and forword these inspections to email. 
 
   - Forword inspections with pdf format.
