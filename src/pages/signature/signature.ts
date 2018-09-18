@@ -39,8 +39,7 @@ export class SignaturePage {
 		this.inspection_result = navParams.get('inspection_result');
 		this.equipment_image_last = navParams.get('equipment_image_last');
 		this.observation_desc = navParams.get('observation_desc');
-		
-		this.signatureImage = '';
+		this.signatureImage = navParams.get('signatureImage');
 		
 		//Pass values check
 		console.log('page> inspection-remarks.ts (5th step)');
@@ -66,6 +65,7 @@ export class SignaturePage {
 			subCategories: JSON.stringify(this.subCategoriesIds), 
 			allQuestions: JSON.stringify(this.allQuestions),
 			inspection_result: this.inspection_result,
+			signatureImage : this.signatureImage,
 			equipment_image_last: this.equipment_image_last,
 			observation_desc: this.observation_desc
 		}).then(() => {

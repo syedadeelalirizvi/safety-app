@@ -119,9 +119,9 @@
 
 		   <ion-col col-8>
 			   <div>
-				   <img *ngIf="imageUpload == true" [src]="base64Image" width="100%" height="100"  (click)="presentActionSheet()" /> 
+				   <img *ngIf="base64Image!=null" [src]="base64Image" width="100%" height="100%"  (click)="presentActionSheet()" style="object-fit: contain;"/> 
 			   </div> 
-			   <img *ngIf="imageUpload == false || base64Image == ''" width="100%" height="100" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" />
+			   <img *ngIf="base64Image == null" width="100%" height="100%" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" style="object-fit: contain;"/>
 			   
 		   </ion-col>
 
@@ -295,9 +295,9 @@
 			<ion-row justify-content-center>
 			<ion-col col-8>
 				 <div>
-					 <img *ngIf="imageUpload == true" [src]="base64Image" width="100%" height="100"  (click)="presentActionSheet()" /> 
+					 <img *ngIf="base64Image!=null" [src]="base64Image" width="100%" height="100%"  (click)="presentActionSheet()" style="object-fit: contain;"/> 
 				 </div> 
-				 <img *ngIf="imageUpload == false || base64Image == ''" width="100%" height="100" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" />
+				 <img *ngIf="base64Image == null" width="100%" height="100%" (click)="presentActionSheet()" src="./assets/imgs/company-logo.png" style="object-fit: contain;"/>
 				 
 			 </ion-col>
 			</ion-row>

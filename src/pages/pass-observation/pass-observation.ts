@@ -39,6 +39,7 @@ export class PassObservationPage {
 	allQuestions: any;
 	subCategoriesIds: any;
 	resultForm : FormGroup;
+	imageGetAgain : string;
 	
 	constructor(
 		public keyboard :Keyboard,
@@ -102,6 +103,7 @@ export class PassObservationPage {
 																		category_name: this.categoryName,
 																		inspection_desc: this.inspection_desc,
 																		equipment_image:this.equipment_image,
+																		signatureImage : this.signatureImage,
 																		subCategories: JSON.stringify(this.subCategoriesIds), 
 																		allQuestions: JSON.stringify(this.allQuestions),
 																		inspection_result: this.inspection_result,
