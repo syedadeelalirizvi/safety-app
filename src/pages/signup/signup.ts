@@ -36,7 +36,7 @@ export class SignupPage {
 			'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
 
-		keyboard.disableScroll(true);
+		this.keyboard.disableScroll(true);
 	}
 	
 	
@@ -46,8 +46,7 @@ export class SignupPage {
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE,
-			targetWidth: 150,
-			targetHeight: 100,
+			
 			saveToPhotoAlbum: false,
 			allowEdit : false
 		}
@@ -60,8 +59,6 @@ export class SignupPage {
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE,
 			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-			targetWidth: 150,
-			targetHeight: 100,
 			saveToPhotoAlbum: false,
 			allowEdit : false
 		}

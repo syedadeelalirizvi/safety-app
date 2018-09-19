@@ -136,7 +136,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
      Keyboard ,
      GooglePlus,
      DeviceAccounts,
-     Camera,
+      Camera,
      SocialSharing,
      Stripe,
      EmailComposer,

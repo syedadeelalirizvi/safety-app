@@ -1,3 +1,5 @@
+
+import { Keyboard } from '@ionic-native/keyboard';
 import { HomePage } from './../../pages/home/home';
 
 import { Component, ReflectiveInjector } from '@angular/core';
@@ -21,7 +23,7 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+  constructor(private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 
 		console.log(ENV.BASE_URL);
 		this.response = false;
@@ -30,7 +32,7 @@ export class SigninFormComponent {
 		  'password': [null, Validators.compose([Validators.required, Validators.minLength(8) ])]
 		});
 
-
+		this.keyboard.disableScroll(true);
 
 
 

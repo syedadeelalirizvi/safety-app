@@ -151,7 +151,11 @@ loading : any
 		.subscribe((data:any) => {
 				console.log(data.data.inspectionId);
 			//	inspection/{id}/report
-				const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
+				console.log(this.inspection_result);
+				console.log(this.description);
+				console.log(this.signatureImage);
+				console.log(this.base64Image);
+				 this.httpClient.post(ENV.BASE_URL +'user-inspections/inspection/'+data.data.inspectionId+'/report', {
 					reportType: this.inspection_result,
 					observationDescription : this.description,
 					signatureUrl : this.signatureImage,

@@ -84,6 +84,7 @@ export class LiftingPage {
 							this.reportType = data.inspection.report.reportType;
                             this.signatureUrl = data.inspection.report.signatureUrl;
                             this.fault_image_url = data.inspection.report.mediaUrl;
+                            console.log(this.fault_image_url);
                             
 						}
 						else
