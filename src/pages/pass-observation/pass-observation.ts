@@ -40,7 +40,7 @@ export class PassObservationPage {
 	subCategoriesIds: any;
 	resultForm : FormGroup;
 	imageGetAgain : string;
-	
+	questionFromDb : any;
 	constructor(
 		public keyboard :Keyboard,
 		public loadCtrl : LoadingController,
@@ -125,27 +125,30 @@ loading : any
 
 		console.log(value.description);
 		this.subCategoriesIds = this.navParams.get('subCategories');
-		console.log(this.subCategoriesIds);
-		if(this.navParams.get('allQuestions')) this.allQuestions = this.navParams.get('allQuestions');
-		console.log("questions>"+this.allQuestions);
+
+		console.log("questions>"+JSON.parse(this.allQuestions));
 		
 
 		const headers =  new HttpHeaders()
 		.set("user_id", this.userid.toString())
 		.set("access_token", this.token);
-		// .set("Content-Type","application/json")
-		// .set("Accept","application/json");
-		//user/{userid}/category/{id}/inspection
-	
+
+		
+
 		 this.loading = this.loadCtrl.create({
 			content: 'Please wait...'
 		  });
 		this.loading.present();
+		// console.log(JSON.stringify(this.allQuestions));
+			this.storage.get(`session.${this.userid.toString()}.questions`).then(questions => {
+				this.questionFromDb = JSON.stringify(questions);
+				console.log(this.questionFromDb);
+	
 		const req = this.httpClient.post(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/category/'+this.categoryId+'/inspection', {
 			equipmentInspectedImageUrl: this.equipment_image,
 			inspectionDescription : this.inspection_desc,
 			subCategory : JSON.parse(this.subCategoriesIds),
-			answers: JSON.parse(this.allQuestions)
+			answers: JSON.parse(this.questionFromDb)
 		},
 		{headers:headers})
 		.subscribe((data:any) => {
@@ -182,17 +185,32 @@ loading : any
 						});
 				},
 				err => {
-					
+					this.loading.dismiss();
+					this.alertCtrl.create({
+						title : 'Something happen!',
+						message : 'please restart this app before using..'
+					}).present();
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
 				})
 				
 		},
 		err => {
-			
+			this.loading.dismiss();
+			this.alertCtrl.create({
+				title : 'Something happen!',
+				message : 'please restart this app before using..'
+			}).present();
 			console.log("Error occurred - 1st step");
 			console.log(err);
-		})		
+		})	
+	}).catch(() => {
+		this.loading.dismiss();
+		this.alertCtrl.create({
+			title : 'Something happen!',
+			message : 'please restart this app before using..'
+		}).present();
+	})
 	}
 
 

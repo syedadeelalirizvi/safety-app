@@ -176,10 +176,10 @@ async openGallery(): Promise<any>{
       content: 'Please wait...'
     });
     loadCtrlStart.present();
-		console.log(this.base64ImageProfile);
-		console.log(this.isBase64(this.base64ImageProfile));
-		console.log(this.base64Image);
-		console.log(this.isBase64(this.base64Image));
+		// console.log(this.base64ImageProfile);
+		// console.log(this.isBase64(this.base64ImageProfile));
+		// console.log(this.base64Image);
+		// console.log(this.isBase64(this.base64Image));
 		
 
 		

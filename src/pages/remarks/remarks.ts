@@ -48,6 +48,7 @@ export class RemarksPage {
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
+		private alertCtrl  :AlertController,
 		private storage: Storage) 
 	{
 		this.allQuestions = [];
@@ -115,18 +116,26 @@ export class RemarksPage {
 		console.log("Submit Form!");
 		console.log(value);
 		console.log('wht is this value>'+this.allQuestions);
-		
-		this.navCtrl.push(InspectionRemarksPage, {
-			categoryId: this.categoryId,
-			category_name: this.categoryName,
-			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image,
-			subCategories: JSON.stringify(this.subCategoriesIds), 
-			allQuestions: JSON.stringify(this.allQuestions)
-		}).then(() => {
-			const index = this.navCtrl.getActive().index;
-			this.navCtrl.remove(0,index);
-		});
+		this.storage.set(`session.${this.userid.toString()}.questions`,this.allQuestions).then(() => {
+			console.log(`the questions is  => ${this.allQuestions}`);
+			this.navCtrl.push(InspectionRemarksPage, {
+				categoryId: this.categoryId,
+				category_name: this.categoryName,
+				inspection_desc: this.inspection_desc,
+				equipment_image:this.equipment_image,
+				subCategories: JSON.stringify(this.subCategoriesIds), 
+				allQuestions: JSON.stringify(this.allQuestions)
+			}).then(() => {
+				const index = this.navCtrl.getActive().index;
+				this.navCtrl.remove(0,index);
+			});
+		}).catch(() => {
+			this.alertCtrl.create({
+				title : 'Something happen!',
+				message : 'please restart this app before using..'
+			}).present();
+		})
+	
 		
 		//this.navCtrl.push(InspectionRemarksPage);
 	}
@@ -183,6 +192,6 @@ export class RemarksPage {
 			}	
 		}
 		
-		console.log('answerList>'+this.allQuestions);
+		console.log('answerList>'+ JSON.stringify(this.allQuestions));
     }
 }
