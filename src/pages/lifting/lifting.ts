@@ -78,13 +78,12 @@ export class LiftingPage {
                       this.inspection_description= data.inspection.data.inspectionDescription;
                       this.inspection_date= new Date(data.inspection.data.createdOn);
                       this.equipment_image_url = data.inspection.data.equipmentInspectedImageUrl;
-                      
-						if (data.inspection.report !== null)
+						if (data.inspection.report != null)
 						{  
 							this.reportType = data.inspection.report.reportType;
                             this.signatureUrl = data.inspection.report.signatureUrl;
                             this.fault_image_url = data.inspection.report.mediaUrl;
-                            console.log(this.fault_image_url);
+                            console.log("hello fault image "+this.fault_image_url);
                             
 						}
 						else
@@ -152,7 +151,7 @@ export class LiftingPage {
         //     isHtml: true
         // }
         // this.emailComp.open(email);
-        this.socialShare.shareViaEmail('Please click on this link to see inspection file','Chief safety inspection report',[],[],[],[`http://${this.shareLinkOfReports}.pdf`]).catch(err => console.log())
+        //this.socialShare.shareViaEmail('Please click on this link to see inspection file','Chief safety inspection report',[],[],[],[`http://${this.shareLinkOfReports}.pdf`]).catch(err => console.log())
         // this.socialShare.shareWithOptions({
         //     message: "Please click on this link to see inspection file",
         //     subject: "Chief safety inspection report",
@@ -164,5 +163,17 @@ export class LiftingPage {
         //         message : 'Your message is not send due to some reasons'
         //     }).present();
         // })
+
+        let email = {
+            to: '',
+            cc: '',
+            attachments: [
+                `http://${this.shareLinkOfReports}.pdf`
+            ],
+            subject: 'Chief safety inspection report',
+            body: 'Please click on this link to see inspection file',
+            isHtml: true
+          };
+          this.emailComp.open(email);
     }
 }

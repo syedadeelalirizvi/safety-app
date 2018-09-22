@@ -84,7 +84,7 @@ export class SigninFormComponent {
 					);		
   }	
 	
-	// getEmail(){
+	// getEmail(){	
 	// 	this.googlePlus.login({}).then(res => {
 	// 		console.log(res);
 	// 	}).catch(err => console.log(err));

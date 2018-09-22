@@ -187,8 +187,8 @@ loading : any
 				err => {
 					this.loading.dismiss();
 					this.alertCtrl.create({
-						title : 'Something happen!',
-						message : 'please restart this app before using..'
+						title : 'Application encountered an error',
+						message : 'Please try again later or restart the application'
 					}).present();
 					console.log("Error occurred - 2nd Step");
 					console.log(err);
@@ -198,8 +198,8 @@ loading : any
 		err => {
 			this.loading.dismiss();
 			this.alertCtrl.create({
-				title : 'Something happen!',
-				message : 'please restart this app before using..'
+				title : 'Application encountered an error',
+				message : 'Please try again later or restart the application'
 			}).present();
 			console.log("Error occurred - 1st step");
 			console.log(err);
@@ -207,8 +207,8 @@ loading : any
 	}).catch(() => {
 		this.loading.dismiss();
 		this.alertCtrl.create({
-			title : 'Something happen!',
-			message : 'please restart this app before using..'
+			title : 'Application encountered an error',
+			message : 'Please try again later or restart the application'
 		}).present();
 	})
 	}
