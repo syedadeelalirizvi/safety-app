@@ -107,7 +107,7 @@ export class InspectionRemarksPage {
 		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++){
 		  for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++){
 		 	console.log(this.allQuestions.userSubCategories[i].questions[j].answer);
-			if(this.allQuestions.userSubCategories[i].questions[j].answer=='fail'){
+			if(this.allQuestions.userSubCategories[i].questions[j].answer=='Fail'){
 				this.checkFail = true;
 				break;
 			}

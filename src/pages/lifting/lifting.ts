@@ -32,12 +32,14 @@ export class LiftingPage {
     inspectionRemarks = [];
     subCategories = [];
     reportType : any;
+    reportTypeText : any;
     signatureUrl:any;
     signed: any;
     fault_image_url: any;
     shareLinkOfReports : any;
     constructor(private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
-  
+        console.log(this.reportType)
+       
         this.inspectionId = navParams.get('inspectionId');
 
         storage.get('Session.access_token').then((val) => {
@@ -56,6 +58,7 @@ export class LiftingPage {
     }
 
     ionViewDidLoad() {
+
         this.storage.get("Session.access_token").then((value2) => {
           
             this.token = value2;
@@ -80,7 +83,15 @@ export class LiftingPage {
                       this.equipment_image_url = data.inspection.data.equipmentInspectedImageUrl;
 						if (data.inspection.report != null)
 						{  
-							this.reportType = data.inspection.report.reportType;
+                            this.reportType = data.inspection.report.reportType;
+                            console.log(this.reportType);
+                            if(this.reportType == 'critical'){
+                                this.reportTypeText = 'Fail due to safety critical issue'
+                            }else if(this.reportType == 'observation'){
+                                this.reportTypeText = 'Pass but with an observation'
+                            }else if(this.reportType == 'safe'){
+                                this.reportTypeText = 'Passed and is safe to use'
+                            }                       
                             this.signatureUrl = data.inspection.report.signatureUrl;
                             this.fault_image_url = data.inspection.report.mediaUrl;
                             console.log("hello fault image "+this.fault_image_url);
@@ -136,6 +147,7 @@ export class LiftingPage {
                        console.log(this.inspectionsResults);
                 })
         })
+
     }
     // sharing on others
     shareThisRepo(){
@@ -167,11 +179,8 @@ export class LiftingPage {
         let email = {
             to: '',
             cc: '',
-            attachments: [
-                `http://${this.shareLinkOfReports}.pdf`
-            ],
             subject: 'Chief safety inspection report',
-            body: 'Please click on this link to see inspection file',
+            body: `Please click on this link to see inspection file http://${this.shareLinkOfReports}.pdf`,
             isHtml: true
           };
           this.emailComp.open(email);

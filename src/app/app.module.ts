@@ -53,6 +53,7 @@ import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { StripeProcessProvider } from '../providers/stripe-process/stripe-process';
 import { EmailComposer } from "@ionic-native/email-composer";
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { VideoPlayer } from "@ionic-native/video-player";
 @NgModule({
   declarations: [
     MyApp,
@@ -136,12 +137,13 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
      Keyboard ,
      GooglePlus,
      DeviceAccounts,
-      Camera,
+    //  Camera,
      SocialSharing,
      Stripe,
      EmailComposer,
      InAppBrowser,
-	// { provide: Camera, useClass: CameraMock },
+     VideoPlayer,
+   { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DelPreDataProvider,
     StripeProcessProvider

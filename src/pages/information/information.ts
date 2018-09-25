@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { MainPage } from '../main/main';
 import { constant as ENV } from '../../configs/constant';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { VideoPlayer } from "@ionic-native/video-player";
 @Component({
   selector: 'page-information',
   templateUrl: 'information.html',
@@ -15,12 +16,20 @@ export class InformationPage {
   token:any;
   userid:any;
   data : any;
-  constructor(public inAppBrowser:InAppBrowser,public alertCtrl : AlertController,public httpClient : HttpClient,public navCtrl: NavController, public navParams: NavParams,private storage: Storage ) {
+  constructor(private VideoPlayer : VideoPlayer,public inAppBrowser:InAppBrowser,public alertCtrl : AlertController,public httpClient : HttpClient,public navCtrl: NavController, public navParams: NavParams,private storage: Storage ) {
+  
   }
    goBack(){
     this.navCtrl.push(MainPage);
   }
 
+  VideoRun(){
+    this.VideoPlayer.play('../assets/imgs/movie.mp4').then(() => {
+      console.log('video completed');
+     }).catch(err => {
+      console.log(err);
+     })
+  }
   paymentOption(){
 
   this.storage.get("Session.access_token").then((value2) => {

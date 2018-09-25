@@ -174,7 +174,7 @@ loading : any
 						});
 						let alert = this.alertCtrl.create({
 							title: 'Inspection created',
-							subTitle: 'Your Report Has Been Sent Successfully',
+							subTitle: 'Your report was created and sent sucessfully', 
 							buttons: ['OK']
 						  });
 						  alert.present();

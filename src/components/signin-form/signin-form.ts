@@ -3,7 +3,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { HomePage } from './../../pages/home/home';
 
 import { Component, ReflectiveInjector } from '@angular/core';
-import { NavController, NavParams ,LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { MainPage} from './../../pages/main/main';
 import { SignupPage } from './../../pages/signup/signup';
 import { ForgotPasswordPage } from './../../pages/forgot-password/forgot-password';
@@ -23,7 +23,7 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+  constructor(private alrtCtrl : AlertController,private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 
 		console.log(ENV.BASE_URL);
 		this.response = false;
@@ -58,20 +58,32 @@ export class SigninFormComponent {
 						userPassword: value.password
 					})
 					.subscribe((res: any) => {
+						
 						loadCtrlStart.dismiss();
 									console.log(res);
-									this.storage.set('Session.userEmail', value.email);
-									this.storage.set('Session.user_name', res.data.userName);
-									this.storage.set('Session.user_id', res.data.userId);
-									this.storage.set('Session.access_token', res.data.token);
-									this.storage.set('Session.token_expiry', res.data.expiry);
-									this.storage.set('Session.profile_pic', res.data.profilePicture);
-									this.storage.set('Session.company_logo', res.data.companyLogo);
-						
-										this.navCtrl.push(MainPage).then(() => {
-											const index = this.navCtrl.getActive().index;
-											this.navCtrl.remove(0,index);
-										});
+									if(res.error){
+										this.alrtCtrl.create({
+											title : 'Your account is inactive',
+											message : 'Your account has been deactivated. Please check your email of invoice to activate your account',
+											buttons :[
+												{ text : 'Ok', }
+											]
+										}).present();
+									}else{
+										this.storage.set('Session.userEmail', value.email);
+										this.storage.set('Session.user_name', res.data.userName);
+										this.storage.set('Session.user_id', res.data.userId);
+										this.storage.set('Session.access_token', res.data.token);
+										this.storage.set('Session.token_expiry', res.data.expiry);
+										this.storage.set('Session.profile_pic', res.data.profilePicture);
+										this.storage.set('Session.company_logo', res.data.companyLogo);
+							
+											this.navCtrl.push(MainPage).then(() => {
+												const index = this.navCtrl.getActive().index;
+												this.navCtrl.remove(0,index);
+											});
+									}
+								
 														
 						
 				},err => {

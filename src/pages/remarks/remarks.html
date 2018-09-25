@@ -62,12 +62,10 @@
 						</ion-col>
 						
 						<ion-col col-1 class="radio_pass" font-size="small">	
-							 
-								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'pass'" name="radiogroup-{{question.questionId}}" value="pass|{{question.questionId}}" (click)="answerList(question,'pass')" />
+								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Pass'" name="radiogroup-{{question.questionId}}" value="pass|{{question.questionId}}" (click)="answerList(question,'Pass')" />
 						</ion-col>
 						<ion-col col-1 class="radio_fail" font-size="small">	
-							
-								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerList(question,'fail')" />
+								<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerList(question,'Fail')" />
 						</ion-col>
 						<ion-col col-1 class="radio_na" font-size="small">	
 								<input  radio-group type="radio" [checked]="!question.answer"  value="na|{{question.questionId}}" name="radiogroup-{{question.questionId}}" (click)="answerList(question,'na')" />
