@@ -23,20 +23,20 @@ export class InformationPage {
     this.navCtrl.push(MainPage);
   }
 
-  VideoRun(){
-    this.VideoPlayer.play('../assets/imgs/movie.mp4').then(() => {
-      console.log('video completed');
-     }).catch(err => {
-      console.log(err);
-     })
-  }
+  // VideoRun(){
+  //   this.VideoPlayer.play('./assets/imgs/movie.mp4').then(() => {
+  //     console.log('video completed');
+  //    }).catch(err => {
+  //     console.log(err);
+  //    })
+  // }
   paymentOption(){
 
   this.storage.get("Session.access_token").then((value2) => {
           
       this.token = value2;
   })
-  this.storage.get("Session.user_id").then((value1) => {
+  this.storage.get("Session.user_id").then((value1) => {4
     this.userid = value1;
  console.log(this.userid);
  console.log(this.token);
