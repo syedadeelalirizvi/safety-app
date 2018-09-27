@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component ,} from '@angular/core';
 import { LoadingController , NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
@@ -14,6 +15,7 @@ import { AlertController, ModalController } from 'ionic-angular';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
+  providers : [ChiefSfetyApiProvider]
 })
 export class ProfilePage {
       response: any;
@@ -41,6 +43,7 @@ export class ProfilePage {
       pageName="profile";
 	  
       constructor(
+        private ChiefSfetyApiProvider: ChiefSfetyApiProvider,
         public loadCtrl :LoadingController,
 		public actionSheetCtrl: ActionSheetController,
 				private alertCtrl: AlertController, 
@@ -187,21 +190,7 @@ async openGallery(): Promise<any>{
             .set("user_id", this.userid.toString()).set("access_token", this.token);
             
 		console.log("profile>"+this.base64ImageProfile);
-		
-		const req = this.httpClient.post(ENV.BASE_URL + 'users/'+this.userid, {
-			  userEmail: value.email,
-			  userName: value.username,
-			  userDepartment: value.department,
-			  userCompany: value.company,
-			  nameToReceiveReport   : value.nameOfReceiveReport,
-			  emailToReceiveReport:value.emailOfReceiveReport,
-			  companyLogo: this.base64Image,
-			  profilePicture: this.base64ImageProfile
-
-		},
-		{headers:headers})
-		.subscribe(
-			(res: any) => {
+		this.ChiefSfetyApiProvider.updatingUserProfileData(this.userid,value.email,value.username,value.department,value.company,value.nameOfReceiveReport,value.emailOfReceiveReport,this.base64Image,this.base64ImageProfile,headers).subscribe((res:any) => {
         loadCtrlStart.dismiss();
      
           console.log(res);
@@ -255,13 +244,8 @@ async openGallery(): Promise<any>{
 
 const headers = new HttpHeaders()
             .set("user_id", this.userid.toString()).set("access_token", this.token);
-		
-		
     console.log(this.userid+"hello");
-        this.user = this.httpClient.get(ENV.BASE_URL +'users/'+this.userid,{headers:headers});
-        this.user
-        .subscribe(data => {
-        //  console.log(headers.get('user_id'));
+        this.ChiefSfetyApiProvider.getUserProfileData(this.userid,headers).subscribe(data => {
           console.log(this.token);
           console.log('my data: ', data);
         //  console.log('user: ',data['data']);

@@ -45,15 +45,14 @@ import { Stripe } from "@ionic-native/stripe";
 // mocking services for testing
     // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
 import { CameraMock } from "./camera.mock";
-import { DelPreDataProvider } from '../providers/del-pre-data/del-pre-data';
 // mocking services end
 //  importing a firebase library
 import { HttpModule } from "@angular/http";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
-import { StripeProcessProvider } from '../providers/stripe-process/stripe-process';
 import { EmailComposer } from "@ionic-native/email-composer";
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { VideoPlayer } from "@ionic-native/video-player";
+import { ChiefSfetyApiProvider } from '../providers/chief-sfety-api/chief-sfety-api';
 @NgModule({
   declarations: [
     MyApp,
@@ -137,16 +136,15 @@ import { VideoPlayer } from "@ionic-native/video-player";
      Keyboard ,
      GooglePlus,
      DeviceAccounts,
-     Camera,
+  // Camera,
      SocialSharing,
      Stripe,
      EmailComposer,
      InAppBrowser,
      VideoPlayer,
-  //  { provide: Camera, useClass: CameraMock },
+   { provide: Camera, useClass: CameraMock },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DelPreDataProvider,
-    StripeProcessProvider
+    ChiefSfetyApiProvider
   ]
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
@@ -18,6 +19,7 @@ import { AlertController } from 'ionic-angular';
 @Component({
   selector: 'page-safety-cat-info',
   templateUrl: 'safety-cat-info.html',
+  providers :[ChiefSfetyApiProvider]
 })
 
 export class SafetyCatInfoPage {
@@ -47,7 +49,8 @@ export class SafetyCatInfoPage {
 		public navParams: NavParams, 
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
-		private storage: Storage) 
+		private storage: Storage,
+	private ChiefSfetyApiProvider:ChiefSfetyApiProvider) 
 	{
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
@@ -119,11 +122,7 @@ export class SafetyCatInfoPage {
 		const headers = new HttpHeaders()
 		.set("user_id", this.userid.toString())
 		.set("access_token", this.token);
-		
-	this.collections = this.httpClient.get(ENV.BASE_URL +'user-inspections/category/'+this.categoryId+'/remarks?sub_category_id='+subcategory.sub_category_id,{headers:headers});
-	this.collections
-	.subscribe((collection_data: any) => 
-	{
+		this.ChiefSfetyApiProvider.editSubCatregories(this.categoryId,subcategory.sub_category_id,headers).subscribe((collection_data : any) => {
 		console.log("New Collection");
 		console.log(collection_data.data.userSubCategories[0]);
 		this.navCtrl.push(OwnSubCatPage, {

@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { NavController, NavParams,LoadingController  } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -11,6 +12,7 @@ import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
+  providers : [ChiefSfetyApiProvider]
 })
 
 export class SignupPage {
@@ -21,7 +23,7 @@ export class SignupPage {
 	imageUpload: any;
 	base64Image: string;
 
-	constructor(public loadCtrl : LoadingController,private keyboard : Keyboard, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
+	constructor(private ChiefSfetyApiProvider:ChiefSfetyApiProvider ,public loadCtrl : LoadingController,private keyboard : Keyboard, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage, private camera: Camera) {
 		this.base64Image = '';
 		this.imageUpload = false;
 		this.response = false;
@@ -103,8 +105,8 @@ export class SignupPage {
             emailToReceiveReport: value.emailToReceiveReport,
 			companyLogo: this.base64Image
 				  
-        },{headers:headers})
-		.subscribe(res => {
+		},{headers:headers})
+		this.ChiefSfetyApiProvider.authenticationSignup(value.email,value.password,value.username,value.department,value.company,value.nameToReceiveReport,value.nameToReceiveReport,this.base64Image,headers).subscribe(res => {
 			loadCtrlStart.dismiss();
 					let alert = this.alertCtrl.create({	
 						title: 'Success',

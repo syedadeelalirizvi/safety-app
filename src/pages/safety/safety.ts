@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
@@ -17,6 +18,7 @@ import { AlertController } from 'ionic-angular';
 @Component({
   selector: 'page-safety',
   templateUrl: 'safety.html',
+  providers: [ChiefSfetyApiProvider]
 })
 
 export class SafetyPage {
@@ -37,7 +39,8 @@ export class SafetyPage {
 		private httpClient: HttpClient,
 		private fb: FormBuilder, 
 		private storage: Storage,
-		private camera: Camera ) 
+		private camera: Camera ,
+		private ChiefSfetyApiProvider:ChiefSfetyApiProvider) 
 	{
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
@@ -118,10 +121,7 @@ export class SafetyPage {
 			const headers = new HttpHeaders()
 							.set("user_id", this.userid.toString())
 							.set("access_token", this.token);
-
-			this.category = this.httpClient.get(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category',{headers:headers});
-			this.category.subscribe(data => 
-			{
+			this.ChiefSfetyApiProvider.getSpecificUserCategory(this.userid,headers).subscribe((data : any) => {
 				loadCtrlStart.dismiss();
 				for(var i = 0; i < data.data.length; i++) {
 				  this.categories.push(
@@ -130,7 +130,6 @@ export class SafetyPage {
 					  category_name: data.data[i].equipmentCategoryName, 
 					 
 				  });
-
 				}
 				this.categoriesCopy = Object.assign([], this.categories);
 			});
@@ -189,10 +188,8 @@ export class SafetyPage {
 						const headers = new HttpHeaders()
 						.set("user_id", this.userid.toString())
 						.set("access_token", this.token);
-
-		this.category = this.httpClient.delete(ENV.BASE_URL +'equipment-categories/user/'+this.userid+'/category/'+value,{headers:headers});
-		this.category.subscribe(data => 
-		{
+					this.ChiefSfetyApiProvider.delSpecificUserCayegory(this.userid,value,headers).subscribe(data => {
+					
 			console.log(data);
 			this.navCtrl.push(SafetyPage, {
 			

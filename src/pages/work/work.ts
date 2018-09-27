@@ -1,45 +1,44 @@
 import { MainPage } from './../main/main';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController , LoadingController} from 'ionic-angular';
-import { ProfilePage} from '../profile/profile';
-import { InformationPage} from '../information/information';
-import { PreviousPage} from '../previous/previous';
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
+import { ProfilePage } from '../profile/profile';
+import { InformationPage } from '../information/information';
+import { PreviousPage } from '../previous/previous';
 import { SafetyPage } from '../safety/safety';
-import { HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AlertController,ModalController } from 'ionic-angular';
- import { Keyboard } from "@ionic-native/keyboard";
+import { AlertController, ModalController } from 'ionic-angular';
+import { Keyboard } from "@ionic-native/keyboard";
 
 @Component({
-  selector: 'page-work',
-  templateUrl: 'work.html',
+	selector: 'page-work',
+	templateUrl: 'work.html',
 })
 
 export class WorkPage {
-	imageUpload= false;
+	imageUpload = false;
 	base64Image: string = '';
 	response: any;
 	token: string;
-	userid :any;
-	inspectionForm : FormGroup;
-	inspectionimg : FormGroup;
+	userid: any;
+	inspectionForm: FormGroup;
+	inspectionimg: FormGroup;
 	inspection_desc: string = "";
 
-	constructor(public actionSheetCtrl: ActionSheetController, 
-				public loadCtrl :LoadingController,
-				private keyboard : Keyboard,
-				private alertCtrl: AlertController,   
-				private modalCtrl: ModalController,
-				public navCtrl: NavController, 
-				public navParams: NavParams, 
-				private httpClient: HttpClient,
-				private fb: FormBuilder, 
-				private storage: Storage,
-				private camera: Camera) 
-	{
+	constructor(public actionSheetCtrl: ActionSheetController,
+		public loadCtrl: LoadingController,
+		private keyboard: Keyboard,
+		private alertCtrl: AlertController,
+		private modalCtrl: ModalController,
+		public navCtrl: NavController,
+		public navParams: NavParams,
+		private httpClient: HttpClient,
+		private fb: FormBuilder,
+		private storage: Storage,
+		private camera: Camera) {
 		keyboard.disableScroll(true);
 		this.response = false;
 		storage.get('Session.access_token').then((access_token) => {
@@ -51,82 +50,78 @@ export class WorkPage {
 
 		// setting values on next & previous actions
 		this.inspection_desc = this.navParams.get('inspection_desc');
-		if(this.navParams.get('equipment_image'))
-		{
+		if (this.navParams.get('equipment_image')) {
 			this.base64Image = this.navParams.get('equipment_image');
 			this.imageUpload = true;
-		}		
-		
+		}
+
 		//Pass values check
 		console.log('page> work.ts', this.navParams.get('equipment_imasdasdasdage'));
 		console.log('inspection_desc>' + this.inspection_desc);
 		console.log('equipment_image>' + this.base64Image);
 
 		this.inspectionForm = fb.group({
-			'description' : [null, Validators.compose([Validators.required])],
+			'description': [null, Validators.compose([Validators.required])],
 			//'equipment_image' : [null, Validators.compose([Validators.required])]
 		});
 
 		// this.inspectionimg = fb.group({
 		// 	equipmentimage' : [null, Validators.compose([Validators.required])]
 		// });
-		
-		
+
+
 	}
 
-	focusArea(){
+	focusArea() {
 		console.log('keyboard');
 		this.keyboard.disableScroll(true);
-		
+
 	}
 	//Main Navigation links
-	profileLoad = function()
-	{
+	profileLoad = function () {
 		this.navCtrl.push(ProfilePage);
 
 	}
-  
-	previousLoad = function()
-	{
+
+	previousLoad = function () {
 		this.navCtrl.push(PreviousPage)
 	}
-  
-	informationLoad = function()
-	{
+
+	informationLoad = function () {
 		this.navCtrl.push(InformationPage)
 	}
-	
-	goBack(){
+
+	goBack() {
 		this.navCtrl.push(MainPage);
 	}
 
 	// Image upload possible options mapping	
-	public presentActionSheet() 
-	{
+	public presentActionSheet() {
 		let actionSheet = this.actionSheetCtrl.create({
-		title: 'SET PICTURE',
-		buttons: [
-			{
-				text: 'choose from albums',
-				handler: () => {
-					this.openGallery();
+			title: 'SET PICTURE',
+			buttons: [
+				{
+					text: 'choose from albums',
+					handler: () => {
+						this.openGallery();
+					}
+				},
+				{
+					text: 'take a photo',
+					handler: () => {
+						this.openCamera();
+					}
+				},
+				{
+					text: 'cancel',
+					role: 'cancel'
 				}
-			},
-			{
-				text: 'take a photo',
-				handler: () => {
-					this.openCamera();
-				}
-			},
-			{
-				text: 'cancel',
-				role: 'cancel'
-			}
-		]});
+			]
+		});
 		actionSheet.present();
 	}
 	// Camera OpenCamera
-  async openCamera(): Promise<any>{
+	async openCamera(): Promise<any> {
 		const options: CameraOptions = {
 			quality: 50,
 			destinationType: this.camera.DestinationType.DATA_URL,
@@ -135,45 +130,44 @@ export class WorkPage {
 			// targetWidth: 150,
 			// targetHeight: 100,
 			saveToPhotoAlbum: false,
-			allowEdit : false
+			allowEdit: false
 		}
-		try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
+		try { this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true; } catch (e) { console.log(e); }
 	}
-// Camera openGallery
-async openGallery(): Promise<any>{
-	const options: CameraOptions = {
-		quality: 50,
-		destinationType: this.camera.DestinationType.DATA_URL,
-		encodingType: this.camera.EncodingType.JPEG,
-		mediaType: this.camera.MediaType.PICTURE,
-		sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+	// Camera openGallery
+	async openGallery(): Promise<any> {
+		const options: CameraOptions = {
+			quality: 50,
+			destinationType: this.camera.DestinationType.DATA_URL,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE,
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
 			// targetWidth: 150,
 			// targetHeight: 100,
 			saveToPhotoAlbum: false,
-			allowEdit : false
+			allowEdit: false
+		}
+		try { this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true; } catch (e) { console.log(e); }
 	}
-	try{ this.base64Image = 'data:image/jpeg;base64,' + await this.camera.getPicture(options); this.imageUpload = true;}catch(e){ console.log(e);}
-}
-	
-    // First form submit ( with values => description & image)  
-	create(value: any):void
-	{
-console.log(this.base64Image + '' + this.inspection_desc);
-		if((this.base64Image == ''|| this.base64Image ==  undefined || this.base64Image ==  null) && (this.inspection_desc == '' || this.inspection_desc ==  undefined )){
+
+	// First form submit ( with values => description & image)  
+	create(value: any): void {
+		console.log(this.base64Image + '' + this.inspection_desc);
+		if ((this.base64Image == '' || this.base64Image == undefined || this.base64Image == null) && (this.inspection_desc == '' || this.inspection_desc == undefined)) {
 			this.alertCtrl.create({
-				   title : 'Error!',
-				   subTitle: 'Please enter either add text, or a picture or both',
-				   buttons: ['Dismiss']
+				title: 'Error!',
+				subTitle: 'Please enter either add text, or a picture or both',
+				buttons: ['Dismiss']
 			}).present();
-		}else{
+		} else {
 			this.navCtrl.push(SafetyPage, {
 				inspection_desc: value.description,
 				equipment_image: this.base64Image
 			}).then(() => {
 				const index = this.navCtrl.getActive().index;
-				this.navCtrl.remove(0,index);
+				this.navCtrl.remove(0, index);
 			});
 		}
-		
+
 	}
 }

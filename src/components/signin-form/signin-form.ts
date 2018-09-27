@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 
 import { Keyboard } from '@ionic-native/keyboard';
 import { HomePage } from './../../pages/home/home';
@@ -15,7 +16,8 @@ import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { GooglePlus } from "@ionic-native/google-plus";
 @Component({
   selector: 'signin-form',
-  templateUrl: 'signin-form.html'
+  templateUrl: 'signin-form.html',
+  providers : [ChiefSfetyApiProvider]
 })
 export class SigninFormComponent {
 	mainPage= MainPage;
@@ -23,7 +25,7 @@ export class SigninFormComponent {
 	authForm : FormGroup;
 	response: any;
 
-  constructor(private alrtCtrl : AlertController,private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+  constructor(private chiefSfetyApi: ChiefSfetyApiProvider,private alrtCtrl : AlertController,private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 
 		console.log(ENV.BASE_URL);
 		this.response = false;
@@ -53,12 +55,8 @@ export class SigninFormComponent {
 		loadCtrlStart.present();
 		console.log('Form submitted!')
 		console.log(value.email);
-		const req = this.httpClient.post(ENV.BASE_URL + 'users/app/login', {
-						userEmail: value.email,
-						userPassword: value.password
-					})
-					.subscribe((res: any) => {
-						
+	
+					this.chiefSfetyApi.authenticationLogin(value.email,value.password).subscribe((res:any) => {
 						loadCtrlStart.dismiss();
 									console.log(res);
 									if(res.error){
@@ -70,6 +68,7 @@ export class SigninFormComponent {
 											]
 										}).present();
 									}else{
+										
 										this.storage.set('Session.userEmail', value.email);
 										this.storage.set('Session.user_name', res.data.userName);
 										this.storage.set('Session.user_id', res.data.userId);
