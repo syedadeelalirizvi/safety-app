@@ -1,8 +1,6 @@
 import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 
 import { Keyboard } from '@ionic-native/keyboard';
-import { HomePage } from './../../pages/home/home';
-
 import { Component, ReflectiveInjector } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { MainPage} from './../../pages/main/main';
@@ -14,6 +12,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { GooglePlus } from "@ionic-native/google-plus";
+
 @Component({
   selector: 'signin-form',
   templateUrl: 'signin-form.html',
@@ -68,6 +67,19 @@ export class SigninFormComponent {
 											]
 										}).present();
 									}else{
+										const headers = new HttpHeaders()
+        									    .set("user_id", res.data.userId.toString()).set("access_token",res.data.token);
+											this.chiefSfetyApi.getUserProfileData(res.data.userId,headers).subscribe(profileData => {
+												this.storage.set('Session.Offline.userProfile',profileData);
+											})
+											this.chiefSfetyApi.userPreviousInspections(res.data.userId,headers).subscribe(previousInspections =>{
+												this.storage.set('Session.Offline.previousInspections',previousInspections);
+											})
+											this.chiefSfetyApi.getSpecificUserCategory(res.data.userId,headers).subscribe(userCategory => {
+												this.storage.set(`Session.Offline.userCategory`,userCategory);
+												console.log(userCategory);
+											})
+										
 										
 										this.storage.set('Session.userEmail', value.email);
 										this.storage.set('Session.user_name', res.data.userName);

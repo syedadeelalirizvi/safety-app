@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { AlertController } from 'ionic-angular';
-
+import { Network } from "@ionic-native/network";
 @Component({
   selector: 'previous-data',
   templateUrl: 'previous-data.html',
@@ -34,9 +34,18 @@ export class PreviousDataComponent implements OnInit {
   categoryName: any;
   inspectionDescription: any;
   inspectionDate: any;
-
+  networkStatus : boolean;
   inspections = [];
-  constructor(private ChiefSfetyApiProvider: ChiefSfetyApiProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient, private fb: FormBuilder, private storage: Storage) {
+  reportType : any;
+  reportTypeText : any;
+  signatureUrl:any;
+  signed: any;
+  fault_image_url: any;
+  
+
+  // sample
+  inpspectionId  :any;
+  constructor(private network : Network,private ChiefSfetyApiProvider: ChiefSfetyApiProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient, private fb: FormBuilder, private storage: Storage) {
     storage.get('Session.access_token').then((val) => {
       this.token = val;
     });
@@ -47,7 +56,14 @@ export class PreviousDataComponent implements OnInit {
 
   }
   ngOnInit() {
-
+    if(this.network.type == 'none' || this.network.type == 'unknown'){
+      this.networkStatus = false;
+      console.log("connection off "+this.network.type);
+    }
+    else{
+      this.networkStatus = true;
+    }
+    console.log("connection on "+this.network.type);
     this.storage.get("Session.user_id").then((value1) => {
 
       this.userid = value1;
@@ -73,7 +89,6 @@ export class PreviousDataComponent implements OnInit {
               console.log(this.inspectionData.inspections[i].inspection.data.inspectionId);
               this.inspections.push(
                 {
-
                   inspection_id: this.inspectionData.inspections[i].inspection.data.inspectionId,
                   category_name: this.inspectionData.inspections[i].category.data.equipmentCategoryName,
                   inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
@@ -83,9 +98,88 @@ export class PreviousDataComponent implements OnInit {
             }
           }
           console.log('inspectionsData: ', this.inspections);
+        }, err => {
+          console.log(err);
+          this.storage.get(`Session.Offline.previousInspections`).then(data => {
+            if (data) {
+              console.log('inspections: ', data);
+              this.inspectionData =data;
+              this.inspectionUU= data;
+              if (this.inspectionUU.inspections && this.inspectionUU.inspections.length) {
+                console.log(this.inspectionUU.inspections);
+                for (var i = 0; i < this.inspectionUU.inspections.length; i++) {
+                  console.log(this.inspectionUU.length)
+                  console.log(this.inspectionUU.inspections[i].inspection.data.createdOn);
+
+                  this.inspectionDate = new Date(this.inspectionData.inspections[i].inspection.data.createdOn);
+                  console.log(this.inspectionData.inspections[i].inspection.data.inspectionId);
+                  if (this.inspectionData.inspections[i].inspection.report != null)
+                  {  
+                                  this.reportType = this.inspectionData.inspections[i].inspection.report.reportType;
+                                  console.log(this.reportType);
+                                  if(this.reportType == 'critical'){
+                                      this.reportTypeText = 'Fail due to safety critical issue'
+                                  }else if(this.reportType == 'observation'){
+                                      this.reportTypeText = 'Pass but with an observation'
+                                  }else if(this.reportType == 'safe'){
+                                      this.reportTypeText = 'Passed and is safe to use'
+                                  }                       
+                                  this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
+                                  this.fault_image_url = this.inspectionData.inspections[i].inspection.report.mediaUrl;
+                                  console.log("hello fault image "+this.fault_image_url);
+                                  
+                  }
+                  else
+                  {
+                    this.reportType = null;
+                                  this.signatureUrl = null;
+                                  this.fault_image_url =null;
+                  }	
+                            if(this.inspectionData.inspections[i].inspection.data.inspectionStatus=="Completed" || this.inspectionData.inspections[i].inspection.data.inspectionStatus=="Incomplete"){
+                                this.signed = false;
+                            }
+                            else{
+                                this.signed = true;
+                                this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
+                            }
+                            this.inspectionData.inspections[i].inspection.data.inspectionId
+                  this.inspections.push(
+                  
+                     {
+                      inspectionId : [
+                        {
+                          inspection_id: this.inspectionData.inspections[i].inspection.data.inspectionId,
+                          category_name: this.inspectionData.inspections[i].category.data.equipmentCategoryName,
+                          inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
+                          inspection_date: this.inspectionDate,
+                          shareLinkOfReports : this.inspectionData.inspections[i].inspection.report.reportUrl,
+                          equipment_image_url : this.inspectionData.inspections[i].inspection.data.equipmentInspectedImageUrl,
+                          reportTypeText:  this.reportTypeText,
+                          signatureUrl: this.signatureUrl,
+                          fault_image_url: this.fault_image_url
+                        }
+                      ],
+                   
+                    }
+                  );
+
+                }
+              }
+              console.log('inspectionsData: ', this.inspections);
+
+
+              
+
+
+            } else {
+              console.log(`data is not available`);
+            }
+          })
         })
 
       })
+    }, err => {
+
     })
     console.log('ionViewDidLoad ProfilePage');
 
@@ -98,6 +192,7 @@ export class PreviousDataComponent implements OnInit {
   //       inspectionId: id
   //     }); 
   // }
+
 
   deleteIns(value: any): void {
     let alert = this.alertCtrl.create({
@@ -117,7 +212,7 @@ export class PreviousDataComponent implements OnInit {
             const headers = new HttpHeaders()
               .set("user_id", this.userid.toString())
               .set("access_token", this.token);
-            this.ChiefSfetyApiProvider.userPreviousInspectionsDelete(value.inspection_id,headers).subscribe(data => {
+            this.ChiefSfetyApiProvider.userPreviousInspectionsDelete(value.inspection_id, headers).subscribe(data => {
               console.log(data);
               this.navCtrl.push(PreviousPage).then(() => {
                 const index = this.navCtrl.getActive().index;
@@ -140,15 +235,30 @@ export class PreviousDataComponent implements OnInit {
 
 
   gotoDetails(id: string) {
-    console.log('Lifting Clicked' + id);
-    this.navCtrl.push(LiftingPage, {
-      inspectionId: id
-    }).then(() => {
-      const index = this.navCtrl.getActive().index;
-      this.navCtrl.remove(0, index);
-    });
-  }
+    if(this.networkStatus == false){
+      
 
+    }else{
+      // console.log('Lifting Clicked' + id);
+      // this.navCtrl.push(LiftingPage, {
+      //   inspectionId: id
+      // }).then(() => {
+      //   const index = this.navCtrl.getActive().index;
+      //   this.navCtrl.remove(0, index);
+      // });
+      this.gettingAcurateSpecficDataIfOffline(id);
+    
+    }
+   
+  }
+  gettingAcurateSpecficDataIfOffline(id){
+    this.storage.get('Session.Offline.previousInspections').then(responseAllData => {
+      console.log(responseAllData);
+      // for(var i = 0; responseAllData.inspections.length; i++){
+      //     // this.inpspectionId = responseAllData.inspections[i].
+      // }
+    })
+  }
 
 
 }

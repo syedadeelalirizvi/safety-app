@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 
 import { PreviousPage } from './../previous/previous';
 import { Component } from '@angular/core';
@@ -14,6 +15,7 @@ import { EmailComposer } from "@ionic-native/email-composer";
 @Component({
   selector: 'page-lifting',
   templateUrl: 'lifting.html',
+  providers : [ChiefSfetyApiProvider]
 })
 export class LiftingPage {
     inspectionId : any;
@@ -37,7 +39,7 @@ export class LiftingPage {
     signed: any;
     fault_image_url: any;
     shareLinkOfReports : any;
-    constructor(private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+    constructor( private ChiefSfetyApiProvider: ChiefSfetyApiProvider,private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         console.log(this.reportType)
        
         this.inspectionId = navParams.get('inspectionId');
@@ -70,11 +72,9 @@ export class LiftingPage {
             const headers =  new HttpHeaders()
                 .set("user_id", this.userid.toString()).set("access_token", this.token);
                 
-                this.user = this.httpClient.get(ENV.BASE_URL +'user-inspections/user/'+this.userid+'/inspection/'+this.inspectionId,{headers:headers});
-                this.user
-                .subscribe((data:any) => {
+            this.ChiefSfetyApiProvider.userSpecificPreviousInspections(this.userid,this.inspectionId,headers).subscribe((data : any) => {
 					    console.log("Response Data");
-                        console.log(data.inspection.report.reportUrl);
+                        console.log(data);
                         this.shareLinkOfReports = data.inspection.report.reportUrl;
                       this.inspection_id=data.inspection.data.inspectionId;
                       this.category_name=data.category.data.equipmentCategoryName; 
@@ -145,6 +145,10 @@ export class LiftingPage {
                   
                       }
                        console.log(this.inspectionsResults);
+                },err => {
+                 this.storage.get('Session.Offline.previousInspections').then(responseAllData => {
+                     console.log(responseAllData);
+                 })
                 })
         })
 

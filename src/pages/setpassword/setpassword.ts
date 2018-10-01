@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
@@ -11,12 +12,13 @@ import { Keyboard } from "@ionic-native/keyboard";
 @Component({
   selector: 'page-setpassword',
   templateUrl: 'setpassword.html',
+  providers : [ChiefSfetyApiProvider]
 })
 export class SetpasswordPage {
 		setPasswordForm : FormGroup;
 		response: any;
 		email:any;
-		constructor(private Keyboard: Keyboard,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
+		constructor(private ChiefSfetyApiProvider: ChiefSfetyApiProvider,private Keyboard: Keyboard,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
 				this.email = navParams.get('userEmail');
 				this.response = false;
 				this.setPasswordForm = fb.group({
@@ -33,13 +35,8 @@ export class SetpasswordPage {
 				console.log(this.email);
 				console.log('Form submitted!')
 			//	console.log(value.email);
-				const req = this.httpClient.post(ENV.BASE_URL +'users/app/code-change-password', {
-								userEmail: this.email,
-								newPassword: value.password
-							})
-							.subscribe(
-								res => {
-									console.log(res);
+				this.ChiefSfetyApiProvider.userResetPassword(this.email,value.password).subscribe(res => {
+							console.log(res);
 									this.navCtrl.push(HomePage).then(() => {
 										const index = this.navCtrl.getActive().index;
 										this.navCtrl.remove(0,index);

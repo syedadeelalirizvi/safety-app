@@ -27,7 +27,7 @@
 	<ion-grid>
 		<ion-row class="safety-div">
 			<ion-col col-3>
-				<ion-icon font-size="subheading" (click)="OwnCatLoad()" name="md-add"></ion-icon>
+				<ion-icon *ngIf="this.networkStatus == true" font-size="subheading" (click)="OwnCatLoad()" name="md-add"></ion-icon>
 			</ion-col>
 			<ion-col col-9>
 				<ion-label font-size="subheading"  color="lightgreen">CATEGORIES</ion-label>
@@ -48,13 +48,13 @@
 				</button> 
 			</ion-col>
 			<ion-col col-1>
-				<button  (click)="editCategory(category)">
+				<button *ngIf="this.networkStatus == true"   (click)="editCategory(category)">
 					<ion-icon name="md-create" class="penicon"></ion-icon>
 				</button>
 			</ion-col>
 			<ion-col col-1 >
 				<div >
-					<button  style="text-transform: none;" (click)="delete(category.category_id)">
+					<button   style="text-transform: none;" (click)="delete(category.category_id)">
 							<ion-icon name="md-close-circle" class="penicon"></ion-icon>
 					</button>
 				</div>		

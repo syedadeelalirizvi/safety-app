@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, LoadingController } from 'ionic-angular';
@@ -18,6 +19,7 @@ import { Keyboard } from "@ionic-native/keyboard";
 @Component({
 	selector: 'page-pass-observation',
 	templateUrl: 'pass-observation.html',
+	providers : [ChiefSfetyApiProvider]
 })
 export class PassObservationPage {
 
@@ -42,6 +44,7 @@ export class PassObservationPage {
 	imageGetAgain: string;
 	questionFromDb: any;
 	constructor(
+		private ChiefSfetyApiProvider :ChiefSfetyApiProvider,
 		public keyboard: Keyboard,
 		public loadCtrl: LoadingController,
 		public navCtrl: NavController,
@@ -141,29 +144,16 @@ export class PassObservationPage {
 		this.storage.get(`session.${this.userid.toString()}.questions`).then(questions => {
 			this.questionFromDb = JSON.stringify(questions);
 			console.log(this.questionFromDb);
-
-			const req = this.httpClient.post(ENV.BASE_URL + 'user-inspections/user/' + this.userid + '/category/' + this.categoryId + '/inspection', {
-				equipmentInspectedImageUrl: this.equipment_image,
-				inspectionDescription: this.inspection_desc,
-				subCategory: JSON.parse(this.subCategoriesIds),
-				answers: JSON.parse(this.questionFromDb)
-			},
-				{ headers: headers })
-				.subscribe((data: any) => {
+			this.ChiefSfetyApiProvider.userSubmitInspection(this.userid,this.categoryId,this.equipment_image,this.inspection_desc, JSON.parse(this.subCategoriesIds),JSON.parse(this.questionFromDb),headers).subscribe((data:any) => {
+			
 					console.log(data.data.inspectionId);
 					//	inspection/{id}/report
 					console.log(this.inspection_result);
 					console.log(this.description);
 					console.log(this.signatureImage);
 					console.log(this.base64Image);
-					this.httpClient.post(ENV.BASE_URL + 'user-inspections/inspection/' + data.data.inspectionId + '/report', {
-						reportType: this.inspection_result,
-						observationDescription: this.description,
-						signatureUrl: this.signatureImage,
-						mediaUrl: this.base64Image
-					},
-						{ headers: headers })
-						.subscribe((dataNested: any) => {
+					this.ChiefSfetyApiProvider.userSubmitReport(data.data.inspectionId,this.inspection_result,this.description,this.signatureImage,this.base64Image,headers).subscribe((dataNested : any) => {
+			
 							this.loading.dismiss();
 							console.log(dataNested);
 							this.navCtrl.setRoot(MainPage).then(() => {

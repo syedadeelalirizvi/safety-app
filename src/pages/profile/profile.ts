@@ -274,6 +274,39 @@ const headers = new HttpHeaders()
 		}  
 
           this.profilePicture = "http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
+        },err => {
+          this.storage.get('Session.Offline.userProfile').then(data => {
+            if(data){
+              console.log(this.token);
+              console.log('my data: ', data);
+            //  console.log('user: ',data['data']);
+              this.userData = data['data'];
+              console.log('userId: ',this.userData['userId']);
+              this.userName = this.userData['userName'];
+              this.email  = this.userData['userEmail'];
+              this.company = this.userData['userCompany'];
+              this.dept = this.userData['userDepartment'];
+              this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
+              this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
+          
+        if(this.userData['companyLogo'] !== undefined && this.userData['companyLogo'] !== 'undefined')
+        {
+          this.imageUpload = true;
+          this.base64Image = "http://" + this.userData['companyLogo'];
+          console.log("http://" + this.userData['companyLogo']);
+          }  
+          
+        if(this.userData['profilePicture'] !== undefined && this.userData['profilePicture'] !== 'undefined')
+        {
+          this.imageUploadProfile = true;
+          //this.base64ImageProfile="http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
+          this.base64ImageProfile = "http://" + this.userData['profilePicture'];
+          console.log("http://" + this.userData['profilePicture']);
+        }  
+            }else{
+              console.log('data is not set in db');
+            }
+          })
         })
       })
    

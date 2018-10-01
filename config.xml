@@ -109,6 +109,7 @@
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="com.moust.cordova.videoplayer" spec="https://github.com/moust/cordova-plugin-videoplayer.git" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.0.0" />
 </widget>

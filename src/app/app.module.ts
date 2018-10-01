@@ -43,10 +43,9 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { GooglePlus } from "@ionic-native/google-plus";
 import { Stripe } from "@ionic-native/stripe";
 // mocking services for testing
-    // Usama Liaquat : Your camera mock class extends with @ionic-native/camera shifted to camera.mock.ts file .Now we importing that file 
 import { CameraMock } from "./camera.mock";
 // mocking services end
-//  importing a firebase library
+import { Network } from "@ionic-native/network";
 import { HttpModule } from "@angular/http";
 import { DeviceAccounts } from "@ionic-native/device-accounts";
 import { EmailComposer } from "@ionic-native/email-composer";
@@ -142,8 +141,9 @@ import { ChiefSfetyApiProvider } from '../providers/chief-sfety-api/chief-sfety-
      EmailComposer,
      InAppBrowser,
      VideoPlayer,
+     Network,
    { provide: Camera, useClass: CameraMock },
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     ChiefSfetyApiProvider
   ]
 })

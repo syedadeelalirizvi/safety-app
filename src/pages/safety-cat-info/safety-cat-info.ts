@@ -11,15 +11,14 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl,FormArray,FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
-import { constant as ENV } from '../../configs/constant';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+
 import { AlertController } from 'ionic-angular';
 
 
 @Component({
   selector: 'page-safety-cat-info',
   templateUrl: 'safety-cat-info.html',
-  providers :[ChiefSfetyApiProvider]
+  providers :[ChiefSfetyApiProvider ]
 })
 
 export class SafetyCatInfoPage {
@@ -122,6 +121,7 @@ export class SafetyCatInfoPage {
 		const headers = new HttpHeaders()
 		.set("user_id", this.userid.toString())
 		.set("access_token", this.token);
+
 		this.ChiefSfetyApiProvider.editSubCatregories(this.categoryId,subcategory.sub_category_id,headers).subscribe((collection_data : any) => {
 		console.log("New Collection");
 		console.log(collection_data.data.userSubCategories[0]);
@@ -161,13 +161,10 @@ export class SafetyCatInfoPage {
 			const headers = new HttpHeaders()
               .set("user_id", this.userid.toString())
 			  .set("access_token", this.token);
-
-			this.sub_category = this.httpClient.get(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory',{headers:headers});
-			this.sub_category
-			.subscribe(data => {
+			this.ChiefSfetyApiProvider.getEquipSubCategories(this.categoryId,headers).subscribe((data : any) => {	
 				loadCtrlStart.dismiss();
 				console.log("Length" + data.data.length);
-				console.log(data);
+				console.log(`actual data sub Category ${data}`);
 				if(data.data && typeof data.data === 'object' && data.data.constructor === Array)
 				{	
 					for(var i = 0; i < data.data.length; i++) {
@@ -179,6 +176,8 @@ export class SafetyCatInfoPage {
 					}
 					this.subCategoriesCopy = Object.assign([], this.subCategories);
 				}
+			},err => {
+				
 			})
 		})
 		console.log(this.subCategories);
@@ -268,10 +267,8 @@ export class SafetyCatInfoPage {
 						const headers = new HttpHeaders()
 						.set("user_id", this.userid.toString())
 						.set("access_token", this.token);
-
-		this.sub_category = this.httpClient.delete(ENV.BASE_URL +'equipment-sub-categories/category/'+this.categoryId+'/subcategory/'+value,{headers:headers});
-		this.sub_category.subscribe(data => 
-		{
+			this.ChiefSfetyApiProvider.delEqipmentSubCategories(this.categoryId,value,headers).subscribe(data => {
+			
 			console.log(data);
 			this.navCtrl.push(SafetyCatInfoPage, {
 				categoryId: this.categoryId,

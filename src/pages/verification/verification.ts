@@ -42,6 +42,7 @@ export class VerificationPage {
         console.log(this.email);
         console.log('Form submitted!')
       //	console.log(value.email);
+      
         const req = this.httpClient.post(ENV.BASE_URL +'users/app/verify-code', {
                 userEmail: this.email,
                 resetCode: value.code

@@ -14,7 +14,7 @@ import { Storage } from '@ionic/storage';
 import { constant as ENV } from '../../configs/constant';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-
+import { Network } from "@ionic-native/network";
 @Component({
   selector: 'page-safety',
   templateUrl: 'safety.html',
@@ -30,8 +30,9 @@ export class SafetyPage {
 	filter: any;
 	categories = [];
 	categoriesCopy = [];
-    
+    networkStatus : boolean;
 	constructor(
+		private network :  Network,
 		public loadCtrl : LoadingController,
 		private alertCtrl: AlertController, 
 		public navCtrl: NavController, 
@@ -42,6 +43,7 @@ export class SafetyPage {
 		private camera: Camera ,
 		private ChiefSfetyApiProvider:ChiefSfetyApiProvider) 
 	{
+		
 		storage.get('Session.access_token').then((access_token) => {
 			this.token = access_token;
 		});
@@ -112,6 +114,9 @@ export class SafetyPage {
 					
 	ionViewDidLoad() 
 	{  
+		if(this.network.type == 'null' || 'unknown'){
+			this.networkStatus = false
+		}
 		const loadCtrlStart = this.loadCtrl.create({
 			content : "Please Wait..."
 		});
@@ -122,6 +127,7 @@ export class SafetyPage {
 							.set("user_id", this.userid.toString())
 							.set("access_token", this.token);
 			this.ChiefSfetyApiProvider.getSpecificUserCategory(this.userid,headers).subscribe((data : any) => {
+				console.log(data);
 				loadCtrlStart.dismiss();
 				for(var i = 0; i < data.data.length; i++) {
 				  this.categories.push(
@@ -132,8 +138,22 @@ export class SafetyPage {
 				  });
 				}
 				this.categoriesCopy = Object.assign([], this.categories);
+			},err => {
+				this.storage.get(`Session.Offline.userCategory`).then((data : any) => {
+					console.log(data);
+					loadCtrlStart.dismiss();
+					for(var i = 0; i < data.data.length; i++) {
+					  this.categories.push(
+					  {
+						  category_id:data.data[i].equipmentCategoryId,
+						  category_name: data.data[i].equipmentCategoryName, 
+						 
+					  });
+					}
+					this.categoriesCopy = Object.assign([], this.categories);
+				})
 			});
-		});		
+		})		
 	}
     
 	gotoDetails(id:string,name:string){

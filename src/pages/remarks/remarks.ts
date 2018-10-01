@@ -1,3 +1,4 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController , LoadingController} from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
@@ -16,7 +17,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @Component({
     selector: 'page-remarks',
-    templateUrl: 'remarks.html',
+	templateUrl: 'remarks.html',
+	providers : [ChiefSfetyApiProvider]
 })
 export class RemarksPage {
     categoryId : any;
@@ -43,6 +45,7 @@ export class RemarksPage {
 	subCategoriesIds:any;
 	collections:any;
 	constructor(
+		private ChiefSfetyApiProvider : ChiefSfetyApiProvider,
 		public loadCtrl : LoadingController,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -152,11 +155,7 @@ export class RemarksPage {
 				const headers = new HttpHeaders()
 					.set("user_id", this.userid.toString())
 					.set("access_token", this.token);
-					
-				this.collections = this.httpClient.get(ENV.BASE_URL +'user-inspections/category/'+this.categoryId+'/remarks?sub_category_id='+this.subCategoriesIds,{headers:headers});
-				this.collections
-				.subscribe((collection_data: any) => 
-				{
+					this.ChiefSfetyApiProvider.getCategoriesQuestions(this.category_id,this.subCategoriesIds,headers).subscribe((collection_data : any) => {
 					loadCtrlStart.dismiss();
 					console.log("New Collection");
 					console.log(collection_data);
