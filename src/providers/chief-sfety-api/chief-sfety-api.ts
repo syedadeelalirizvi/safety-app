@@ -46,8 +46,8 @@ export class ChiefSfetyApiProvider {
   editSubCatregories(catId,subCatId,headers){
     return this.http.get(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/user-inspections/category/${catId}/remarks?sub_category_id=${subCatId}`,{headers : headers})
   }
-  getEquipSubCategories(categoriesId,headers){
-    return this.http.get(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/equipment-sub-categories/category/${categoriesId}/subcategory`,{headers : headers})
+   getEquipSubCategories(categoriesId,headers){
+    return  this.http.get(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/equipment-sub-categories/category/${categoriesId}/subcategory`,{headers : headers})
   }
   delEqipmentSubCategories(categoriesId,value,headers){
     return this.http.delete(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/equipment-sub-categories/category/${categoriesId}/subcategory/${value}`,{headers:headers})
@@ -63,6 +63,11 @@ export class ChiefSfetyApiProvider {
   // submit report
   userSubmitReport(inspectionId,reportType,observationDescription,signatureUrl,mediaUrl,headers){
     return this.http.post(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/user-inspections/inspection/${inspectionId}/report`,{reportType:reportType,observationDescription:observationDescription,signatureUrl:signatureUrl,mediaUrl:mediaUrl},{headers:headers})
+  }
+
+
+  testChiefSfety(catId,headers){
+    return this.http.get(`http://clients2.5stardesigners.net/safetyapp/api/web/v1/user-inspections/category/158/allsubcategories?category_id=${catId}`,{headers:headers})
   }
 
 

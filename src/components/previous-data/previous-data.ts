@@ -36,6 +36,8 @@ export class PreviousDataComponent implements OnInit {
   inspectionDate: any;
   networkStatus : boolean;
   inspections = [];
+  inspectionRemarks = [];
+  inspectionResults = [];
   reportType : any;
   reportTypeText : any;
   signatureUrl:any;
@@ -106,17 +108,18 @@ export class PreviousDataComponent implements OnInit {
               this.inspectionData =data;
               this.inspectionUU= data;
               if (this.inspectionUU.inspections && this.inspectionUU.inspections.length) {
-                console.log(this.inspectionUU.inspections);
+                //console.log(this.inspectionUU.inspections);
                 for (var i = 0; i < this.inspectionUU.inspections.length; i++) {
-                  console.log(this.inspectionUU.length)
-                  console.log(this.inspectionUU.inspections[i].inspection.data.createdOn);
-
+                  this.inspectionResults[i]=[];
+                 // console.log(this.inspectionUU.inspections.length)
+                  //console.log(this.inspectionData.inspections[i].category);
+                  //console.log(this.inspectionUU.inspections[i].inspection);
                   this.inspectionDate = new Date(this.inspectionData.inspections[i].inspection.data.createdOn);
-                  console.log(this.inspectionData.inspections[i].inspection.data.inspectionId);
+//                  console.log(this.inspectionData.inspections[i].inspection.data.inspectionId);
                   if (this.inspectionData.inspections[i].inspection.report != null)
                   {  
                                   this.reportType = this.inspectionData.inspections[i].inspection.report.reportType;
-                                  console.log(this.reportType);
+                                //  console.log(this.reportType);
                                   if(this.reportType == 'critical'){
                                       this.reportTypeText = 'Fail due to safety critical issue'
                                   }else if(this.reportType == 'observation'){
@@ -126,7 +129,7 @@ export class PreviousDataComponent implements OnInit {
                                   }                       
                                   this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
                                   this.fault_image_url = this.inspectionData.inspections[i].inspection.report.mediaUrl;
-                                  console.log("hello fault image "+this.fault_image_url);
+                                //  console.log("hello fault image "+this.fault_image_url);
                                   
                   }
                   else
@@ -142,12 +145,37 @@ export class PreviousDataComponent implements OnInit {
                                 this.signed = true;
                                 this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
                             }
-                            this.inspectionData.inspections[i].inspection.data.inspectionId
+                            //.inspectionData.inspections[i].inspection.data.inspectionId
+                            for(var j = 0; j < this.inspectionData.inspections[i].inspection.answers.length; j++) {
+                              this.inspectionRemarks[j]=[];
+
+                              //.log("length"+ this.inspectionData.inspections[i].inspection.answers[j].length);
+                              
+                               for(var k = 0; k < this.inspectionData.inspections[i].inspection.answers[j].length; k++) {
+                             // console.log( this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryName);
+                               // console.log("hello");
+                                   this.inspectionRemarks[j].push(
+                                  {
+                                      remark_question: this.inspectionData.inspections[i].category.questions[j][k].equipmentQuestionTitle,
+                                      remark_answer: this.inspectionData.inspections[i].inspection.answers[j][k].inspectionAnswer, 
+                              
+                                  });
+                        
+                               }
+                      
+                              this.inspectionResults[i].push(
+                              {
+                                  category_name:this.inspectionData.inspections[i].category.data.equipmentCategoryName, 
+                                  sub_category_id: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryId,
+                                  sub_category_name: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryName, 
+                                  inspection_remarks: this.inspectionRemarks[j]
+                              });
+                      
+                          }
                   this.inspections.push(
                   
                      {
-                      inspectionId : [
-                        {
+                     
                           inspection_id: this.inspectionData.inspections[i].inspection.data.inspectionId,
                           category_name: this.inspectionData.inspections[i].category.data.equipmentCategoryName,
                           inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
@@ -156,9 +184,10 @@ export class PreviousDataComponent implements OnInit {
                           equipment_image_url : this.inspectionData.inspections[i].inspection.data.equipmentInspectedImageUrl,
                           reportTypeText:  this.reportTypeText,
                           signatureUrl: this.signatureUrl,
-                          fault_image_url: this.fault_image_url
-                        }
-                      ],
+                          fault_image_url: this.fault_image_url,
+                          subcategories: this.inspectionResults[i] 
+                        
+                   
                    
                     }
                   );
@@ -234,21 +263,24 @@ export class PreviousDataComponent implements OnInit {
 
 
 
-  gotoDetails(id: string) {
-    if(this.networkStatus == false){
+  gotoDetails(value:any,id:string) {
+    // if(this.networkStatus == false){
       
 
-    }else{
-      // console.log('Lifting Clicked' + id);
-      // this.navCtrl.push(LiftingPage, {
-      //   inspectionId: id
-      // }).then(() => {
-      //   const index = this.navCtrl.getActive().index;
-      //   this.navCtrl.remove(0, index);
-      // });
-      this.gettingAcurateSpecficDataIfOffline(id);
+    // }else{
+     
+    //   // this.gettingAcurateSpecficDataIfOffline(id);
     
-    }
+    // }
+
+     console.log( value);
+      this.navCtrl.push(LiftingPage, {
+        inspectionId: id,
+        inpectionDetail : value
+      }).then(() => {
+        const index = this.navCtrl.getActive().index;
+        this.navCtrl.remove(0, index);
+      });
    
   }
   gettingAcurateSpecficDataIfOffline(id){

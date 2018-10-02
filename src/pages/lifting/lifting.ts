@@ -43,7 +43,8 @@ export class LiftingPage {
         console.log(this.reportType)
        
         this.inspectionId = navParams.get('inspectionId');
-
+        // todo : sample
+        console.log(navParams.get('inpectionDetail'));
         storage.get('Session.access_token').then((val) => {
              this.token = val;
         });
@@ -146,9 +147,7 @@ export class LiftingPage {
                       }
                        console.log(this.inspectionsResults);
                 },err => {
-                 this.storage.get('Session.Offline.previousInspections').then(responseAllData => {
-                     console.log(responseAllData);
-                 })
+                    
                 })
         })
 
