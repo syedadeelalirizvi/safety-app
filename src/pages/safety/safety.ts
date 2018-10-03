@@ -116,6 +116,8 @@ export class SafetyPage {
 	{  
 		if(this.network.type == 'null' || 'unknown'){
 			this.networkStatus = false
+		}else{
+			this.networkStatus = true
 		}
 		const loadCtrlStart = this.loadCtrl.create({
 			content : "Please Wait..."
@@ -141,28 +143,33 @@ export class SafetyPage {
 			},err => {
 				this.storage.get(`Session.Offline.userCategory`).then((data : any) => {
 					console.log(data);
+					console.log(data.length);
 					loadCtrlStart.dismiss();
-					for(var i = 0; i < data.data.length; i++) {
+					for(var i = 0; i < data.length; i++) {
+						console.log(data[i].subCategories);
 					  this.categories.push(
 					  {
-						  category_id:data.data[i].equipmentCategoryId,
-						  category_name: data.data[i].equipmentCategoryName, 
-						 
+						category_id: data[i].categoryId,
+						category_name: data[i].categoryName,
+						subcategory : data[i].subCategories 
 					  });
+					 
 					}
+					console.log(this.categories)
 					this.categoriesCopy = Object.assign([], this.categories);
 				})
 			});
 		})		
 	}
     
-	gotoDetails(id:string,name:string){
+	gotoDetails(category,id:string,name:string){
 		console.log('Lifting Clicked'+id); 
 		this.navCtrl.push(SafetyCatInfoPage, {
 			categoryId: id,
 			category_name: name,
 			inspection_desc: this.inspection_desc,
-			equipment_image:this.equipment_image
+			equipment_image:this.equipment_image,
+			specific_cat : category
 		}).then(() => {
 			const index = this.navCtrl.getActive().index;
 			this.navCtrl.remove(0,index);

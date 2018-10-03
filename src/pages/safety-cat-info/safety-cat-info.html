@@ -52,11 +52,11 @@
 
 			<form [formGroup]="subcategoryForm" (ngSubmit)="list(subcategoryForm.value)">
 			<ion-row>
-				<ion-row style="width: 100%" *ngFor="let subcategory of subCategories">
+				<ion-row style="width: 100%" *ngFor="let subcategory of subCategories;">
 					<div  class="row" style="width: 100%" *ngIf="subcategory.sub_category_id">
 						<!-- <ion-col col-10  font-size="small"> -->
 							<ion-col col-1>
-								<ion-checkbox [checked]="check(subcategory.sub_category_id)"  id="cb-{{subcategory.sub_category_id}}" name="subcat[]" (click)="clickSelectBox(subcategory)"></ion-checkbox>	
+								<ion-checkbox [checked]="check(subcategory.sub_category_id,subcategory)"  id="cb-{{subcategory.sub_category_id}}" name="subcat[]" (click)="clickSelectBox(subcategory)"></ion-checkbox>	
 							</ion-col>
 							<ion-col col-9>
 								<ion-label style="display: inline" text-wrap>{{subcategory.sub_category_name}}	</ion-label>							

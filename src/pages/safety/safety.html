@@ -43,7 +43,7 @@
 		</ion-row>
 		<ion-row *ngFor="let category of categories">
 			<ion-col col-10>
-				<button  (click)="gotoDetails(category.category_id,category.category_name)">
+				<button  (click)="gotoDetails(category,category.category_id,category.category_name)">
 					{{category.category_name}}
 				</button> 
 			</ion-col>

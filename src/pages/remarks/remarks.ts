@@ -1,3 +1,4 @@
+import { Network } from '@ionic-native/network';
 import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController , LoadingController} from 'ionic-angular';
@@ -44,7 +45,10 @@ export class RemarksPage {
 	inspection_result: any;
 	subCategoriesIds:any;
 	collections:any;
+	networkStatus : boolean;
+	OfflineQuestions : any;
 	constructor(
+		private network : Network,
 		private ChiefSfetyApiProvider : ChiefSfetyApiProvider,
 		public loadCtrl : LoadingController,
 		public navCtrl: NavController, 
@@ -62,6 +66,7 @@ export class RemarksPage {
 			this.userid = user_id;
 		});
 		
+		this.OfflineQuestions = navParams.get('questions');
 		this.categoryId = navParams.get('categoryId');
 		this.categoryName = navParams.get('category_name');
 		this.inspection_desc = navParams.get('inspection_desc');
@@ -145,6 +150,13 @@ export class RemarksPage {
 
     ionViewDidLoad() 
 	{
+		if(this.network.type == 'null' || 'unknown'){
+			this.networkStatus = false
+		}else{
+			this.networkStatus = true
+		}
+		this.OfflineQuestions = this.navParams.get('questions');
+		console.log(this.OfflineQuestions);			
 		const loadCtrlStart  = this.loadCtrl.create({
 			content: 'Please Wait...'
 		});
@@ -164,11 +176,18 @@ export class RemarksPage {
 						this.allQuestions = collection_data.data;
 						console.log(this.allQuestions);
 					}
-				}),
-				err => {				
-					console.log("Error occurred");
-					console.log(err);
-				}
+				}, err => {
+								
+						loadCtrlStart.dismiss();
+						console.log(this.OfflineQuestions.questions)
+						console.log("New Collection");
+						if(this.OfflineQuestions && typeof this.OfflineQuestions === 'object')
+						{	
+							this.allQuestions = this.OfflineQuestions;
+							console.log(this.allQuestions);
+						}
+				})
+			
 			})
 		//}
 		console.log('ionViewDidLoad RemarksPage');

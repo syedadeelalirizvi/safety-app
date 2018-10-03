@@ -78,48 +78,20 @@ export class SigninFormComponent {
 												this.storage.set('Session.Offline.previousInspections',previousInspections);
 											})
 											this.chiefSfetyApi.getSpecificUserCategory(res.data.userId,headers).subscribe((userCategory : any) => {
-												this.storage.set(`Session.Offline.userCategory`,userCategory);
+												
 												this.categories = userCategory;
-												//.log(userCategory);
-												//console.log(userCategory.data.length);
+		
 												 for(var i = 0; i < userCategory.data.length; i ++) {
 													 this.categories_info +=  userCategory.data[i].equipmentCategoryId+',';
-													// this.categories_info.push(
-													// 	{
-													// 		categoryId : userCategory.data[i].equipmentCategoryId
-															// category_id:userCategory.data[i].equipmentCategoryId,
-															// category_name:userCategory.data[i].equipmentCategoryName,
-														//subCategories  : subcategorydata.data[i]
-													// })
-													
-													 //.categories_info[i];
 													
 													this.VirtualCategories  = userCategory
 										
-												
-													// this.chiefSfetyApi.getEquipSubCategories(this.categories.data[i].equipmentCategoryId,headers).subscribe((subcategorydata : any) => {
-													// 	//console.log(subcategorydata)
-													// 	//console.log(this.VirtualCategories);
-													// 	this.VirtualCategories = 
-													// 		this.categories_info.push(
-													// 			{
-													// 				categoryId : this.VirtualCategories,
-													// 				// category_id:userCategory.data[i].equipmentCategoryId,
-													// 				// category_name:userCategory.data[i].equipmentCategoryName,
-													// 			subCategories  : subcategorydata.data[i]
-													// 		})
-												
-													
-													
-													// })
-													
-													//})
-												
 												 }
 												 this.categories_info = this.categories_info.substring(0, this.categories_info.length - 1);
 												 console.log(this.categories_info);
 												 this.chiefSfetyApi.testChiefSfety(this.categories_info,headers).subscribe(resp => {
 													console.log(resp);
+													this.storage.set(`Session.Offline.userCategory`,resp);
 												})
 												 //	console.log(this.categories_info);
 											})
