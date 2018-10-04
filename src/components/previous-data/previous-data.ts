@@ -135,8 +135,7 @@ export class PreviousDataComponent implements OnInit {
                                   }                       
                                   this.signatureUrl = this.inspectionData.inspections[i].inspection.report.OfflineSignatureUrl;
                                   this.fault_image_url = this.inspectionData.inspections[i].inspection.report.OfflineMediaUrl;
-                                //  console.log("hello fault image "+this.fault_image_url);
-                                  
+                                //  console.log("hello fault image "+this.fault_image_url);            
                   }
                   else
                   {
@@ -182,7 +181,6 @@ export class PreviousDataComponent implements OnInit {
                   this.inspections.push(
                   
                      {
-                     
                           inspection_id: this.inspectionData.inspections[i].inspection.data.inspectionId,
                           category_name: this.inspectionData.inspections[i].category.data.equipmentCategoryName,
                           inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
@@ -194,8 +192,6 @@ export class PreviousDataComponent implements OnInit {
                           fault_image_url: this.fault_image_url,
                           subcategories: this.inspectionResults[i], 
                           signed : this.signed
-                   
-                   
                     }
                   );
 
@@ -222,12 +218,7 @@ export class PreviousDataComponent implements OnInit {
 
   }
 
-  //   deleteIns( value:any ):void{
-  //     console.log('Lifting Clicked'+id); 
-  //     this.navCtrl.push(LiftingPage, {
-  //       inspectionId: id
-  //     }); 
-  // }
+  
 
 
   deleteIns(value: any): void {

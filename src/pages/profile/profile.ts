@@ -41,7 +41,7 @@ export class ProfilePage {
 	    token: string;
       action:string;
       pageName="profile";
-	  
+      OfflineProfileSetup : any;
       constructor(
         private ChiefSfetyApiProvider: ChiefSfetyApiProvider,
         public loadCtrl :LoadingController,
@@ -207,16 +207,39 @@ async openGallery(): Promise<any>{
         // })
 		},
 		err => {
-      loadCtrlStart.dismiss();
-			this.response = true;
-			console.log("Error occurred");
-			let alert = this.alertCtrl.create({
-			  title: 'Some error occurred',
-			  subTitle: 'Please try again later',
-			  buttons: ['Dismiss']
-			});
-		   alert.present();
-			console.log(err);
+    console.log(this.profileForm.valid);
+      this.storage.get('Session.Offline.userProfile').then(userProfileData => {
+        console.log(userProfileData);
+        this.OfflineProfileSetup = userProfileData;
+        
+        this.OfflineProfileSetup.data.userEmail = value.email;
+        this.OfflineProfileSetup.data.userName = value.username;
+        this.OfflineProfileSetup.data.userDepartment = value.department;
+        this.OfflineProfileSetup.data.userCompany = value.company;
+        this.OfflineProfileSetup.data.nameToReceiveReport = value.nameOfReceiveReport;
+        this.OfflineProfileSetup.data.emailOfReceiveReport = value.emailToReceiveReport
+        this.OfflineProfileSetup.data.OfflineProfileDataImage = this.base64Image
+        this.OfflineProfileSetup.data.OfflineCompanyLogo = this.base64ImageProfile
+
+      })
+
+      setTimeout(() => {
+        this.storage.set('Session.Offline.userProfile',this.OfflineProfileSetup);
+      }, 2000);
+      
+      this.navCtrl.push(MainPage).then(() => {
+        const index = this.navCtrl.getActive().index;
+        this.navCtrl.remove(0,index);
+      });
+      let alert = this.alertCtrl.create({
+        title: 'Success',
+        subTitle: 'Profile Updated Successfully!',
+        buttons: ['Dismiss']
+      });
+       alert.present();
+
+       loadCtrlStart.dismiss();
+   
 		});	
 	}
 	
@@ -289,19 +312,19 @@ const headers = new HttpHeaders()
               this.nameOfReceiveReport = this.userData['nameToReceiveReport'];
               this.emailOfReceiveReport = this.userData['emailToReceiveReport'];
           
-        if(this.userData['companyLogo'] !== undefined && this.userData['companyLogo'] !== 'undefined')
+        if(this.userData['OfflineCompanyLogo'] !== undefined && this.userData['OfflineCompanyLogo'] !== 'undefined')
         {
           this.imageUpload = true;
-          this.base64Image = "http://" + this.userData['companyLogo'];
-          console.log("http://" + this.userData['companyLogo']);
+          this.base64Image = this.userData['OfflineCompanyLogo'];
+          console.log( this.userData['OfflineCompanyLogo']);
           }  
           
-        if(this.userData['profilePicture'] !== undefined && this.userData['profilePicture'] !== 'undefined')
+        if(this.userData['OfflineProfileDataImage'] !== undefined && this.userData['OfflineProfileDataImage'] !== 'undefined')
         {
           this.imageUploadProfile = true;
           //this.base64ImageProfile="http://clients3.5stardesigners.net/safetyapp/api/web/uploads/CompanyLogos/_abc.jpg";
-          this.base64ImageProfile = "http://" + this.userData['profilePicture'];
-          console.log("http://" + this.userData['profilePicture']);
+          this.base64ImageProfile =  this.userData['OfflineProfileDataImage'];
+          console.log( this.userData['OfflineProfileDataImage']);
         }  
             }else{
               console.log('data is not set in db');

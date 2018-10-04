@@ -1,3 +1,6 @@
+import { ChiefSfetyApiProvider } from './../../providers/chief-sfety-api/chief-sfety-api';
+import { HttpHeaders } from '@angular/common/http';
+import { Network } from '@ionic-native/network';
 import { HomePage } from './../home/home';
 import { Keyboard } from '@ionic-native/keyboard';
 
@@ -12,10 +15,11 @@ import { Storage } from '@ionic/storage';
 @Component({
 	selector: 'page-main',
 	templateUrl: 'main.html',
+	providers : [ChiefSfetyApiProvider]
 })
 export class MainPage {
 
-	constructor(private keyboard: Keyboard, public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+	constructor(private ChiefSfetyApiProvider : ChiefSfetyApiProvider,private network : Network,private keyboard: Keyboard, public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
 		keyboard.disableScroll(true);
 	}
 
@@ -37,7 +41,43 @@ export class MainPage {
 		});
 
 	}
+	ionViewCanEnter() {
+	this.network.onConnect().subscribe(() => {
+		
+	  })
 
+
+	  this.storage.get('Session.user_id').then(userid => {
+		this.storage.get('Session.token_expiry').then(tokenExpiry => {
+	this.storage.get('Session.Offline.inspections').then(OfflineInspections => {
+		console.log(OfflineInspections);
+		for(let i = 0; i < OfflineInspections.length; i ++){
+			console.log( JSON.parse(OfflineInspections[i]));
+					const headers = new HttpHeaders()
+					.set("user_id", userid.toString())
+					.set("access_token", tokenExpiry);
+					this.ChiefSfetyApiProvider.userSubmitInspection(OfflineInspections[i].userid,OfflineInspections[i].categoryId,OfflineInspections[i].equipment_image,OfflineInspections[i].inspection_desc, JSON.parse(OfflineInspections[i].subCategoriesIds),JSON.parse(OfflineInspections[i].questionFromDb),headers).subscribe((data:any) => {
+						this.ChiefSfetyApiProvider.userSubmitReport(data.data.inspectionId,OfflineInspections[i].inspection_result,OfflineInspections[i].description,OfflineInspections[i].signatureImage,OfflineInspections[i].base64Image,headers).subscribe((dataNested : any) => {
+							console.log('inspections createdd sucessfully');
+						}) 
+					})
+				  }
+			})
+
+
+			this.storage.get('Session.Offline.userProfile').then(userProfile => {
+
+			})
+
+		})
+					
+	})
+	this.storage.get('Session.Offline.userProfile').then(OfflineProfileData => {
+	  console.log(OfflineProfileData);
+	})
+	}
+
+	
 
 	//profileLoad = function(){this.navCtrl.push(PassObservationPage); console.log('click');}  
 	profileLoad = function () { this.navCtrl.push(ProfilePage) }

@@ -212,18 +212,23 @@ console.log('creation of inspection');
 
 						this.storage.get('Session.Offline.inspections').then(Offlineinspections => {
 							console.log(Offlineinspections)
-							this.OfflineInspections = Offlineinspections;
-							this.OfflineInspections.push(
-								{ 
-										userid : this.userid,
-										categoryId : this.categoryId,
-										equipment_image : this.equipment_image,
-										inspections_desc : this.inspection_desc,
-										subCategoriesIds : JSON.parse(this.subCategoriesIds),
-										questions : JSON.parse(this.questionFromDb)
-								}
-							)
-							console.log(this.OfflineInspections)
+							if(Offlineinspections == null || Offlineinspections == undefined){
+								Offlineinspections = [];
+								this.OfflineInspections = Offlineinspections;
+								this.OfflineInspections.push(
+									{ 
+											userid : this.userid,
+											categoryId : this.categoryId,
+											equipment_image : this.equipment_image,
+											inspections_desc : this.inspection_desc,
+											subCategoriesIds : JSON.parse(this.subCategoriesIds),
+											questions : JSON.parse(this.questionFromDb),
+											inspectionResult : this.inspection_result,
+											description : this.description,
+											signatureImage : this.signatureImage,
+											base64Image : this.base64Image
+									}
+								)
 								this.storage.set('Session.Offline.inspections',this.OfflineInspections);
 								this.navCtrl.setRoot(MainPage).then(() => {
 									const index = this.navCtrl.getActive().index;
@@ -235,6 +240,37 @@ console.log('creation of inspection');
 									buttons: ['OK']
 								});
 								alert.present();
+							}else{
+								this.OfflineInspections = Offlineinspections;
+								this.OfflineInspections.push(
+									{ 
+										userid : this.userid,
+										categoryId : this.categoryId,
+										equipment_image : this.equipment_image,
+										inspections_desc : this.inspection_desc,
+										subCategoriesIds : JSON.parse(this.subCategoriesIds),
+										questions : JSON.parse(this.questionFromDb),
+										inspectionResult : this.inspection_result,
+										description : this.description,
+										signatureImage : this.signatureImage,
+										base64Image : this.base64Image
+									}
+								)
+								console.log(this.OfflineInspections)
+	
+									this.storage.set('Session.Offline.inspections',this.OfflineInspections);
+									this.navCtrl.setRoot(MainPage).then(() => {
+										const index = this.navCtrl.getActive().index;
+										this.navCtrl.remove(0, index);
+									});
+									let alert = this.alertCtrl.create({
+										title: 'Inspection created',
+										subTitle: 'Your inspection has been created in local db',
+										buttons: ['OK']
+									});
+									alert.present();
+							}
+							
 	
 						})
 

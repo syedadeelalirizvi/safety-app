@@ -142,7 +142,7 @@ export class SafetyCatInfoPage {
 	}
 
 	ionViewDidLoad() {
-
+		
 		this.specific_cat = this.navParams.get('specific_cat');
 		if(this.specific_cat == undefined){
 				this.storage.get('Session.Offline.specificCat').then(specific_cat => {

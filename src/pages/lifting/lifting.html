@@ -67,12 +67,12 @@
           <ion-label color="greyblue" font-size="subheading">Sub Categories</ion-label>
 
 
-          <ion-row *ngFor="let results of inspectionsResults">
+          <ion-row *ngFor="let inspectiondepso of inpectionsArray">
             <ion-col>
-              <ion-item-divider color="lightgreen">{{results.category_name}} / {{results.sub_category_name}}</ion-item-divider>
+              <ion-item-divider color="lightgreen">{{inspectiondepso.category_name}} / {{inspectiondepso.sub_category_name}}</ion-item-divider>
 
 
-              <ion-row *ngFor="let remarks of results.inspection_remarks">
+              <ion-row *ngFor="let remarks of inspectiondepso.inspection_remarks">
 
                 <ion-col col-9>
                   <ion-label>{{remarks. remark_question}}</ion-label>

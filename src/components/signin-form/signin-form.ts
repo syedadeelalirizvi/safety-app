@@ -26,7 +26,7 @@ export class SigninFormComponent {
 	categories : any;
 	categories_info ="";
 	VirtualCategories : any;
-
+	VirtualProfileData : any;
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,8 +83,25 @@ export class SigninFormComponent {
 									}else{
 										const headers = new HttpHeaders()
         									    .set("user_id", res.data.userId.toString()).set("access_token",res.data.token);
-											this.chiefSfetyApi.getUserProfileData(res.data.userId,headers).subscribe(profileData => {
-												this.storage.set('Session.Offline.userProfile',profileData);
+											this.chiefSfetyApi.getUserProfileData(res.data.userId,headers).subscribe((profileData : any) => {
+												
+												this.VirtualProfileData = profileData
+												if(this.VirtualProfileData.data.profilePicture){
+													console.log(`http://${this.VirtualProfileData.data.profilePicture}`)
+													this.getBase64ImageFromUrl(`http://${this.VirtualProfileData.data.profilePicture}`).then(OfflineProfileDataImage => {
+														this.VirtualProfileData.data['OfflineProfileDataImage'] = OfflineProfileDataImage
+													})
+												}
+												if(this.VirtualProfileData.data.companyLogo){
+													console.log(`http://${this.VirtualProfileData.data.companyLogo}`)
+													this.getBase64ImageFromUrl(`http://${this.VirtualProfileData.data.companyLogo}`).then(OfflineCompanyLogo => {
+														this.VirtualProfileData.data['OfflineCompanyLogo'] = OfflineCompanyLogo
+													})
+												}
+											setTimeout(() => {
+												this.storage.set('Session.Offline.userProfile',this.VirtualProfileData);
+												console.log(this.VirtualProfileData);
+											}, 2000);
 											})
 											this.chiefSfetyApi.userPreviousInspections(res.data.userId,headers).subscribe((previousInspections : any) =>{
 											

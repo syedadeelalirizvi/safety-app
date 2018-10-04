@@ -40,6 +40,7 @@ export class LiftingPage {
     fault_image_url: any;
     shareLinkOfReports : any;
     inspectionsDetails : any;
+    inpectionsArray = [];
     constructor( private ChiefSfetyApiProvider: ChiefSfetyApiProvider,private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         console.log(this.reportType)
        
@@ -157,7 +158,7 @@ export class LiftingPage {
                     this.fault_image_url = this.inspectionsDetails.fault_image_url;
                     this.signatureUrl = this.inspectionsDetails.signatureUrl;
                     this.signed = this.inspectionsDetails.signed
-                   
+                   this.inpectionsArray = this.inspectionsDetails.subcategories;
                 })
         })
 
