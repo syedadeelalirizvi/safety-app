@@ -103,6 +103,11 @@ export class PreviousDataComponent implements OnInit {
         }, err => {
           console.log(err);
           this.storage.get(`Session.Offline.previousInspections`).then(data => {
+            this.storage.get('Session.Offline.inspections').then(OfflineInspections => {
+              if(OfflineInspections){
+                console.log(OfflineInspections);
+              }
+            })
             if (data) {
               console.log('inspections: ', data);
               this.inspectionData =data;

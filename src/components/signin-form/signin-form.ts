@@ -26,7 +26,32 @@ export class SigninFormComponent {
 	categories : any;
 	categories_info ="";
 	VirtualCategories : any;
-  constructor(private chiefSfetyApi: ChiefSfetyApiProvider,private alrtCtrl : AlertController,private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	previousInspections = [];
+  inspectionUU: any;
+  categoryName: any;
+  inspectionDescription: any;
+  inspectionDate: any;
+  networkStatus : boolean;
+  inspections = [];
+  inspectionRemarks = [];
+  inspectionResults = [];
+  reportType : any;
+  reportTypeText : any;
+  signatureUrl:any;
+  signed: any;
+	fault_image_url: any;
+	inspectionData: any;
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	constructor(private chiefSfetyApi: ChiefSfetyApiProvider,private alrtCtrl : AlertController,private keyboard: Keyboard,public googlePlus : GooglePlus,public loadCtrl : LoadingController,public navCtrl: NavController,  private httpClient: HttpClient,  public navParams: NavParams, private fb: FormBuilder, private storage: Storage) {
 
 		console.log(ENV.BASE_URL);
 		this.response = false;
@@ -74,8 +99,147 @@ export class SigninFormComponent {
 											this.chiefSfetyApi.getUserProfileData(res.data.userId,headers).subscribe(profileData => {
 												this.storage.set('Session.Offline.userProfile',profileData);
 											})
-											this.chiefSfetyApi.userPreviousInspections(res.data.userId,headers).subscribe(previousInspections =>{
-												this.storage.set('Session.Offline.previousInspections',previousInspections);
+											this.chiefSfetyApi.userPreviousInspections(res.data.userId,headers).subscribe((previousInspections : any) =>{
+											
+
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+													this.previousInspections = previousInspections;
+													if (previousInspections) {
+														console.log('inspections: ', previousInspections);
+														this.inspectionData =previousInspections;
+														this.inspectionUU= previousInspections;
+														if (this.inspectionUU.inspections && this.inspectionUU.inspections.length) {
+															//console.log(this.inspectionUU.inspections);
+															for (var i = 0; i < this.inspectionUU.inspections.length; i++) {
+																this.inspectionResults[i]=[];
+															 // console.log(this.inspectionUU.inspections.length)
+																//console.log(this.inspectionData.inspections[i].category);
+																//console.log(this.inspectionUU.inspections[i].inspection);
+																this.inspectionDate = new Date(this.inspectionData.inspections[i].inspection.data.createdOn);
+							//                  console.log(this.inspectionData.inspections[i].inspection.data.inspectionId);
+																if (this.inspectionData.inspections[i].inspection.report != null)
+																{  
+																								this.reportType = this.inspectionData.inspections[i].inspection.report.reportType;
+																							//  console.log(this.reportType);
+																								if(this.reportType == 'critical'){
+																										this.reportTypeText = 'Fail due to safety critical issue'
+																								}else if(this.reportType == 'observation'){
+																										this.reportTypeText = 'Pass but with an observation'
+																								}else if(this.reportType == 'safe'){
+																										this.reportTypeText = 'Passed and is safe to use'
+																								}                       
+																								// this.signatureUrl = ;
+																								this.getBase64ImageFromUrl(this.inspectionData.inspections[i].inspection.report.signatureUrl).then(signatureImage => {
+																								this.signatureUrl = signatureImage;
+																								console.log(this.signatureUrl);
+
+																								console.log(this.inspectionData);
+																									this.getBase64ImageFromUrl(this.inspectionData.inspections[i].inspection.report.mediaUrl).then(faultImage =>{
+																										this.fault_image_url =  faultImage
+																										console.log(this.fault_image_url);
+																									})
+
+																								})
+																								
+																								console.log(this.signatureUrl);
+																							
+																							//  console.log("hello fault image "+this.fault_image_url);
+																								
+																}
+																else
+																{
+																	this.reportType = null;
+																								this.signatureUrl = null;
+																								this.fault_image_url =null;
+																}	
+																					if(this.inspectionData.inspections[i].inspection.data.inspectionStatus=="Completed" || this.inspectionData.inspections[i].inspection.data.inspectionStatus=="Incomplete"){
+																							this.signed = false;
+																					}
+																					else{
+																							this.signed = true;
+																							this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
+																					}
+																					//.inspectionData.inspections[i].inspection.data.inspectionId
+																					for(var j = 0; j < this.inspectionData.inspections[i].inspection.answers.length; j++) {
+																						this.inspectionRemarks[j]=[];
+							
+																						//.log("length"+ this.inspectionData.inspections[i].inspection.answers[j].length);
+																						
+																						 for(var k = 0; k < this.inspectionData.inspections[i].inspection.answers[j].length; k++) {
+																					 // console.log( this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryName);
+																						 // console.log("hello");
+																								 this.inspectionRemarks[j].push(
+																								{
+																										remark_question: this.inspectionData.inspections[i].category.questions[j][k].equipmentQuestionTitle,
+																										remark_answer: this.inspectionData.inspections[i].inspection.answers[j][k].inspectionAnswer, 
+																						
+																								});
+																			
+																						 }
+																		
+																						this.inspectionResults[i].push(
+																						{
+																								category_name:this.inspectionData.inspections[i].category.data.equipmentCategoryName, 
+																								sub_category_id: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryId,
+																								sub_category_name: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryName, 
+																								inspection_remarks: this.inspectionRemarks[j]
+																						});
+																		
+																				}
+																this.inspections.push(
+																
+																	 {
+																	 
+																				inspection_id: this.inspectionData.inspections[i].inspection.data.inspectionId,
+																				category_name: this.inspectionData.inspections[i].category.data.equipmentCategoryName,
+																				inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
+																				inspection_date: this.inspectionDate,
+																				shareLinkOfReports : this.inspectionData.inspections[i].inspection.report.reportUrl,
+																				equipment_image_url : this.inspectionData.inspections[i].inspection.data.equipmentInspectedImageUrl,
+																				reportTypeText:  this.reportTypeText,
+																				signatureUrl: this.signatureUrl,
+																				fault_image_url: this.fault_image_url,
+																				subcategories: this.inspectionResults[i] 
+																			
+																 
+																 
+																	}
+																);
+							
+															}
+														}
+														console.log('inspectionsData: ', this.inspections);
+							
+														this.storage.set('Session.Offline.previousInspections',this.inspections);
+														
+							
+							
+													} else {
+														console.log(`data is not available`);
+													}
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+												// ///////////////////////////////////////////////////////////////////////////////////////////
+
+													// for (let i = 0; i < previousInspections.inspections.length; i++) {
+													// 	console.log(previousInspections.inspections[i].inspection.report.signatureUrl);
+													// 	console.log(previousInspections.inspections[i].inspection.report.mediaUrl);
+													// 	this.getBase64ImageFromUrl(previousInspections.inspections[i].inspection.report.signatureUrl).then(base64 => console.log(base64));
+												
+													// }
+
 											})
 											this.chiefSfetyApi.getSpecificUserCategory(res.data.userId,headers).subscribe((userCategory : any) => {
 												
@@ -123,6 +287,27 @@ export class SigninFormComponent {
 					);		
   }	
 	
+
+	async getBase64ImageFromUrl(imageUrl) {
+		var res = await fetch(imageUrl);
+		var blob = await res.blob();
+	
+		return new Promise((resolve, reject) => {
+			var reader  = new FileReader();
+			reader.addEventListener("load", function () {
+					resolve(reader.result);
+			}, false);
+	
+			reader.onerror = () => {
+				return reject(this);
+			};
+			reader.readAsDataURL(blob);
+		})
+	}
+	
+
+
+
 	// getEmail(){	
 	// 	this.googlePlus.login({}).then(res => {
 	// 		console.log(res);

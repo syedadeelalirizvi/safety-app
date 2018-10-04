@@ -43,6 +43,7 @@ export class PassObservationPage {
 	resultForm: FormGroup;
 	imageGetAgain: string;
 	questionFromDb: any;
+	OfflineInspections = [];
 	constructor(
 		private ChiefSfetyApiProvider :ChiefSfetyApiProvider,
 		public keyboard: Keyboard,
@@ -173,24 +174,78 @@ export class PassObservationPage {
 							});
 						},
 							err => {
-								this.loading.dismiss();
-								this.alertCtrl.create({
-									title: 'Application encountered an error',
-									message: 'Please try again later or restart the application'
-								}).present();
-								console.log("Error occurred - 2nd Step");
-								console.log(err);
+								// this.loading.dismiss();
+								// this.alertCtrl.create({
+								// 	title: 'Application encountered an error',
+								// 	message: 'Please try again later or restart the application'
+								// }).present();
+								// console.log("Error occurred - 2nd Step");
+								// console.log(err);
+console.log('from report');
+								console.log(data.data.inspectionId)
+								console.log(this.base64Image)
+								console.log(this.inspection_result)
+								console.log(this.description)
+								console.log(this.signatureImage)
+
+
 							})
 
 				},
 					err => {
 						this.loading.dismiss();
-						this.alertCtrl.create({
-							title: 'Application encountered an error',
-							message: 'Please try again later or restart the application'
-						}).present();
-						console.log("Error occurred - 1st step");
-						console.log(err);
+						// this.alertCtrl.create({
+						// 	title: 'Application encountered an error',
+						// 	message: 'Please try again later or restart the application'
+						// }).present();
+						// console.log("Error occurred - 1st step");
+						// console.log(err);
+console.log('creation of inspection');
+						console.log(this.userid)	
+						console.log(this.categoryId)
+						console.log(this.equipment_image)
+						console.log(this.inspection_desc)
+						console.log(JSON.parse(this.subCategoriesIds))
+						console.log(JSON.parse(this.questionFromDb))
+						console.log(headers)
+				
+
+						this.storage.get('Session.Offline.inspections').then(Offlineinspections => {
+							console.log(Offlineinspections)
+							this.OfflineInspections = Offlineinspections;
+							this.OfflineInspections.push(
+								{ 
+										userid : this.userid,
+										categoryId : this.categoryId,
+										equipment_image : this.equipment_image,
+										inspections_desc : this.inspection_desc,
+										subCategoriesIds : JSON.parse(this.subCategoriesIds),
+										questions : JSON.parse(this.questionFromDb)
+								}
+							)
+							console.log(this.OfflineInspections)
+								this.storage.set('Session.Offline.inspections',this.OfflineInspections);
+								this.navCtrl.setRoot(MainPage).then(() => {
+									const index = this.navCtrl.getActive().index;
+									this.navCtrl.remove(0, index);
+								});
+								let alert = this.alertCtrl.create({
+									title: 'Inspection created',
+									subTitle: 'Your inspection has been created in local db',
+									buttons: ['OK']
+								});
+								alert.present();
+	
+						})
+
+
+
+	
+
+
+
+
+
 					})
 		}).catch(() => {
 			this.loading.dismiss();

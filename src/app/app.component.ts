@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from "@ionic-native/keyboard";
 import { Storage } from "@ionic/storage";
+import { Network } from "@ionic-native/network";
 import { InspectionRemarksPage } from '../pages/inspection-remarks/inspection-remarks';
 @Component({
 templateUrl: 'app.html'
@@ -15,9 +16,15 @@ templateUrl: 'app.html'
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(public keyboard : Keyboard,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: Storage) {
+  constructor(private network : Network,public keyboard : Keyboard,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: Storage) {
     platform.ready().then(() => {
       
+      this.network.onConnect().subscribe(() => {
+        this.storage.get('Session.Offline.inspections').then(OfflineInspections => {
+          console.log(OfflineInspections);
+        })
+      })
+
       statusBar.styleDefault();
       splashScreen.hide();
       

@@ -97,13 +97,13 @@
 		</div>
 		<div *ngIf="this.networkStatus == false">
 			<form name="myform" (ngSubmit)="informationremarksLoad(self)">
-				<ion-row style='width: 100%'>
+				<ion-row style='width: 100%' *ngFor="let subcategory of allQuestions">
 				<ion-row style='width: 100%'>
 					<ion-col>
 						<div class="boxHeader" color="lightgreen">
 							<div class="boxHeading">
 									<ion-col col-12 style="font-size:10px;">	
-										{{this.allQuestions.subCategoryName}} 
+										{{subcategory.sub_category_name}} 
 								</ion-col>
 							</div>
 							<div class="boxContent">
@@ -132,13 +132,13 @@
 							</ion-col>
 							
 							<ion-col col-1 class="radio_pass" font-size="small">	
-									<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Pass'" name="radiogroup-{{question.questionId}}" value="pass|{{question.questionId}}" (click)="answerList(question,'Pass')" />
+									<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Pass'" name="radiogroup-{{question.questionId}}" value="pass|{{question.questionId}}" (click)="answerListOffline(question,'Pass')" />
 							</ion-col>
 							<ion-col col-1 class="radio_fail" font-size="small">	
-									<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerList(question,'Fail')" />
+									<input  radio-group type="radio"  [checked]="question.answer && question.answer == 'Fail'" name="radiogroup-{{question.questionId}}" value="fail|{{question.questionId}}" (click)="answerListOffline(question,'Fail')" />
 							</ion-col>
 							<ion-col col-1 class="radio_na" font-size="small">	
-									<input  radio-group type="radio" [checked]="!question.answer"  value="na|{{question.questionId}}" name="radiogroup-{{question.questionId}}" (click)="answerList(question,'na')" />
+									<input  radio-group type="radio" [checked]="!question.answer"  value="na|{{question.questionId}}" name="radiogroup-{{question.questionId}}" (click)="answerListOffline(question,'na')" />
 							</ion-col>
 						
 					

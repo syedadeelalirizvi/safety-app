@@ -19,6 +19,9 @@ export class HomePage {
 	}
 
 	ionViewCanEnter() {
+		this.storage.get('Session.Offline.inspections').then(Offlineinspections => {
+			console.log(Offlineinspections)
+		})
 		this.storage.ready().then(() => {
 		this.storage.get('Session.access_token').then((val) => {
 			//console.log(val + "ionViewWillEnter")

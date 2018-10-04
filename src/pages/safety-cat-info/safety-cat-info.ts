@@ -144,6 +144,11 @@ export class SafetyCatInfoPage {
 	ionViewDidLoad() {
 
 		this.specific_cat = this.navParams.get('specific_cat');
+		if(this.specific_cat == undefined){
+				this.storage.get('Session.Offline.specificCat').then(specific_cat => {
+					this.specific_cat = specific_cat
+				})
+		}
 		if(this.network.type == 'none' || this.network.type == 'unknown' || this.network.type == 'null'){
 			this.networkStatus = false;
 			console.log("connection off "+this.network.type);
@@ -182,7 +187,7 @@ export class SafetyCatInfoPage {
 			}, err => {
 				loadCtrlStart.dismiss();
 				console.log(this.specific_cat);
-				console.log("Length" + this.specific_cat.subcategory.length);
+				console.log("Length" + this.specific_cat);
 				console.log(`actual data sub Category ${this.specific_cat.subcategory}`);
 				if (this.specific_cat.subcategory && typeof this.specific_cat.subcategory === 'object' && this.specific_cat.subcategory.constructor === Array) {
 					for (var i = 0; i < this.specific_cat.subcategory.length; i++) {
@@ -191,7 +196,8 @@ export class SafetyCatInfoPage {
 							{
 								sub_category_id: this.specific_cat.subcategory[i].subcategoryId,
 								sub_category_name: this.specific_cat.subcategory[i].subcategoryName,
-								questions : this.specific_cat.subcategory[i].questions
+								questions : this.specific_cat.subcategory[i].questions,
+							
 							
 							});
 					}
@@ -231,9 +237,10 @@ export class SafetyCatInfoPage {
 	list(value: any): void {
 		console.log(value);
 		console.log(this.checkedList);
-		console.log();
+		console.log(this.specific_cat);
 		console.log(this.subcategoryinfo);
 		this.navCtrl.push(RemarksPage, {
+			specific_cat : this.specific_cat,
 			questions: this.subcategoryinfo,
 			categoryId: this.categoryId,
 			category_name: this.categoryName,

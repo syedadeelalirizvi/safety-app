@@ -1,3 +1,4 @@
+import { Network } from '@ionic-native/network';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfilePage} from '../profile/profile';
@@ -30,8 +31,9 @@ export class InspectionRemarksPage {
 	subCategoriesIds:any;
 	allQuestions:any;
 	checkFail=false;
-	
+	networkStatus : Boolean;
 	constructor(
+		private network : Network,
 		public keyboard : Keyboard,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -101,19 +103,47 @@ export class InspectionRemarksPage {
 	}
 	
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad InspectionRemarksPage');
-		console.log(this.allQuestions);
-		console.log(this.allQuestions.userSubCategories);
-		for (let i = 0; i < this.allQuestions.userSubCategories.length; i++){
-		  for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++){
-		 	console.log(this.allQuestions.userSubCategories[i].questions[j].answer);
-			if(this.allQuestions.userSubCategories[i].questions[j].answer=='Fail'){
-				this.checkFail = true;
-				break;
-			}
+		if(this.network.type == 'null' || 'unknown'){
+			this.networkStatus = false
+		}else{
+			this.networkStatus = true
+		}
 
-		}
+		if(this.networkStatus == true){
+
+			console.log('ionViewDidLoad InspectionRemarksPage');
+			console.log(this.allQuestions);
 	
+			console.log(this.allQuestions.userSubCategories);
+			for (let i = 0; i < this.allQuestions.userSubCategories.length; i++){
+				for (let j = 0; j < this.allQuestions.userSubCategories[i].questions.length; j++){
+				 console.log(this.allQuestions.userSubCategories[i].questions[j].answer);
+				if(this.allQuestions.userSubCategories[i].questions[j].answer=='Fail'){
+					this.checkFail = true;
+					break;
+				}
+	
+			}
+		
+			}
+		}else{
+			this.networkStatus = false;
+
+			console.log(this.allQuestions);
+			for (let i = 0; i < this.allQuestions.length; i++){
+				for (let j = 0; j < this.allQuestions[i].questions.length; j++){
+				 console.log(this.allQuestions[i].questions[j].answer);
+				if(this.allQuestions[i].questions[j].answer=='Fail'){
+					this.checkFail = true;
+					break;
+				}
+	
+			}
+		
+			}
 		}
+
+
+
 	}
 }

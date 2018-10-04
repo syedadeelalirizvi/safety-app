@@ -163,6 +163,7 @@ export class SafetyPage {
 	}
     
 	gotoDetails(category,id:string,name:string){
+		this.storage.set('Session.Offline.specificCat',category);
 		console.log('Lifting Clicked'+id); 
 		this.navCtrl.push(SafetyCatInfoPage, {
 			categoryId: id,
