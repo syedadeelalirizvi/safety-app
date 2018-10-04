@@ -103,11 +103,12 @@ export class PreviousDataComponent implements OnInit {
         }, err => {
           console.log(err);
           this.storage.get(`Session.Offline.previousInspections`).then(data => {
-            this.storage.get('Session.Offline.inspections').then(OfflineInspections => {
-              if(OfflineInspections){
-                console.log(OfflineInspections);
-              }
-            })
+            // Todo : Offline Inspections Not Showing
+            // this.storage.get('Session.Offline.inspections').then(OfflineInspections => {
+            //   if(OfflineInspections){
+            //     console.log(OfflineInspections);
+            //   }
+            // })
             if (data) {
               console.log('inspections: ', data);
               this.inspectionData =data;
@@ -132,8 +133,8 @@ export class PreviousDataComponent implements OnInit {
                                   }else if(this.reportType == 'safe'){
                                       this.reportTypeText = 'Passed and is safe to use'
                                   }                       
-                                  this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
-                                  this.fault_image_url = this.inspectionData.inspections[i].inspection.report.mediaUrl;
+                                  this.signatureUrl = this.inspectionData.inspections[i].inspection.report.OfflineSignatureUrl;
+                                  this.fault_image_url = this.inspectionData.inspections[i].inspection.report.OfflineMediaUrl;
                                 //  console.log("hello fault image "+this.fault_image_url);
                                   
                   }
@@ -148,7 +149,7 @@ export class PreviousDataComponent implements OnInit {
                             }
                             else{
                                 this.signed = true;
-                                this.signatureUrl = this.inspectionData.inspections[i].inspection.report.signatureUrl;
+                                this.signatureUrl = this.inspectionData.inspections[i].inspection.report.OfflineSignatureUrl;
                             }
                             //.inspectionData.inspections[i].inspection.data.inspectionId
                             for(var j = 0; j < this.inspectionData.inspections[i].inspection.answers.length; j++) {
@@ -186,7 +187,7 @@ export class PreviousDataComponent implements OnInit {
                           inspection_description: this.inspectionData.inspections[i].inspection.data.inspectionDescription,
                           inspection_date: this.inspectionDate,
                           shareLinkOfReports : this.inspectionData.inspections[i].inspection.report.reportUrl,
-                          equipment_image_url : this.inspectionData.inspections[i].inspection.data.equipmentInspectedImageUrl,
+                          equipment_image_url : this.inspectionData.inspections[i].inspection.data.OfflineEquipmentInspectedImageUrl,
                           reportTypeText:  this.reportTypeText,
                           signatureUrl: this.signatureUrl,
                           fault_image_url: this.fault_image_url,

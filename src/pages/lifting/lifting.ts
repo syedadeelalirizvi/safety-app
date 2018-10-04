@@ -39,12 +39,13 @@ export class LiftingPage {
     signed: any;
     fault_image_url: any;
     shareLinkOfReports : any;
+    inspectionsDetails : any;
     constructor( private ChiefSfetyApiProvider: ChiefSfetyApiProvider,private emailComp: EmailComposer,public alertCtrl : AlertController,public socialShare :  SocialSharing,public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient,private fb: FormBuilder, private storage: Storage ){
         console.log(this.reportType)
        
         this.inspectionId = navParams.get('inspectionId');
         // todo : sample
-        console.log(navParams.get('inpectionDetail'));
+        this.inspectionsDetails = navParams.get('inpectionDetail');
         storage.get('Session.access_token').then((val) => {
              this.token = val;
         });
@@ -147,7 +148,15 @@ export class LiftingPage {
                       }
                        console.log(this.inspectionsResults);
                 },err => {
+                    console.log(this.inspectionsDetails);
+                    this.category_name = this.inspectionsDetails.category_name;
+                    this.inspection_date = this.inspectionsDetails.inspection_date;
+                    this.reportTypeText = this.inspectionsDetails.reportTypeText;
+                    this.inspection_description = this.inspectionsDetails.inspection_description;
+                    this.equipment_image_url =  this.inspectionsDetails.equipment_image_url;
+                    this.fault_image_url = this.inspectionsDetails.fault_image_url
                     
+                   
                 })
         })
 
