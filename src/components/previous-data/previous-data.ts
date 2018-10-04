@@ -174,7 +174,8 @@ export class PreviousDataComponent implements OnInit {
                                   category_name:this.inspectionData.inspections[i].category.data.equipmentCategoryName, 
                                   sub_category_id: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryId,
                                   sub_category_name: this.inspectionData.inspections[i].category.subCategories[j].equipmentSubCategoryName, 
-                                  inspection_remarks: this.inspectionRemarks[j]
+                                  inspection_remarks: this.inspectionRemarks[j],
+                                  signed : this.signed
                               });
                       
                           }
@@ -191,8 +192,8 @@ export class PreviousDataComponent implements OnInit {
                           reportTypeText:  this.reportTypeText,
                           signatureUrl: this.signatureUrl,
                           fault_image_url: this.fault_image_url,
-                          subcategories: this.inspectionResults[i] 
-                        
+                          subcategories: this.inspectionResults[i], 
+                          signed : this.signed
                    
                    
                     }

@@ -154,8 +154,9 @@ export class LiftingPage {
                     this.reportTypeText = this.inspectionsDetails.reportTypeText;
                     this.inspection_description = this.inspectionsDetails.inspection_description;
                     this.equipment_image_url =  this.inspectionsDetails.equipment_image_url;
-                    this.fault_image_url = this.inspectionsDetails.fault_image_url
-                    
+                    this.fault_image_url = this.inspectionsDetails.fault_image_url;
+                    this.signatureUrl = this.inspectionsDetails.signatureUrl;
+                    this.signed = this.inspectionsDetails.signed
                    
                 })
         })
