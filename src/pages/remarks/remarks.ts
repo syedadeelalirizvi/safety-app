@@ -153,10 +153,12 @@ export class RemarksPage {
 	{
 		this.specific_cat = this.navParams.get('specific_cat');
 		console.log(this.specific_cat);
-		if(this.network.type == 'null' || 'unknown'){
+		if(this.network.type == null || this.network.type == 'unknown' || this.network.type == undefined){
 			this.networkStatus = false
+			console.log('true')
 		}else{
 			this.networkStatus = true
+			console.log('false');
 		}
 		this.OfflineQuestions = this.navParams.get('questions');
 		console.log(this.OfflineQuestions);			

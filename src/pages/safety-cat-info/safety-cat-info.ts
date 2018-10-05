@@ -149,7 +149,7 @@ export class SafetyCatInfoPage {
 					this.specific_cat = specific_cat
 				})
 		}
-		if(this.network.type == 'none' || this.network.type == 'unknown' || this.network.type == 'null'){
+		if(this.network.type == 'none' || this.network.type == 'unknown' ){
 			this.networkStatus = false;
 			console.log("connection off "+this.network.type);
 		  }
@@ -157,7 +157,12 @@ export class SafetyCatInfoPage {
 			this.networkStatus = true;
 		  }
 		  console.log("connection on "+this.network.type);
-	   
+		 
+			if(this.networkStatus == true){
+
+			}else{
+
+			}
 		const loadCtrlStart = this.loadCtrl.create({
 			content: 'Please wait ...'
 		})

@@ -217,16 +217,16 @@ console.log('creation of inspection');
 								this.OfflineInspections = Offlineinspections;
 								this.OfflineInspections.push(
 									{ 
-											userid : this.userid,
-											categoryId : this.categoryId,
-											equipment_image : this.equipment_image,
-											inspections_desc : this.inspection_desc,
-											subCategoriesIds : JSON.parse(this.subCategoriesIds),
-											questions : JSON.parse(this.questionFromDb),
-											inspectionResult : this.inspection_result,
-											description : this.description,
-											signatureImage : this.signatureImage,
-											base64Image : this.base64Image
+										userid : this.userid,
+										categoryId : this.categoryId,
+										equipment_image : this.equipment_image,
+										inspections_desc : this.inspection_desc,
+										subCategoriesIds : JSON.parse(this.subCategoriesIds),
+										questions : JSON.parse(this.questionFromDb),
+										inspectionResult : this.inspection_result,
+										description : this.description,
+										signatureImage : this.signatureImage,
+										base64Image : this.base64Image
 									}
 								)
 								this.storage.set('Session.Offline.inspections',this.OfflineInspections);
