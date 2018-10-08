@@ -165,6 +165,7 @@ export class SafetyPage {
 	gotoDetails(category,id:string,name:string){
 		this.storage.set('Session.Offline.specificCat',category);
 		console.log('Lifting Clicked'+id); 
+		this.storage.set('Session.Offline.categoryName', name);
 		this.navCtrl.push(SafetyCatInfoPage, {
 			categoryId: id,
 			category_name: name,

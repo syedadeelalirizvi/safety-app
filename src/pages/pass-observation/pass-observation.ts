@@ -144,7 +144,12 @@ export class PassObservationPage {
 		// console.log(JSON.stringify(this.allQuestions));
 		this.storage.get(`session.${this.userid.toString()}.questions`).then(questions => {
 			this.questionFromDb = JSON.stringify(questions);
-			console.log(this.questionFromDb);
+			console.log(`submit inspections ${this.userid}`);
+			console.log(`equipmentid ${this.categoryId}`);
+			console.log(`equipment image ${this.equipment_image}`);
+			console.log(`inspection desc ${this.inspection_desc}`);
+			console.log(`subCategories ${JSON.parse(this.subCategoriesIds)}`);
+			console.log(`questionsFromDB ${this.questionFromDb}`);
 			this.ChiefSfetyApiProvider.userSubmitInspection(this.userid,this.categoryId,this.equipment_image,this.inspection_desc, JSON.parse(this.subCategoriesIds),JSON.parse(this.questionFromDb),headers).subscribe((data:any) => {
 			
 					console.log(data.data.inspectionId);
@@ -206,7 +211,7 @@ console.log('creation of inspection');
 						console.log(this.equipment_image)
 						console.log(this.inspection_desc)
 						console.log(JSON.parse(this.subCategoriesIds))
-						console.log(JSON.parse(this.questionFromDb))
+						console.log(this.questionFromDb)
 						console.log(headers)
 				
 
@@ -216,17 +221,21 @@ console.log('creation of inspection');
 								Offlineinspections = [];
 								this.OfflineInspections = Offlineinspections;
 								this.OfflineInspections.push(
-									{ 
-										userid : this.userid,
-										categoryId : this.categoryId,
-										equipment_image : this.equipment_image,
-										inspections_desc : this.inspection_desc,
-										subCategoriesIds : JSON.parse(this.subCategoriesIds),
-										questions : JSON.parse(this.questionFromDb),
-										inspectionResult : this.inspection_result,
-										description : this.description,
-										signatureImage : this.signatureImage,
-										base64Image : this.base64Image
+									{
+										inspections : [
+											{
+												equipmentInspectedImageUrl : this.equipment_image,
+												inspectionDescription : this.inspection_desc,
+												reportType : this.inspection_result,
+												signatureUrl : this.signatureImage,
+												observationDescription : this.description,
+												mediaUrl : this.base64Image,
+												subCategory : JSON.parse(this.subCategoriesIds),
+												answers : JSON.parse(this.questionFromDb),
+											}
+										]
+										
+										
 									}
 								)
 								this.storage.set('Session.Offline.inspections',this.OfflineInspections);
@@ -241,34 +250,37 @@ console.log('creation of inspection');
 								});
 								alert.present();
 							}else{
-								this.OfflineInspections = Offlineinspections;
-								this.OfflineInspections.push(
-									{ 
-										userid : this.userid,
-										categoryId : this.categoryId,
-										equipment_image : this.equipment_image,
-										inspections_desc : this.inspection_desc,
-										subCategoriesIds : JSON.parse(this.subCategoriesIds),
-										questions : JSON.parse(this.questionFromDb),
-										inspectionResult : this.inspection_result,
-										description : this.description,
-										signatureImage : this.signatureImage,
-										base64Image : this.base64Image
-									}
-								)
-								console.log(this.OfflineInspections)
-	
-									this.storage.set('Session.Offline.inspections',this.OfflineInspections);
-									this.navCtrl.setRoot(MainPage).then(() => {
-										const index = this.navCtrl.getActive().index;
-										this.navCtrl.remove(0, index);
-									});
-									let alert = this.alertCtrl.create({
-										title: 'Inspection created',
-										subTitle: 'Your inspection has been created in local db',
-										buttons: ['OK']
-									});
-									alert.present();
+								for (let i = 0; i < Offlineinspections.length; i++) {
+									this.OfflineInspections = Offlineinspections;
+									console.log(this.OfflineInspections);
+									this.OfflineInspections[i].inspections.push(
+										{ 
+											equipmentInspectedImageUrl : this.equipment_image,
+											inspectionDescription : this.inspection_desc,
+											reportType : this.inspection_result,
+											signatureUrl : this.signatureImage,
+											observationDescription : this.description,
+											mediaUrl : this.base64Image,
+											subCategory : JSON.parse(this.subCategoriesIds),
+											answers : JSON.parse(this.questionFromDb),
+										}
+									)
+									console.log(this.OfflineInspections)
+		
+										this.storage.set('Session.Offline.inspections',this.OfflineInspections);
+										this.navCtrl.setRoot(MainPage).then(() => {
+											const index = this.navCtrl.getActive().index;
+											this.navCtrl.remove(0, index);
+										});
+										let alert = this.alertCtrl.create({
+											title: 'Inspection created',
+											subTitle: 'Your inspection has been created in local db',
+											buttons: ['OK']
+										});
+										alert.present();
+									
+								}
+							
 							}
 							
 	

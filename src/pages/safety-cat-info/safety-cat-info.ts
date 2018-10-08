@@ -196,14 +196,12 @@ export class SafetyCatInfoPage {
 				console.log(`actual data sub Category ${this.specific_cat.subcategory}`);
 				if (this.specific_cat.subcategory && typeof this.specific_cat.subcategory === 'object' && this.specific_cat.subcategory.constructor === Array) {
 					for (var i = 0; i < this.specific_cat.subcategory.length; i++) {
-						console.log( this.specific_cat.subcategory[i].subcategoryId);	
+						console.log( this.specific_cat.subcategory[i].questions);	
 						this.subCategories.push(	
 							{
 								sub_category_id: this.specific_cat.subcategory[i].subcategoryId,
 								sub_category_name: this.specific_cat.subcategory[i].subcategoryName,
 								questions : this.specific_cat.subcategory[i].questions,
-							
-							
 							});
 					}
 					this.subCategoriesCopy = Object.assign([], this.subCategories);
@@ -216,6 +214,8 @@ export class SafetyCatInfoPage {
 	}
 
 	clickSelectBox(subcategory: any) {
+		console.log(subcategory);
+	
 		const foundAt = this.checkedList.indexOf(subcategory.sub_category_id);
 		if (foundAt >= 0) {
 			this.checkedList.splice(foundAt, 1);
@@ -233,8 +233,9 @@ export class SafetyCatInfoPage {
 		else {
 			this.subcategoryinfo.push(subcategory);
 		}
+	
 		console.log(this.subcategoryinfo);
-
+		
 
 
 	}

@@ -48,6 +48,8 @@ export class RemarksPage {
 	networkStatus : boolean;
 	OfflineQuestions : any;
 	specific_cat : any;
+	InspectionDataArray  = [];
+	adjustingArray : any
 	constructor(
 		private network : Network,
 		private ChiefSfetyApiProvider : ChiefSfetyApiProvider,
@@ -153,13 +155,13 @@ export class RemarksPage {
 	{
 		this.specific_cat = this.navParams.get('specific_cat');
 		console.log(this.specific_cat);
-		if(this.network.type == null || this.network.type == 'unknown' || this.network.type == undefined){
-			this.networkStatus = false
-			console.log('true')
-		}else{
-			this.networkStatus = true
-			console.log('false');
-		}
+		// if(this.network.type == 'null' || this.network.type == 'unknown' ){
+		// 	this.networkStatus = false
+		// 	console.log('true')
+		// }else{
+		// 	this.networkStatus = true
+		// 	console.log('false');
+		// }
 		this.OfflineQuestions = this.navParams.get('questions');
 		console.log(this.OfflineQuestions);			
 		const loadCtrlStart  = this.loadCtrl.create({
@@ -168,11 +170,12 @@ export class RemarksPage {
 		loadCtrlStart.present();
 			this.storage.get("Session.user_id").then((user_id) => 
 			{
+				console.log(this.categoryId );
 				this.userid = user_id;
 				const headers = new HttpHeaders()
 					.set("user_id", this.userid.toString())
 					.set("access_token", this.token);
-					this.ChiefSfetyApiProvider.getCategoriesQuestions(this.category_id,this.subCategoriesIds,headers).subscribe((collection_data : any) => {
+					this.ChiefSfetyApiProvider.getCategoriesQuestions(this.categoryId ,this.subCategoriesIds,headers).subscribe((collection_data : any) => {
 					loadCtrlStart.dismiss();
 					console.log("New Collection");
 					console.log(collection_data);
@@ -182,15 +185,51 @@ export class RemarksPage {
 						console.log(this.allQuestions);
 					}
 				}, err => {
-								
-						loadCtrlStart.dismiss();
-						console.log(this.OfflineQuestions);
-						console.log("New Collection");
-						if(this.OfflineQuestions && typeof this.OfflineQuestions === 'object')
-						{	
-							this.allQuestions = this.OfflineQuestions;
-							console.log(this.allQuestions);
+						this.storage.get('Session.Offline.categoryName').then(categoryName => {
+							console.log(this.OfflineQuestions);
+						for (let i = 0; i < this.OfflineQuestions.length; i++) {
+							this.adjustingArray = this.OfflineQuestions[i];
+							this.OfflineQuestions[i].subCategoryId = this.OfflineQuestions[i].sub_category_id
+							this.OfflineQuestions[i].subCategoryName	= this.OfflineQuestions[i].sub_category_name
+							delete this.OfflineQuestions[i].sub_category_id;
+							delete this.OfflineQuestions[i].sub_category_name;
+							console.log(this.OfflineQuestions);
+							
+
+							
+							
 						}
+						console.log(this.OfflineQuestions);
+						this.InspectionDataArray.push(
+							{
+								data : { 
+									categoryId : this.categoryId,
+									categoryName : categoryName, 
+									userSubCategories : this.OfflineQuestions
+								 }
+							}
+						)
+
+						console.log(this.InspectionDataArray);
+							
+						
+
+								
+						
+						})
+				
+
+				
+						setTimeout(() => {
+							loadCtrlStart.dismiss();
+							console.log(this.InspectionDataArray[0]);
+							console.log("New Collection");
+							if(this.InspectionDataArray[0].data && typeof this.InspectionDataArray[0].data === 'object')
+							{	
+								this.allQuestions = this.InspectionDataArray[0].data;
+								console.log(this.allQuestions);
+							}
+						}, 2000);
 				})
 			
 			})
@@ -217,40 +256,5 @@ export class RemarksPage {
 		
 		console.log('answerList>'+ JSON.stringify(this.allQuestions));
 		}
-		// ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ///////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////              O  F  F  L  I  N  E             //////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		answerListOffline(questions:any,value:any){
-			console.log(questions);
-			console.log(value)
-			console.log(this.allQuestions);
-			console.log(this.allQuestions.length);
-			
-			for(let a = 0; a < this.allQuestions.length; a++){
-				for (let i = 0; i < this.allQuestions[a].questions.length; i++)
-				{
-					if(this.allQuestions[a].questions[i].questionId == questions.questionId)
-					{
-						this.allQuestions[a].questions[i]['answer'] = value;
-					}	//break;
-
-				}
-			}
-			console.log(this.allQuestions);
-
-		}
+	
 }

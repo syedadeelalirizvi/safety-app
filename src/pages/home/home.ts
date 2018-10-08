@@ -49,7 +49,7 @@ export class HomePage {
 												console.log('sucess');
 											})
 										})
-									}, 3000);
+									}, 6000);
 								}
 							})
 							this.storage.get('Session.Offline.userProfile').then(OfflineProfileData => {
